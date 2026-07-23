@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pluriface - Portfolio de Développement Web. Découvrez mes projets : sites web, applications et scripts d'automation cloud.">
+  <meta name="keywords" content="Pluriface, Développeur Web Junior, DWWM, React, JavaScript, Firebase, Oracle Cloud, La Réunion">
+  <meta name="author" content="Pluriface">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pluriface.com/">
+  <meta property="og:title" content="Pluriface | Portfolio Développeur Web">
+  <meta property="og:description" content="Développeur web passionné — découvrez mes side projects, du site client aux outils DevOps.">
+  <meta property="og:image" content="assets/logo_pluriface.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo_pluriface.png">
+
+  <title>Pluriface | Portfolio Développeur Web</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Animated Glow Canvas & Grids -->
+  <div class="bg-effects" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="navbar-header" id="header">
+    <nav class="navbar container" aria-label="Navigation principale">
+      <a href="#hero" class="brand-logo" id="brand-logo-link">
+        <img src="assets/logo_pluriface.png" alt="Logo Officiel Pluriface" class="brand-logo-img">
+        <span class="logo-text">Pluri<span class="highlight">face</span></span>
+      </a>
+
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#hero" class="nav-link active-link" id="nav-home">Accueil</a></li>
+          <li class="nav-item"><a href="#projects" class="nav-link" id="nav-projects">Réalisations</a></li>
+          <li class="nav-item"><a href="#skills" class="nav-link" id="nav-skills">Expertises</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link" id="nav-about">À Propos</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Changer le thème">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="#contact" class="btn btn-sm btn-primary" id="header-cta">Me contacter</a>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Développeur Web
+            <span class="sub-headline">Sites web, applications mobile & scripts.</span>
+          </h1>
+
+          <p class="hero-description">
+            Basé à Montceau-les-Mines (Saône-et-Loire, 71), en cours de validation du Titre Professionnel DWWM. J'ai déjà conçu et déployé des sites client responsive, des applications web & mobile (Flutter / Firebase), des plateformes EdTech par IA et des scripts d'automation cloud.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-lg btn-primary" id="hero-btn-projects">
+              <span>Voir mes projets</span>
+              <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-outline" id="hero-btn-github">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-target="6">6</span>
+              <span class="stat-label">Projets concrets</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">1</span>
+              <span class="stat-label">Client livré</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">DWWM</span>
+              <span class="stat-label">Examen 14 Oct. 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="floating-glass-card card-main">
+              <div class="card-header-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="bar-title">pluriface.com/developer.js</span>
+              </div>
+              <div class="card-inner-code">
+                <pre><code><span class="code-keyword">const</span> developer = {
+  nom: <span class="code-string">"Joan De Romance"</span>,
+  pseudo: <span class="code-string">"Pluriface"</span>,
+  github: <a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;"><span class="code-string">"github.com/Ecnamorgit"</span></a>,
+  lieu: <span class="code-string">"Montceau-les-Mines (71)"</span>,
+  titrePro: <span class="code-string">"DWWM (Examen Oct. 2026)"</span>,
+  
+  stackPrincipale: [
+    <span class="code-string">"HTML5 / CSS3"</span>, <span class="code-string">"JavaScript"</span>, 
+    <span class="code-string">"Python"</span>, <span class="code-string">"Git / GitHub"</span>, 
+    <span class="code-string">"Agents IA & RAG"</span>
+  ],
+  
+  notions: [<span class="code-string">"React"</span>, <span class="code-string">"TypeScript"</span>, <span class="code-string">"PostgreSQL"</span>, <span class="code-string">"Flutter"</span>],
+  status: <span class="code-string">"En recherche active"</span>
+};</code></pre>
+              </div>
+            </div>
+
+            <div class="floating-glass-card card-badge-1">
+              <i class="fa-solid fa-bolt icon-cyan"></i>
+              <div>
+                <h4>Side Projects</h4>
+                <p>Code open source sur GitHub</p>
+              </div>
+            </div>
+
+            <div class="floating-glass-card card-badge-2">
+              <i class="fa-solid fa-shield-halved icon-purple"></i>
+              <div>
+                <h4>Déploiement Cloud</h4>
+                <p>Vercel, Firebase, Oracle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase Marquee Reel Section (Dual Row Morphic Gallery) -->
+    <section class="showcase-marquee-section" aria-label="Galerie interactive des projets">
+      
+      <!-- Row 1: Left Scroll -->
+      <div class="marquee-container">
+        <div class="marquee-track-left">
+          <!-- Item 1: Cabodi HF Vitrine -->
+          <div class="marquee-item">
+            <img src="assets/cabodihf.png?v=2" alt="Cabodi HF E-Commerce" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Cabodi HF</h4>
+            </div>
+          </div>
+          <!-- Item 2: La Forge du Code -->
+          <div class="marquee-item">
+            <img src="assets/forge_code.png" alt="La Forge du Code Soutenance" loading="lazy">
+            <div class="marquee-caption">
+              <h4>La Forge du Code</h4>
+            </div>
+          </div>
+          <!-- Item 3: Qada App -->
+          <div class="marquee-item">
+            <img src="assets/qada.png" alt="Qada Spirituel" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Qada</h4>
+            </div>
+          </div>
+          <!-- Item 4: Simulateur DWWM -->
+          <div class="marquee-item">
+            <img src="assets/dwwm_exam.png" alt="Simulateur DWWM Examen" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Simulateur Exam DWWM</h4>
+            </div>
+          </div>
+          <!-- Item 5: VPS Oracle Cloud -->
+          <div class="marquee-item">
+            <img src="assets/oracle_vps.png" alt="VPS Oracle Script Bash" loading="lazy">
+            <div class="marquee-caption">
+              <h4>VPS Oracle Cloud</h4>
+            </div>
+          </div>
+          <!-- Item 6: Roblox Level 0 -->
+          <div class="marquee-item">
+            <img src="assets/roblox_maker.png" alt="Backrooms Level 0 Roblox" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Backrooms Level 0</h4>
+            </div>
+          </div>
+
+          <!-- Duplicate Set Row 1 -->
+          <div class="marquee-item">
+            <img src="assets/cabodihf.png?v=2" alt="Cabodi HF" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Cabodi HF</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/forge_code.png" alt="La Forge du Code" loading="lazy">
+            <div class="marquee-caption">
+              <h4>La Forge du Code</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/qada.png" alt="Qada App" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Qada</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/dwwm_exam.png" alt="Simulateur DWWM" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Simulateur Exam DWWM</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/oracle_vps.png" alt="VPS Oracle Script" loading="lazy">
+            <div class="marquee-caption">
+              <h4>VPS Oracle Cloud</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/roblox_maker.png" alt="Backrooms Level 0" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Backrooms Level 0</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Right Scroll (Inverted direction) -->
+      <div class="marquee-container">
+        <div class="marquee-track-right">
+          <!-- Item 1: Backrooms Level 0 -->
+          <div class="marquee-item">
+            <img src="assets/roblox_maker.png" alt="Backrooms Level 0 3D" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Backrooms Level 0</h4>
+            </div>
+          </div>
+          <!-- Item 2: VPS Oracle Cloud -->
+          <div class="marquee-item">
+            <img src="assets/oracle_vps.png" alt="VPS Oracle Automation" loading="lazy">
+            <div class="marquee-caption">
+              <h4>VPS Oracle Cloud</h4>
+            </div>
+          </div>
+          <!-- Item 3: Simulateur DWWM -->
+          <div class="marquee-item">
+            <img src="assets/dwwm_exam.png" alt="Simulateur Examen DWWM Quiz" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Simulateur Exam DWWM</h4>
+            </div>
+          </div>
+          <!-- Item 4: Qada Spirituel -->
+          <div class="marquee-item">
+            <img src="assets/qada.png" alt="Qada Dashboard PWA" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Qada</h4>
+            </div>
+          </div>
+          <!-- Item 5: La Forge du Code -->
+          <div class="marquee-item">
+            <img src="assets/forge_code.png" alt="La Forge du Code Extraits" loading="lazy">
+            <div class="marquee-caption">
+              <h4>La Forge du Code</h4>
+            </div>
+          </div>
+          <!-- Item 6: Cabodi HF -->
+          <div class="marquee-item">
+            <img src="assets/cabodihf.png?v=2" alt="Cabodi HF Produit" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Cabodi HF</h4>
+            </div>
+          </div>
+
+          <!-- Duplicate Set Row 2 -->
+          <div class="marquee-item">
+            <img src="assets/roblox_maker.png" alt="Backrooms Level 0 3D" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Backrooms Level 0</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/oracle_vps.png" alt="VPS Oracle Automation" loading="lazy">
+            <div class="marquee-caption">
+              <h4>VPS Oracle Cloud</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/dwwm_exam.png" alt="Simulateur Examen DWWM Quiz" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Simulateur Exam DWWM</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/qada.png" alt="Qada Dashboard PWA" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Qada</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/forge_code.png" alt="La Forge du Code Extraits" loading="lazy">
+            <div class="marquee-caption">
+              <h4>La Forge du Code</h4>
+            </div>
+          </div>
+          <div class="marquee-item">
+            <img src="assets/cabodihf.png?v=2" alt="Cabodi HF Produit" loading="lazy">
+            <div class="marquee-caption">
+              <h4>Cabodi HF</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Portfolio Section -->
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Réalisations & Projets
+            <span class="sub-headline">Sites web, applications mobile & scripts.</span>
+          </h2>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="project-filters" id="project-filters">
+          <button class="filter-btn active" data-filter="all" id="filter-all">Tous les projets (6)</button>
+          <button class="filter-btn" data-filter="client" id="filter-client"><i class="fa-solid fa-globe"></i> Clients & Vitrines</button>
+          <button class="filter-btn" data-filter="spiritual" id="filter-spiritual"><i class="fa-solid fa-moon"></i> Spirituel & Mobile</button>
+          <button class="filter-btn" data-filter="edtech" id="filter-edtech"><i class="fa-solid fa-layer-group"></i> Web Apps & EdTech</button>
+          <button class="filter-btn" data-filter="cloud" id="filter-cloud"><i class="fa-solid fa-cloud"></i> DevOps & Automation</button>
+          <button class="filter-btn" data-filter="gamedev" id="filter-gamedev"><i class="fa-solid fa-gamepad"></i> Game Dev & 3D</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projects-grid">
+          
+          <!-- Project 1: Cabodi HF -->
+          <article class="project-card" data-category="client" id="project-cabodi">
+            <div class="project-image-wrapper">
+              <img src="assets/cabodihf.png?v=2" alt="Projet Cabodi HF La Réunion" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://cabodihf.fr/fr" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-cabodi-preview">
+                  <span>Visiter le site</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <span class="project-badge client-badge">Client · La Réunion</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">E-Commerce</span>
+                <span class="tag">Vitrine</span>
+                <span class="tag">La Réunion</span>
+              </div>
+              <h3 class="project-title">Cabodi HF</h3>
+              <p class="project-desc">
+                Site professionnel conçu pour Mickael Cabodi, consultant en rentabilité et optimisation pour la restauration (La Réunion & Maurice). Design épuré, copywriting orienté conversion et structure responsive.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-brands fa-wordpress" title="CMS / Custom"></i>
+                  <i class="fa-brands fa-js" title="JavaScript"></i>
+                  <i class="fa-brands fa-css3-alt" title="CSS3"></i>
+                </div>
+                <a href="https://cabodihf.fr/fr" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="Voir le projet Cabodi HF">
+                  <i class="fa-solid fa-globe"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Qada -->
+          <article class="project-card" data-category="spiritual webapp" id="project-qada">
+            <div class="project-image-wrapper">
+              <img src="assets/qada.png" alt="Qada Appli Spirituelle Flutter Mobile" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-qada-preview">
+                  <span>Voir le site vitrine</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <span class="project-badge spiritual-badge">App Mobile Flutter</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">Flutter</span>
+                <span class="tag">Mobile iOS & Android</span>
+                <span class="tag">Firebase</span>
+              </div>
+              <h3 class="project-title">Qada</h3>
+              <p class="project-desc">
+                Application mobile Flutter de suivi spirituel et d'objectifs personnels. Développée en Dart/Flutter avec authentification et synchronisation Firebase. <em>(Le bouton mène au site vitrine officiel de l'application)</em>.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-solid fa-mobile-screen-button" title="Appli Mobile Flutter"></i>
+                  <i class="fa-solid fa-fire" title="Firebase Backend"></i>
+                  <i class="fa-solid fa-bolt" title="Dart & Flutter"></i>
+                </div>
+                <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="Voir le site vitrine Qada">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: La Forge du Code -->
+          <article class="project-card" data-category="edtech webapp" id="project-forge">
+            <div class="project-image-wrapper">
+              <img src="assets/forge_code.png" alt="La Forge du Code" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://la-forge-du-code.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-forge-preview">
+                  <span>Voir la Démo</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <span class="project-badge soutenance-badge">Projet Soutenance</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">DWWM</span>
+                <span class="tag">Soutenance</span>
+                <span class="tag">Vercel</span>
+              </div>
+              <h3 class="project-title">La Forge du Code</h3>
+              <p class="project-desc">
+                Mon projet de soutenance pour le Titre Professionnel DWWM. Plateforme d'apprentissage et de partage d'extraits de code, construite avec React et Node.js.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-brands fa-react" title="React"></i>
+                  <i class="fa-brands fa-node-js" title="Node.js"></i>
+                  <i class="fa-solid fa-database" title="Database"></i>
+                </div>
+                <a href="https://la-forge-du-code.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="Voir La Forge du Code">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Simulateur Exam DWWM -->
+          <article class="project-card" data-category="edtech webapp" id="project-dwwm">
+            <div class="project-image-wrapper">
+              <img src="assets/dwwm_exam.png" alt="Simulateur Examen DWWM" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://github.com/Ecnamorgit/simulateur-exam-dwwm" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-dwwm-repo">
+                  <span>Voir sur GitHub</span> <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+              <span class="project-badge edtech-badge">Outil de Formation</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">DWWM</span>
+                <span class="tag">Simulateur</span>
+                <span class="tag">EdTech</span>
+              </div>
+              <h3 class="project-title">Simulateur d'Examen DWWM</h3>
+              <p class="project-desc">
+                Outil de révision que j'ai créé pour moi et d'autres candidats au DWWM. Quiz chronométré avec questions techniques et suivi des résultats.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-brands fa-js" title="JavaScript"></i>
+                  <i class="fa-solid fa-graduation-cap" title="EdTech"></i>
+                  <i class="fa-solid fa-chart-line" title="Analytics"></i>
+                </div>
+                <a href="https://github.com/Ecnamorgit/simulateur-exam-dwwm" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="GitHub Repository DWWM Exam">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5: VPS Oracle Cloud Gratuit -->
+          <article class="project-card" data-category="cloud" id="project-oracle">
+            <div class="project-image-wrapper">
+              <img src="assets/oracle_vps.png" alt="VPS Oracle Gratuit Script" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://github.com/Ecnamorgit/vps-oracle-gratuit" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-oracle-repo">
+                  <span>Code Source GitHub</span> <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+              <span class="project-badge devops-badge">DevOps / Cloud</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">DevOps</span>
+                <span class="tag">Bash</span>
+                <span class="tag">Oracle Cloud</span>
+              </div>
+              <h3 class="project-title">VPS Oracle Cloud Gratuit</h3>
+              <p class="project-desc">
+                Script Bash pour automatiser la création de serveurs VPS ARM gratuits sur Oracle Cloud. Gestion des tentatives en boucle avec notifications.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-solid fa-terminal" title="Bash / Shell"></i>
+                  <i class="fa-solid fa-server" title="Oracle Cloud OCI"></i>
+                  <i class="fa-brands fa-linux" title="Linux SystemD"></i>
+                </div>
+                <a href="https://github.com/Ecnamorgit/vps-oracle-gratuit" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="GitHub Repository VPS Oracle">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6: Backrooms Level 0 (Roblox) -->
+          <article class="project-card" data-category="gamedev" id="project-roblox">
+            <div class="project-image-wrapper">
+              <img src="assets/roblox_maker.png" alt="Backrooms Level 0 Roblox Project" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="https://github.com/Ecnamorgit/roblox_maker" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-light" id="link-roblox-repo">
+                  <span>Voir sur GitHub</span> <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+              <span class="project-badge gamedev-badge">Game Dev / 3D</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">Roblox</span>
+                <span class="tag">Lua</span>
+                <span class="tag">Game Dev</span>
+              </div>
+              <h3 class="project-title">Backrooms Level 0</h3>
+              <p class="project-desc">
+                Jeu d'immersion et d'exploration Roblox inspiré de l'univers des Backrooms. Scripting Lua (Server/Client), génération de cartes et gestion d'entités 3D.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-solid fa-gamepad" title="Game Dev"></i>
+                  <i class="fa-solid fa-code" title="Lua Scripting"></i>
+                  <i class="fa-brands fa-github" title="GitHub"></i>
+                </div>
+                <a href="https://github.com/Ecnamorgit/roblox_maker" target="_blank" rel="noopener noreferrer" class="project-link-icon" aria-label="GitHub Repository Backrooms Level 0">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Expertise Section -->
+    <section class="skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Savoir-Faire & Architecture
+            <span class="sub-headline">Stack technique moderne et intégration cloud.</span>
+          </h2>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Skill Card 1 -->
+          <div class="skill-card">
+            <div class="skill-icon-box icon-cyan">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3>Développement Frontend</h3>
+            <p>Création d'interfaces web responsive et interactives.</p>
+            <ul class="skill-tags">
+              <li>HTML5 / CSS3</li>
+              <li>JavaScript ES6+</li>
+              <li>React.js</li>
+              <li>Responsive Design</li>
+            </ul>
+          </div>
+
+          <!-- Skill Card 2 -->
+          <div class="skill-card">
+            <div class="skill-icon-box icon-purple">
+              <i class="fa-solid fa-server"></i>
+            </div>
+            <h3>Backend & Données</h3>
+            <p>Gestion de la logique serveur et des bases de données.</p>
+            <ul class="skill-tags">
+              <li>Node.js / Express</li>
+              <li>Firebase (Auth, Firestore)</li>
+              <li>APIs REST</li>
+              <li>SQL / NoSQL</li>
+            </ul>
+          </div>
+
+          <!-- Skill Card 3 -->
+          <div class="skill-card">
+            <div class="skill-icon-box icon-green">
+              <i class="fa-solid fa-cloud-bolt"></i>
+            </div>
+            <h3>Outils & Déploiement</h3>
+            <p>Déploiement d'apps et automatisation via scripts et services cloud.</p>
+            <ul class="skill-tags">
+              <li>Git / GitHub</li>
+              <li>Vercel / Firebase Hosting</li>
+              <li>Oracle Cloud (VPS)</li>
+              <li>Bash / Linux</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="container about-container">
+        <div class="about-content">
+          <h2 class="section-title">Qui suis-je ?</h2>
+          <p class="about-text">
+            Je suis un développeur web basé à Montceau-les-Mines en Saône-et-Loire (71), en cours de validation du Titre Professionnel Développeur Web et Web Mobile (DWWM). <strong>Pluriface</strong> est le nom que j'ai donné à mon identité de développeur — reflétant ma capacité à toucher aux multiples facettes du web (Front, Back, Mobile, Cloud).
+          </p>
+          <p class="about-text">
+            Autodidacte passionné et curieux, je me base sur des projets concrets pour développer mes compétences : du premier site e-commerce livré pour un client à La Réunion, jusqu'aux applications Flutter/PWA, aux plateformes EdTech par IA et aux scripts automatisés sur VPS Linux.
+          </p>
+
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Autodidacte et curieux — veille constante sur les technologies et l'IA</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Formation terminée le 10 juillet 2026 — Examen du Titre Pro le 14 octobre 2026</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Projets réels et open source accessibles en ligne et sur GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <h2 class="section-title">Une question ? Un projet ?</h2>
+            <p class="contact-desc">
+              Je suis disponible pour des opportunités professionnelles, des projets clients ou échanger tech. N'hésitez pas à me contacter.
+            </p>
+
+            <div class="contact-methods">
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div>
+                  <h4>Localisation</h4>
+                  <p>Montceau-les-Mines (71)</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+                <div>
+                  <h4>Site Web Officiel</h4>
+                  <p>pluriface.com</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <h4>Email</h4>
+                  <p>contact@pluriface.com</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+                <div>
+                  <h4>GitHub</h4>
+                  <p>github.com/Ecnamorgit</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card">
+            <div class="contact-cta-card">
+              <h3 class="form-title">Envie d'échanger ?</h3>
+              <p class="contact-cta-text">
+                N'hésitez pas à me contacter par email ou à consulter mes projets sur GitHub. Je suis ouvert aux opportunités et aux retours constructifs.
+              </p>
+              <a href="mailto:contact@pluriface.com" class="btn btn-lg btn-primary btn-block">
+                <span>M'envoyer un email</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </a>
+              <a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-outline btn-block" style="margin-top: 1rem;">
+                <i class="fa-brands fa-github"></i>
+                <span>Voir mon GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <a href="#hero" class="brand-logo">
+          <img src="assets/logo_pluriface.png" alt="Logo Officiel Pluriface" class="brand-logo-img">
+          <span class="logo-text">Pluri<span class="highlight">face</span></span>
+        </a>
+        <p class="footer-tagline">Développeur Web — Montceau-les-Mines (71)</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#hero">Accueil</a></li>
+          <li><a href="#projects">Réalisations</a></li>
+          <li><a href="#skills">Expertises</a></li>
+          <li><a href="#about">À Propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-socials">
+        <h4>Réseaux & Code</h4>
+        <div class="social-icons">
+          <a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://cabodihf.fr/fr" target="_blank" rel="noopener noreferrer" aria-label="Site Client Cabodi"><i class="fa-solid fa-bag-shopping"></i></a>
+          <a href="https://la-forge-du-code.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="La Forge du Code"><i class="fa-solid fa-hammer"></i></a>
+          <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener noreferrer" aria-label="Appli Qada"><i class="fa-solid fa-moon"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Pluriface. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
