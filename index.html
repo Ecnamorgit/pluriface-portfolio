@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Pluriface - Portfolio de Développement Web. Découvrez mes projets : sites web, applications et scripts d'automation cloud.">
-  <meta name="keywords" content="Pluriface, Développeur Web Junior, DWWM, React, JavaScript, Firebase, Oracle Cloud, La Réunion">
+  <meta name="keywords" content="Pluriface, Développeur Web Junior, DWWM, React, JavaScript, Firebase, Oracle Cloud, Python, FastAPI, IA appliquée, OCR, pipeline de données">
   <meta name="author" content="Pluriface">
 
   <!-- Open Graph / Social Media -->
@@ -97,13 +97,13 @@
 
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-number" data-target="6">6</span>
+              <span class="stat-number" data-target="7">7</span>
               <span class="stat-label">Projets concrets</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <span class="stat-number">1</span>
-              <span class="stat-label">Client livré</span>
+              <span class="stat-number">2</span>
+              <span class="stat-label">Projets livrés</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
@@ -350,7 +350,8 @@
 
         <!-- Filter Controls -->
         <div class="project-filters" id="project-filters">
-          <button class="filter-btn active" data-filter="all" id="filter-all">Tous les projets (6)</button>
+          <button class="filter-btn active" data-filter="all" id="filter-all">Tous les projets (7)</button>
+          <button class="filter-btn" data-filter="ia" id="filter-ia"><i class="fa-solid fa-brain"></i> IA & Traitement de données</button>
           <button class="filter-btn" data-filter="client" id="filter-client"><i class="fa-solid fa-globe"></i> Clients & Vitrines</button>
           <button class="filter-btn" data-filter="spiritual" id="filter-spiritual"><i class="fa-solid fa-moon"></i> Spirituel & Mobile</button>
           <button class="filter-btn" data-filter="edtech" id="filter-edtech"><i class="fa-solid fa-layer-group"></i> Web Apps & EdTech</button>
@@ -360,7 +361,42 @@
 
         <!-- Projects Grid -->
         <div class="projects-grid" id="projects-grid">
-          
+
+          <!-- Project 0: Chaîne de traduction assistée (étude de cas) -->
+          <article class="project-card" data-category="ia cloud" id="project-traduction">
+            <div class="project-image-wrapper">
+              <img src="assets/shaffite_card.png" alt="Chaîne de traduction assistée arabe vers français — pages bilingues générées" class="project-img" loading="lazy">
+              <div class="project-overlay">
+                <a href="projet-traduction-ia.html" class="btn btn-sm btn-light" id="link-traduction-case">
+                  <span>Lire l'étude de cas</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+              <span class="project-badge ia-badge">Étude de cas · Livré</span>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Whisper & LLM local</span>
+                <span class="tag">OCR</span>
+              </div>
+              <h3 class="project-title">Chaîne de traduction assistée AR → FR</h3>
+              <p class="project-desc">
+                Système complet livré à une association d'enseignement : dépôt en ligne, file d'attente, transcription vidéo, traduction de livres PDF et mise en page bilingue. Le tout piloté par un glossaire métier et une mémoire de corrections qui s'enrichissent à chaque relecture.
+              </p>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <i class="fa-brands fa-python" title="Python & FastAPI"></i>
+                  <i class="fa-solid fa-brain" title="Whisper, Ollama, LLM"></i>
+                  <i class="fa-solid fa-server" title="VPS Linux, systemd, Caddy"></i>
+                </div>
+                <a href="projet-traduction-ia.html" class="project-link-icon" aria-label="Lire l'étude de cas complète">
+                  <i class="fa-solid fa-file-lines"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
           <!-- Project 1: Cabodi HF -->
           <article class="project-card" data-category="client" id="project-cabodi">
             <div class="project-image-wrapper">
@@ -622,6 +658,21 @@
               <li>Vercel / Firebase Hosting</li>
               <li>Oracle Cloud (VPS)</li>
               <li>Bash / Linux</li>
+            </ul>
+          </div>
+
+          <!-- Skill Card 4 -->
+          <div class="skill-card">
+            <div class="skill-icon-box icon-cyan">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3>Python & IA appliquée</h3>
+            <p>Chaînes de traitement automatisées et intégration de modèles d'IA.</p>
+            <ul class="skill-tags">
+              <li>Python / FastAPI</li>
+              <li>LLM locaux (Ollama) & API</li>
+              <li>Traitement PDF, OCR, ffmpeg</li>
+              <li>Tests (pytest) & systemd</li>
             </ul>
           </div>
         </div>

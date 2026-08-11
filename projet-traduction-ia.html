@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Étude de cas — Chaîne de traduction assistée arabe → français : transcription vidéo, traduction de livres PDF, glossaire métier et mémoire de corrections. Python, FastAPI, Whisper, Ollama, OCR.">
+  <meta name="keywords" content="Pluriface, étude de cas, Python, FastAPI, Whisper, Ollama, OCR arabe, PyMuPDF, ffmpeg, pipeline, LLM local">
+  <meta name="author" content="Pluriface">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ecnamorgit.github.io/pluriface-portfolio/projet-traduction-ia.html">
+  <meta property="og:title" content="Étude de cas | Chaîne de traduction assistée arabe → français">
+  <meta property="og:description" content="Un système à deux machines qui transcrit, traduit et met en page des cours vidéo et des livres, avec un glossaire métier qui s'enrichit à chaque relecture.">
+  <meta property="og:image" content="assets/shaffite_card.png">
+
+  <link rel="icon" type="image/png" href="assets/logo_pluriface.png">
+  <title>Étude de cas — Traduction assistée arabe → français | Pluriface</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ====================================================================
+       Styles spécifiques à la page d'étude de cas
+       ==================================================================== */
+    .case-hero { padding: calc(var(--header-height) + 4rem) 0 3rem; }
+    .case-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--text-dim); font-size: .9rem; text-decoration: none;
+      margin-bottom: 1.5rem; transition: color var(--transition-fast);
+    }
+    .case-back:hover { color: var(--primary-cyan); }
+
+    .case-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
+    .case-badge {
+      font-size: .75rem; font-weight: 600; letter-spacing: .02em;
+      padding: .35rem .75rem; border-radius: var(--radius-pills);
+      border: 1px solid var(--border-color); color: var(--text-muted);
+      background: var(--bg-glass);
+    }
+    .case-badge.accent { color: var(--primary-cyan); border-color: var(--border-highlight); }
+
+    .case-title {
+      font-family: var(--font-heading); font-weight: 800;
+      font-size: clamp(2rem, 4.5vw, 3.25rem); line-height: 1.1;
+      color: var(--text-main); margin-bottom: 1rem; max-width: 20ch;
+    }
+    .case-lead {
+      font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--text-muted);
+      max-width: 68ch; line-height: 1.7;
+    }
+
+    .case-meta {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin-top: 2.5rem; padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+    .case-meta div span {
+      display: block; font-size: .72rem; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-dim); margin-bottom: .35rem;
+    }
+    .case-meta div strong { color: var(--text-main); font-weight: 600; font-size: .95rem; }
+
+    /* Bandeau de chiffres */
+    .case-stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1px; background: var(--border-color);
+      border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+      overflow: hidden; margin: 3rem 0;
+    }
+    .case-stat { background: var(--bg-secondary); padding: 1.5rem 1.25rem; text-align: center; }
+    .case-stat b {
+      display: block; font-family: var(--font-heading); font-weight: 700;
+      font-size: clamp(1.35rem, 2.2vw, 1.75rem); color: var(--text-main);
+      line-height: 1.1; white-space: nowrap;
+    }
+    .case-stat span { display: block; font-size: .8rem; color: var(--text-dim); margin-top: .4rem; }
+
+    /* Sections */
+    .case-section { padding: 3.5rem 0; border-top: 1px solid var(--border-color); }
+    .case-section > .container { max-width: 900px; }
+    .case-section.wide > .container { max-width: var(--container-width); }
+    .case-kicker {
+      font-family: var(--font-code); font-size: .8rem; color: var(--primary-cyan);
+      letter-spacing: .06em; margin-bottom: .75rem; display: block;
+    }
+    .case-h2 {
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: clamp(1.5rem, 2.8vw, 2rem); color: var(--text-main);
+      margin-bottom: 1.25rem; line-height: 1.2;
+    }
+    .case-h3 {
+      font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem;
+      color: var(--text-main); margin: 2rem 0 .75rem;
+    }
+    .case-section p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1.1rem; }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-section strong { color: var(--text-main); font-weight: 600; }
+    .case-section ul { color: var(--text-muted); line-height: 1.8; padding-left: 1.15rem; margin-bottom: 1.1rem; }
+    .case-section li { margin-bottom: .5rem; }
+    .case-section li::marker { color: var(--primary-cyan); }
+
+    /* Encadré "problème / décision" */
+    .case-callout {
+      border-left: 3px solid var(--primary-cyan);
+      background: var(--bg-glass); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.25rem 1.5rem; margin: 1.75rem 0;
+    }
+    .case-callout h4 {
+      font-size: .95rem; color: var(--text-main); margin-bottom: .5rem;
+      font-weight: 600; display: flex; align-items: center; gap: .5rem;
+    }
+    .case-callout h4 i { color: var(--primary-cyan); }
+    .case-callout p { font-size: .93rem; margin-bottom: 0; }
+
+    /* Grille de cartes */
+    .case-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .case-card {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 1.5rem;
+      transition: border-color var(--transition-normal), transform var(--transition-normal);
+    }
+    .case-card:hover { border-color: var(--border-highlight); transform: translateY(-3px); }
+    .case-card i { color: var(--primary-cyan); font-size: 1.15rem; margin-bottom: .85rem; display: block; }
+    .case-card h4 { font-size: 1rem; color: var(--text-main); margin-bottom: .5rem; font-weight: 600; }
+    .case-card p { font-size: .9rem; margin-bottom: 0; line-height: 1.65; }
+
+    /* Étapes numérotées du pipeline */
+    .case-steps { list-style: none; padding: 0; margin: 2rem 0; counter-reset: step; }
+    .case-steps li {
+      position: relative; padding-left: 3.25rem; padding-bottom: 1.75rem;
+      border-left: 1px solid var(--border-color); margin-left: 1rem; margin-bottom: 0;
+    }
+    .case-steps li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .case-steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: -1rem; top: -.15rem;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      background: var(--bg-secondary); border: 1px solid var(--border-highlight);
+      color: var(--primary-cyan); font-family: var(--font-code); font-size: .8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .case-steps li::marker { content: none; }
+    .case-steps h4 { font-size: 1rem; color: var(--text-main); margin-bottom: .35rem; font-weight: 600; }
+    .case-steps p { font-size: .92rem; margin-bottom: 0; }
+    .case-steps code { font-family: var(--font-code); font-size: .85em; color: var(--primary-cyan); }
+
+    /* Blocs de code / extraits */
+    .case-code {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden; margin: 1.75rem 0;
+    }
+    .case-code-head {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .65rem 1rem; border-bottom: 1px solid var(--border-color);
+      font-family: var(--font-code); font-size: .78rem; color: var(--text-dim);
+      background: var(--bg-glass);
+    }
+    .case-code-head i { color: var(--primary-emerald); }
+    .case-code pre {
+      margin: 0; padding: 1.15rem 1.25rem; overflow-x: auto;
+      font-family: var(--font-code); font-size: .82rem; line-height: 1.75;
+      color: var(--text-muted); white-space: pre;
+    }
+    .case-code .c-time { color: var(--primary-amber); }
+    .case-code .c-ar { color: var(--text-main); font-size: 1.05em; }
+    .case-code .c-ok { color: var(--primary-emerald); }
+    .case-code .c-dim { color: var(--text-dim); }
+
+    /* Figures */
+    .case-figure { margin: 2.5rem 0; }
+    .case-figure img {
+      width: 100%; height: auto; display: block;
+      border-radius: var(--radius-md);
+    }
+    .case-figure figcaption {
+      font-size: .84rem; color: var(--text-dim); margin-top: .85rem;
+      line-height: 1.6; text-align: center;
+    }
+
+    /* Schéma d'architecture */
+    .arch-wrap {
+      background: var(--bg-secondary); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); padding: 1.5rem; overflow-x: auto;
+    }
+    .arch-svg { width: 100%; min-width: 720px; height: auto; display: block; }
+    .arch-svg .a-box { fill: var(--bg-tertiary); stroke: var(--border-color); stroke-width: 1.5; }
+    .arch-svg .a-box-accent { fill: var(--bg-tertiary); stroke: var(--primary-cyan); stroke-width: 1.5; }
+    .arch-svg .a-zone { fill: none; stroke: var(--border-color); stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .arch-svg .a-title { fill: var(--text-main); font-family: var(--font-inter); font-size: 14px; font-weight: 700; }
+    .arch-svg .a-label { fill: var(--text-main); font-family: var(--font-inter); font-size: 13px; font-weight: 600; }
+    .arch-svg .a-sub { fill: var(--text-dim); font-family: var(--font-code); font-size: 10.5px; }
+    .arch-svg .a-flow { fill: var(--text-dim); font-family: var(--font-inter); font-size: 11px; }
+    .arch-svg .a-line { stroke: var(--text-dim); stroke-width: 1.5; fill: none; }
+    .arch-svg .a-line-accent { stroke: var(--primary-cyan); stroke-width: 1.5; fill: none; }
+    .arch-svg .a-line-dash { stroke: var(--primary-purple); stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+    .arch-svg .a-zone-label { fill: var(--text-dim); font-family: var(--font-code); font-size: 11px; letter-spacing: .05em; }
+
+    /* Table stack */
+    .case-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .9rem; }
+    .case-table th {
+      text-align: left; padding: .75rem .9rem; color: var(--text-dim);
+      font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+      border-bottom: 1px solid var(--border-color); font-weight: 600;
+    }
+    .case-table td {
+      padding: .8rem .9rem; color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color); line-height: 1.6;
+    }
+    .case-table td:first-child { color: var(--text-main); font-weight: 600; white-space: nowrap; }
+    .case-table tr:last-child td { border-bottom: none; }
+
+    /* Tags de stack */
+    .case-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+
+    /* CTA de fin */
+    .case-cta {
+      text-align: center; padding: 4rem 0 5rem;
+      border-top: 1px solid var(--border-color);
+    }
+    .case-cta h2 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--text-main); margin-bottom: .85rem; }
+    .case-cta p { color: var(--text-muted); max-width: 55ch; margin: 0 auto 2rem; line-height: 1.7; }
+    .case-cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+    @media (max-width: 640px) {
+      .case-steps li { padding-left: 2.75rem; }
+      .case-code pre { font-size: .74rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-effects" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar-header" id="header">
+    <nav class="navbar container" aria-label="Navigation principale">
+      <a href="index.html" class="brand-logo" id="brand-logo-link">
+        <img src="assets/logo_pluriface.png" alt="Logo Officiel Pluriface" class="brand-logo-img">
+        <span class="logo-text">Pluri<span class="highlight">face</span></span>
+      </a>
+
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
+          <li class="nav-item"><a href="index.html#projects" class="nav-link active-link">Réalisations</a></li>
+          <li class="nav-item"><a href="index.html#skills" class="nav-link">Expertises</a></li>
+          <li class="nav-item"><a href="index.html#about" class="nav-link">À Propos</a></li>
+          <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Changer le thème">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="index.html#contact" class="btn btn-sm btn-primary">Me contacter</a>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <section class="case-hero">
+      <div class="container" style="max-width: 900px;">
+        <a href="index.html#projects" class="case-back">
+          <i class="fa-solid fa-arrow-left"></i> Retour aux réalisations
+        </a>
+
+        <div class="case-badges">
+          <span class="case-badge accent">Étude de cas</span>
+          <span class="case-badge">Projet associatif livré</span>
+          <span class="case-badge">Python · FastAPI · IA locale</span>
+        </div>
+
+        <h1 class="case-title">Une chaîne de traduction assistée, de la vidéo au livre imprimable</h1>
+
+        <p class="case-lead">
+          Une association d'enseignement disposait de dizaines d'heures de cours filmés en arabe et
+          d'ouvrages de référence jamais traduits. Les outils grand public produisaient un texte
+          lisible mais terminologiquement instable&nbsp;: le même terme technique changeait de
+          traduction d'une page à l'autre. J'ai construit un système complet — dépôt en ligne, file
+          d'attente, transcription, traduction en deux passes, relecture humaine et mise en page —
+          articulé autour d'un <strong>glossaire métier et d'une mémoire de corrections qui
+          s'enrichissent à chaque relecture</strong>.
+        </p>
+
+        <div class="case-meta">
+          <div><span>Rôle</span><strong>Conception, développement, exploitation</strong></div>
+          <div><span>Période</span><strong>Avril → août 2026</strong></div>
+          <div><span>Contexte</span><strong>Association d'enseignement</strong></div>
+          <div><span>Statut</span><strong>En production, usage interne</strong></div>
+        </div>
+
+        <div class="case-stats">
+          <div class="case-stat"><b>~11 900</b><span>lignes de Python versionnées</span></div>
+          <div class="case-stat"><b>310</b><span>fonctions de test écrites</span></div>
+          <div class="case-stat"><b>8 h 46</b><span>de vidéo traitée par le pipeline</span></div>
+          <div class="case-stat"><b>227</b><span>pages de livre traduites</span></div>
+          <div class="case-stat"><b>4 437</b><span>corrections mémorisées</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LE PROBLÈME ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">01 — Le problème</span>
+        <h2 class="case-h2">Traduire n'est pas le problème. Rester cohérent, si.</h2>
+
+        <p>
+          Faire traduire un paragraphe par un modèle de langue est trivial et quasi gratuit. Le
+          besoin réel était ailleurs, et il se résume à trois difficultés que les traducteurs
+          généralistes ne traitent pas&nbsp;:
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <h4>La dérive terminologique</h4>
+            <p>
+              Sur 200 pages, un terme technique traduit de quatre façons différentes rend le
+              document inutilisable pour un lecteur qui apprend. Aucun outil grand public ne
+              garantit qu'un terme donné sera rendu de la même manière du début à la fin.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-align-right"></i>
+            <h4>La mise en page bidirectionnelle</h4>
+            <p>
+              Un ouvrage bilingue mêle pages arabes scannées et pages françaises générées, avec
+              des notes de bas de page à réconcilier. L'écriture de droite à gauche casse la
+              plupart des extracteurs de PDF et des moteurs d'OCR.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-plug-circle-exclamation"></i>
+            <h4>Le coût et la disponibilité</h4>
+            <p>
+              Traiter des heures de vidéo et des centaines de pages avec une API payante n'était pas
+              tenable pour une association. Il fallait faire tourner le gros du calcul sur une
+              machine déjà possédée, sans sacrifier la disponibilité du service.
+            </p>
+          </div>
+        </div>
+
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-lightbulb"></i> Le parti pris</h4>
+          <p>
+            Le système ne remplace pas un traducteur&nbsp;: il fait le travail mécanique et garantit
+            la cohérence, l'humain valide. Toute correction humaine est capturée et réinjectée dans
+            les traductions suivantes — c'est le cœur du projet, et c'est ce qui le rend
+            transposable à n'importe quel domaine à vocabulaire spécialisé (juridique, médical,
+            technique).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ARCHITECTURE ================= -->
+    <section class="case-section wide">
+      <div class="container">
+        <div style="max-width: 900px; margin: 0 auto 2rem;">
+          <span class="case-kicker">02 — Architecture</span>
+          <h2 class="case-h2">Un serveur qui ne calcule rien, un PC qui fait tout</h2>
+          <p>
+            Le VPS coûte quelques euros par mois et n'a ni GPU ni place pour installer PyTorch. Il
+            héberge donc uniquement le site, la file d'attente et les fichiers&nbsp;; il tourne 24&nbsp;h/24.
+            Le calcul lourd — transcription, traduction, encodage vidéo — se fait sur un PC de bureau
+            qui vient <em>réclamer</em> du travail via un jeton, la nuit, quand la machine est libre.
+          </p>
+          <p>
+            Cette séparation est confortable côté coût, mais elle impose une file d'attente qui
+            survit à un worker pouvant disparaître à tout instant&nbsp;: PC éteint, coupure réseau,
+            quota du modèle atteint en plein milieu d'un livre.
+          </p>
+        </div>
+
+        <div class="arch-wrap">
+          <svg class="arch-svg" viewBox="0 0 1160 560" role="img" aria-label="Schéma d'architecture du système : navigateur, serveur VPS avec file d'attente, worker PC exécutant le pipeline IA, et boucle de mémoire.">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+              </marker>
+            </defs>
+
+            <!-- Utilisateur -->
+            <g>
+              <rect class="a-box" x="20" y="90" width="170" height="76" rx="10"/>
+              <text class="a-label" x="105" y="122" text-anchor="middle">Collègue</text>
+              <text class="a-sub" x="105" y="142" text-anchor="middle">navigateur · HTTPS</text>
+            </g>
+
+            <!-- Zone serveur -->
+            <g>
+              <rect class="a-zone" x="240" y="40" width="280" height="330" rx="14"/>
+              <text class="a-zone-label" x="255" y="64">SERVEUR VPS — 24 h/24</text>
+
+              <rect class="a-box" x="262" y="86" width="236" height="62" rx="10"/>
+              <text class="a-label" x="380" y="112" text-anchor="middle">Caddy</text>
+              <text class="a-sub" x="380" y="131" text-anchor="middle">HTTPS 443 · reverse-proxy</text>
+
+              <rect class="a-box-accent" x="262" y="164" width="236" height="74" rx="10"/>
+              <text class="a-label" x="380" y="192" text-anchor="middle">FastAPI + uvicorn</text>
+              <text class="a-sub" x="380" y="211" text-anchor="middle">dépôt · auth · éditeur de relecture</text>
+              <text class="a-sub" x="380" y="227" text-anchor="middle">export PDF · notifications e-mail</text>
+
+              <rect class="a-box" x="262" y="254" width="236" height="62" rx="10"/>
+              <text class="a-label" x="380" y="280" text-anchor="middle">File SQLite</text>
+              <text class="a-sub" x="380" y="299" text-anchor="middle">queued · processing · done · quota</text>
+
+              <rect class="a-box" x="262" y="330" width="236" height="24" rx="6"/>
+              <text class="a-sub" x="380" y="346" text-anchor="middle">sauvegarde chiffrée · purge auto</text>
+            </g>
+
+            <!-- Zone worker -->
+            <g>
+              <rect class="a-zone" x="610" y="40" width="530" height="330" rx="14"/>
+              <text class="a-zone-label" x="625" y="64">PC WORKER — fenêtre nocturne</text>
+
+              <rect class="a-box" x="635" y="86" width="200" height="62" rx="10"/>
+              <text class="a-label" x="735" y="112" text-anchor="middle">Boucle worker</text>
+              <text class="a-sub" x="735" y="131" text-anchor="middle">sondage · jeton · codes de sortie</text>
+
+              <!-- pipeline -->
+              <rect class="a-box" x="635" y="170" width="118" height="58" rx="9"/>
+              <text class="a-label" x="694" y="194" text-anchor="middle" style="font-size:12px">ffmpeg</text>
+              <text class="a-sub" x="694" y="212" text-anchor="middle">audio 16 kHz</text>
+
+              <rect class="a-box" x="765" y="170" width="118" height="58" rx="9"/>
+              <text class="a-label" x="824" y="194" text-anchor="middle" style="font-size:12px">Whisper large</text>
+              <text class="a-sub" x="824" y="212" text-anchor="middle">arabe → SRT</text>
+
+              <rect class="a-box" x="895" y="170" width="118" height="58" rx="9"/>
+              <text class="a-label" x="954" y="194" text-anchor="middle" style="font-size:12px">Gemma · Ollama</text>
+              <text class="a-sub" x="954" y="212" text-anchor="middle">1er jet local</text>
+
+              <rect class="a-box-accent" x="1013" y="252" width="110" height="58" rx="9"/>
+              <text class="a-label" x="1068" y="276" text-anchor="middle" style="font-size:12px">Claude</text>
+              <text class="a-sub" x="1068" y="294" text-anchor="middle">correction</text>
+
+              <rect class="a-box" x="875" y="252" width="118" height="58" rx="9"/>
+              <text class="a-label" x="934" y="276" text-anchor="middle" style="font-size:12px">EasyOCR</text>
+              <text class="a-sub" x="934" y="294" text-anchor="middle">pages scannées</text>
+
+              <rect class="a-box" x="635" y="252" width="220" height="58" rx="9"/>
+              <text class="a-label" x="745" y="276" text-anchor="middle" style="font-size:12px">Incrustation &amp; mise en page</text>
+              <text class="a-sub" x="745" y="294" text-anchor="middle">ffmpeg · PyMuPDF · version TikTok</text>
+
+              <!-- flèches internes -->
+              <g color="var(--text-dim)">
+                <path class="a-line" d="M 753 199 H 763" marker-end="url(#arrow)"/>
+                <path class="a-line" d="M 883 199 H 893" marker-end="url(#arrow)"/>
+                <path class="a-line" d="M 1013 199 H 1068 V 246" marker-end="url(#arrow)"/>
+                <path class="a-line" d="M 1013 281 H 999" marker-end="url(#arrow)"/>
+                <path class="a-line" d="M 875 281 H 861" marker-end="url(#arrow)"/>
+                <path class="a-line" d="M 694 148 V 164" marker-end="url(#arrow)"/>
+              </g>
+            </g>
+
+            <!-- Flux principaux -->
+            <g color="var(--text-dim)">
+              <path class="a-line" d="M 190 122 H 234" marker-end="url(#arrow)"/>
+              <text class="a-flow" x="212" y="112" text-anchor="middle">dépôt</text>
+            </g>
+            <g color="var(--primary-cyan)">
+              <path class="a-line-accent" d="M 631 106 H 556 V 285 H 504" marker-end="url(#arrow)"/>
+              <text class="a-flow" x="565" y="92" text-anchor="middle" style="fill:var(--primary-cyan)">réclame un job</text>
+            </g>
+            <g color="var(--primary-cyan)">
+              <path class="a-line-accent" d="M 498 300 H 578 V 128 H 631" marker-end="url(#arrow)"/>
+              <text class="a-flow" x="565" y="334" text-anchor="middle" style="fill:var(--primary-cyan)">source + résultats</text>
+            </g>
+
+            <!-- Mémoire -->
+            <g>
+              <rect class="a-box-accent" x="300" y="440" width="560" height="82" rx="12"/>
+              <text class="a-title" x="580" y="470" text-anchor="middle">Glossaire métier + mémoire de corrections</text>
+              <text class="a-sub" x="580" y="492" text-anchor="middle">52 termes validés · 4 437 corrections (arabe / brouillon rejeté / version retenue)</text>
+              <text class="a-sub" x="580" y="509" text-anchor="middle">sélection par recouvrement lexical · budget de contexte plafonné</text>
+            </g>
+            <g color="var(--primary-purple)">
+              <path class="a-line-dash" d="M 400 386 V 434" marker-end="url(#arrow)"/>
+              <text class="a-flow" x="408" y="414" style="fill:var(--primary-purple)">relecture humaine validée</text>
+              <path class="a-line-dash" d="M 800 434 V 386" marker-end="url(#arrow)"/>
+              <text class="a-flow" x="792" y="414" text-anchor="end" style="fill:var(--primary-purple)">réinjecté dans les deux modèles</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PIPELINE VIDÉO ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">03 — Chaîne vidéo</span>
+        <h2 class="case-h2">Du cours filmé à la vidéo sous-titrée</h2>
+        <p>
+          Cinq étapes, chacune jalonnée sur disque. Une coupure de courant à l'étape 4 ne fait pas
+          recommencer la transcription&nbsp;: le pipeline reprend là où il s'est arrêté, et un batch
+          déjà corrigé n'est jamais repayé.
+        </p>
+
+        <ol class="case-steps">
+          <li>
+            <h4>Extraction audio</h4>
+            <p>
+              <code>ffmpeg</code> produit un WAV mono 16&nbsp;kHz. Le cache n'est réutilisé qu'après
+              comparaison de la durée du WAV et de la vidéo. L'orientation du fichier (portrait ou
+              paysage) décide dès ici de la largeur des lignes de sous-titres.
+            </p>
+          </li>
+          <li>
+            <h4>Transcription arabe</h4>
+            <p>
+              Whisper <code>large</code>, forcé en arabe. Les micro-segments sont fusionnés, puis un
+              <strong>rapport qualité automatique</strong> mesure la couverture, repère les trous de
+              plus de deux secondes et les segments à faible confiance. Sans ce rapport, une
+              transcription amputée de trois minutes passait inaperçue jusqu'à la relecture finale.
+            </p>
+          </li>
+          <li>
+            <h4>Premier jet — modèle local</h4>
+            <p>
+              Gemma via Ollama, par lots de cinq segments, avec deux segments de contexte de chaque
+              côté&nbsp;: sans ce contexte, une phrase à cheval sur deux segments perdait son sujet. Le
+              glossaire filtré et dix exemples de corrections passées sont injectés dans le prompt.
+            </p>
+          </li>
+          <li>
+            <h4>Passe de correction</h4>
+            <p>
+              Les segments sont regroupés par 40 et soumis à un modèle plus fort, chargé de corriger
+              la terminologie et le style — pas de retraduire. Chaque écart entre le brouillon et la
+              version corrigée est capturé comme exemple d'apprentissage.
+            </p>
+          </li>
+          <li>
+            <h4>Incrustation</h4>
+            <p>
+              Un filtre <code>ffmpeg</code> découpe une bande basse, la floute, la superpose puis y
+              incruste les sous-titres&nbsp;: le texte reste lisible quel que soit l'arrière-plan. Une
+              variante 1080×1920 est générée pour les formats courts.
+            </p>
+          </li>
+        </ol>
+
+        <figure class="case-figure">
+          <img src="assets/shaffite_soustitres.png" alt="Bas d'une vidéo de cours avec la bande floutée générée par ffmpeg et le sous-titre français incrusté" loading="lazy">
+          <figcaption>
+            Bande floutée générée à la volée et sous-titre incrusté — sortie réelle du pipeline.
+          </figcaption>
+        </figure>
+
+        <h3 class="case-h3">Sortie brute d'un job</h3>
+        <p>
+          Le SRT français conserve exactement la timeline du SRT arabe&nbsp;: une entrée arabe
+          correspond toujours à une entrée française, ce qui permet de rejouer une correction
+          humaine sans retraduire ni ré-encoder la vidéo.
+        </p>
+
+        <div class="case-code">
+          <div class="case-code-head"><i class="fa-solid fa-closed-captioning"></i> sous_titres_arabe.srt &nbsp;→&nbsp; sous_titres_traduits.srt</div>
+<pre><span class="c-dim">13</span>
+<span class="c-time">00:01:01,840 --&gt; 00:01:04,040</span>
+<span class="c-dim">ar</span>  <bdi dir="rtl" class="c-ar">كقوله تعالى</bdi>
+<span class="c-dim">fr</span>  comme dans Sa parole, le Très-Haut :
+
+<span class="c-dim">14</span>
+<span class="c-time">00:01:04,040 --&gt; 00:01:07,600</span>
+<span class="c-dim">ar</span>  <bdi dir="rtl" class="c-ar">والعصر إن الإنسان لفي خسر</bdi>
+<span class="c-dim">fr</span>  « Par le Temps ! L'être humain est,
+    certes, en perdition. »</pre>
+        </div>
+
+        <div class="case-code">
+          <div class="case-code-head"><i class="fa-solid fa-circle-check"></i> rapport_whisper.txt — contrôle qualité automatique</div>
+<pre>Durée audio        : 17:10
+Durée transcrite   : 17:01
+Couverture         : 99.1%
+Segments           : 277
+
+<span class="c-ok">✅ Aucun trou détecté.</span>
+<span class="c-ok">✅ Tous les segments ont une confiance correcte.</span>
+
+VERDICT : <span class="c-ok">✅ QUALITÉ OK</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PIPELINE LIVRE ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">04 — Chaîne livre</span>
+        <h2 class="case-h2">Du scan arabe au PDF bilingue imprimable</h2>
+        <p>
+          La branche livre part d'un PDF dont une partie des pages sont des <strong>scans</strong>. Elle
+          produit un brouillon page par page, ouvre une interface de relecture, puis réassemble un
+          document final dont la mise en page est intégralement recalculée.
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <h4>Remettre l'arabe dans l'ordre</h4>
+            <p>
+              Le moteur d'OCR rend les fragments de gauche à droite. Il a fallu les regrouper par
+              ligne, puis trier chaque ligne <strong>de droite à gauche</strong> — sans quoi les mots
+              arrivaient à l'envers et les notes de bas de page se mélangeaient au corps du texte.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-scissors"></i>
+            <h4>Découper sans perdre un mot</h4>
+            <p>
+              Le texte est découpé en blocs de ~500 caractères, sur une frontière de paragraphe,
+              sinon de phrase, sinon de mot. Un test vérifie qu'aucun mot ne disparaît. Le dernier
+              bloc de la page précédente sert de contexte, pour les phrases à cheval sur deux pages.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-pen-ruler"></i>
+            <h4>Ne jamais tronquer en silence</h4>
+            <p>
+              La fonction de rendu de texte signalait un débordement par une valeur négative, jamais
+              testée&nbsp;: du texte disparaissait silencieusement. Le code essaie désormais cinq tailles
+              de police, puis coupe par dichotomie sur les mots et poursuit sur une page suivante.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-flag"></i>
+            <h4>Signaler les pages douteuses</h4>
+            <p>
+              Chaque page est notée automatiquement&nbsp;: traduction absente, caractères arabes
+              résiduels, ratio de longueur français/arabe anormal. Le seuil d'omission a été fixé
+              après mesure sur 424 pages validées, pas à l'intuition.
+            </p>
+          </div>
+        </div>
+
+        <figure class="case-figure">
+          <img src="assets/shaffite_livre.png" alt="Deux pages en vis-à-vis : à gauche la page française reconstruite, à droite la page arabe originale scannée" loading="lazy">
+          <figcaption>
+            Page française reconstruite (à gauche) et page arabe originale scannée (à droite), en
+            vis-à-vis dans l'ouvrage bilingue final — 735 pages harmonisées, dont 2 016 notes de bas
+            de page passées à l'OCR puis traduites et réintégrées.
+          </figcaption>
+        </figure>
+
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-triangle-exclamation"></i> Le bug qui m'a coûté le plus de temps</h4>
+          <p>
+            Chaque page du PDF exporté contenait son texte <strong>en double</strong>. Le mode de rendu
+            utilisé pour les essais de mise en page signifie « encre invisible », pas « ne rien
+            dessiner »&nbsp;: mes mesures écrivaient réellement dans le document. La correction tient en
+            une ligne — faire les essais sur une page jetable — mais la trouver a demandé de
+            comprendre ce que la bibliothèque faisait vraiment, pas ce que son nom laissait croire.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MÉMOIRE ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">05 — Le cœur du système</span>
+        <h2 class="case-h2">Un glossaire et une mémoire qui s'améliorent à l'usage</h2>
+        <p>
+          C'est la partie qui distingue ce projet d'un simple appel à un traducteur automatique.
+          Deux actifs sont accumulés au fil des mois et réinjectés dans chaque traduction&nbsp;:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Le glossaire</strong> — des termes validés par un relecteur humain, avec leur
+            translittération et leur traduction retenue. Depuis l'interface de relecture, annoter un
+            mot suffit à l'y ajouter&nbsp;; un conflit avec une entrée existante est refusé plutôt
+            qu'écrasé.
+          </li>
+          <li>
+            <strong>La mémoire de corrections</strong> — des milliers de triplets
+            <em>source&nbsp;/ brouillon rejeté&nbsp;/ version retenue</em>. Montrer les deux versions au
+            modèle enseigne la distinction&nbsp;; ne montrer que la bonne n'apprend qu'un synonyme de plus.
+          </li>
+        </ul>
+
+        <h3 class="case-h3">Trois décisions qui font la différence</h3>
+
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-magnifying-glass"></i> Sélectionner par pertinence, pas par récence</h4>
+          <p>
+            Piocher les dix dernières corrections dans un corpus de plusieurs milliers, c'est n'en
+            utiliser presque rien. Les exemples sont désormais classés par mots partagés avec le
+            passage en cours de traduction, et le glossaire est filtré de la même façon&nbsp;: seuls les
+            termes réellement présents dans le texte sont envoyés.
+          </p>
+        </div>
+
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-ruler-horizontal"></i> Plafonner le contexte en caractères</h4>
+          <p>
+            Un exemple issu d'un livre pèse une dizaine de fois plus qu'un exemple issu d'une vidéo.
+            Sans plafond, dix exemples suffisaient à dépasser la fenêtre du modèle local et à
+            tronquer le prompt en silence — glossaire compris. Un budget de caractères garantit que
+            les consignes arrivent toujours entières.
+          </p>
+        </div>
+
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-shield-halved"></i> Traiter la mémoire comme une donnée de production</h4>
+          <p>
+            Un audit a montré qu'une coupure pendant l'écriture pouvait effacer des mois de
+            corrections sans le moindre message. Les fichiers sont maintenant écrits de façon
+            atomique, et un fichier existant mais illisible n'est <strong>jamais</strong> écrasé&nbsp;: les
+            nouvelles corrections sont mises de côté pour fusion manuelle.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FIABILITÉ ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">06 — Mise en production</span>
+        <h2 class="case-h2">Ce qui compte quand personne ne regarde la console</h2>
+        <p>
+          Le système travaille la nuit, pour des utilisateurs non techniciens. Un échec silencieux
+          coûte une journée&nbsp;; un « succès » vide coûte la confiance. La plus grande partie du travail
+          d'ingénierie est allée là.
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <i class="fa-solid fa-list-check"></i>
+            <h4>Une taxonomie des pannes</h4>
+            <p>
+              Trois familles d'échecs traitées différemment&nbsp;: authentification (aucun réessai, arrêt
+              immédiat avec un message actionnable), limite d'usage (mise en attente, reprise
+              automatique) et saturation passagère (réessai avec délai croissant). Un « try/except »
+              unique aurait consommé des heures de calcul pour rien.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-rotate-left"></i>
+            <h4>Reprise à froid</h4>
+            <p>
+              Jalons sur disque, points de reprise par page et par lot, réclamation atomique en base
+              et remise en file des jobs abandonnés depuis plus de six heures. Un livre interrompu à
+              la page 180 repart de la page 180.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-ban"></i>
+            <h4>Refuser de livrer un succès vide</h4>
+            <p>
+              Le worker vérifie la présence du livrable avant d'annoncer une réussite. Une erreur
+              interne convertie en texte et livrée comme un résultat valide est le pire scénario pour
+              un utilisateur qui ne lit pas l'arabe.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-lock"></i>
+            <h4>Exploitation</h4>
+            <p>
+              Comptes nominatifs, mots de passe hachés, limitation des tentatives de connexion,
+              HTTPS automatique, services durcis. Sauvegarde quotidienne chiffrée, <strong>relue et
+              déchiffrée pour vérification</strong> avant d'être conservée, plus purge automatique du
+              disque.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          L'ensemble est couvert par <strong>310 fonctions de test</strong>&nbsp;: routes et permissions,
+          transitions d'états de la file, parsing des réponses des modèles, découpe en blocs,
+          réordonnancement de l'OCR, gestion des quotas, export PDF. La reconstruction complète du
+          serveur est scriptée et documentée — elle a servi pour de vrai, après une suppression
+          accidentelle sans sauvegarde.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= STACK ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">07 — Stack</span>
+        <h2 class="case-h2">Outils et technologies</h2>
+
+        <table class="case-table">
+          <thead>
+            <tr><th>Domaine</th><th>Choix</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Backend</td><td>Python 3.12, FastAPI, uvicorn, Jinja2, sessions signées</td></tr>
+            <tr><td>Données</td><td>SQLite (sans ORM), fichiers de jobs sur disque, écritures atomiques</td></tr>
+            <tr><td>IA</td><td>Whisper <em>large</em> (transcription), Gemma via Ollama en local (1<sup>er</sup> jet), modèle distant en passe de correction</td></tr>
+            <tr><td>Documents</td><td>PyMuPDF, EasyOCR (arabe), reshaping &amp; bidi, polices Unicode embarquées</td></tr>
+            <tr><td>Média</td><td>ffmpeg / ffprobe, filtres de flou et d'incrustation, recadrage vertical</td></tr>
+            <tr><td>Infrastructure</td><td>Ubuntu, Caddy (HTTPS automatique), services et minuteries systemd, sauvegardes GPG</td></tr>
+            <tr><td>Qualité</td><td>pytest (310 fonctions de test), audit technique documenté, grille d'évaluation de traduction</td></tr>
+          </tbody>
+        </table>
+
+        <div class="case-tags">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Whisper</span>
+          <span class="tag">Ollama</span>
+          <span class="tag">OCR arabe</span>
+          <span class="tag">PyMuPDF</span>
+          <span class="tag">ffmpeg</span>
+          <span class="tag">Linux</span>
+          <span class="tag">systemd</span>
+          <span class="tag">Caddy</span>
+          <span class="tag">pytest</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BILAN ================= -->
+    <section class="case-section">
+      <div class="container">
+        <span class="case-kicker">08 — Bilan</span>
+        <h2 class="case-h2">Ce que j'en retire</h2>
+
+        <p>
+          Le plus intéressant dans ce projet n'a pas été de brancher des modèles, mais de construire
+          ce qui les entoure&nbsp;: une file d'attente qui tolère un worker absent, une mémoire qui ne
+          s'efface pas, des pannes qui se distinguent les unes des autres et des contrôles qui
+          disent quand ne pas faire confiance au résultat.
+        </p>
+
+        <p>
+          Rien de tout cela n'est propre au domaine traité. Le même système — glossaire validé
+          humainement, mémoire de corrections, deux passes de traduction, contrôle qualité par page
+          — s'applique tel quel à un corpus juridique, technique ou médical. C'est ce que je retiens
+          de plus réutilisable&nbsp;: <strong>la valeur n'est pas dans le traducteur, elle est dans la
+          boucle de retour qui l'entoure.</strong>
+        </p>
+
+        <p>
+          Le projet reste un outil interne&nbsp;: le code n'est pas public et l'accès au service est
+          réservé aux membres de l'association. Je peux en revanche présenter l'architecture, le code
+          et les décisions techniques en détail lors d'un entretien.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="case-cta">
+      <div class="container">
+        <h2>Envie d'en discuter&nbsp;?</h2>
+        <p>
+          Je peux détailler n'importe quelle partie de ce système — l'architecture, la gestion des
+          pannes, l'OCR bidirectionnel ou la boucle d'apprentissage.
+        </p>
+        <div class="case-cta-actions">
+          <a href="index.html#projects" class="btn btn-lg btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> <span>Voir les autres projets</span>
+          </a>
+          <a href="mailto:pluriface@gmail.com" class="btn btn-lg btn-primary">
+            <span>Me contacter</span> <i class="fa-solid fa-paper-plane"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/logo_pluriface.png" alt="Logo Officiel Pluriface" class="brand-logo-img">
+          <span class="logo-text">Pluri<span class="highlight">face</span></span>
+        </a>
+        <p class="footer-tagline">Développeur Web — Montceau-les-Mines (71)</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.html#projects">Réalisations</a></li>
+          <li><a href="index.html#skills">Expertises</a></li>
+          <li><a href="index.html#about">À Propos</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-socials">
+        <h4>Réseaux &amp; Code</h4>
+        <div class="social-icons">
+          <a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://cabodihf.fr/fr" target="_blank" rel="noopener noreferrer" aria-label="Site Client Cabodi"><i class="fa-solid fa-bag-shopping"></i></a>
+          <a href="https://la-forge-du-code.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="La Forge du Code"><i class="fa-solid fa-hammer"></i></a>
+          <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener noreferrer" aria-label="Appli Qada"><i class="fa-solid fa-moon"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Pluriface. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

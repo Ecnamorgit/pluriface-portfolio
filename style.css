@@ -946,12 +946,19 @@ img {
   border: 1px solid rgba(99, 102, 241, 0.4);
 }
 
+.ia-badge {
+  background: rgba(0, 240, 255, 0.15);
+  color: #22d3ee;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
 [data-theme="light"] .client-badge { color: #047857; background: #d1fae5; }
 [data-theme="light"] .spiritual-badge { color: #b45309; background: #fef3c7; }
 [data-theme="light"] .soutenance-badge { color: #6d28d9; background: #ede9fe; }
 [data-theme="light"] .edtech-badge { color: #0369a1; background: #e0f2fe; }
 [data-theme="light"] .devops-badge { color: #be185d; background: #fce7f3; }
 [data-theme="light"] .gamedev-badge { color: #4338ca; background: #e0e7ff; }
+[data-theme="light"] .ia-badge { color: #0e7490; background: #cffafe; }
 
 .project-content {
   padding: 1.5rem;
