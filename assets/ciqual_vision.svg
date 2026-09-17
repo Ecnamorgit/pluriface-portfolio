@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Estimation de portions par photo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0f19"/>
+      <stop offset="1" stop-color="#1a233a"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00f0ff"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <!-- plate -->
+  <circle cx="290" cy="260" r="150" fill="#f1f5f9"/>
+  <circle cx="290" cy="260" r="118" fill="#e2e8f0"/>
+  <ellipse cx="260" cy="250" rx="62" ry="44" fill="#f59e0b"/>
+  <ellipse cx="330" cy="275" rx="55" ry="38" fill="#10b981"/>
+  <ellipse cx="300" cy="215" rx="42" ry="28" fill="#ec4899"/>
+  <!-- reference card -->
+  <rect x="120" y="340" width="86" height="54" rx="6" fill="#8b5cf6" stroke="#fff" stroke-width="2"/>
+  <rect x="130" y="352" width="26" height="18" rx="3" fill="#f59e0b"/>
+  <!-- scan frame -->
+  <g fill="none" stroke="url(#acc)" stroke-width="5" stroke-linecap="round">
+    <path d="M110 90 h40 M110 90 v40"/><path d="M470 90 h-40 M470 90 v40"/>
+    <path d="M110 430 h40 M110 430 v-40"/><path d="M470 430 h-40 M470 430 v-40"/>
+  </g>
+  <line x1="110" y1="260" x2="470" y2="260" stroke="#00f0ff" stroke-width="2" stroke-dasharray="8 8" opacity="0.7"/>
+  <!-- result panel -->
+  <rect x="520" y="110" width="230" height="280" rx="16" fill="#121829" stroke="rgba(255,255,255,0.15)"/>
+  <text x="545" y="155" font-family="Inter, Arial, sans-serif" font-size="16" fill="#94a3b8">Estimation IA</text>
+  <text x="545" y="200" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#ffffff">42 g</text>
+  <text x="545" y="226" font-family="Inter, Arial, sans-serif" font-size="14" fill="#94a3b8">glucides</text>
+  <rect x="545" y="250" width="180" height="10" rx="5" fill="#1a233a"/>
+  <rect x="545" y="250" width="126" height="10" rx="5" fill="url(#acc)"/>
+  <text x="545" y="300" font-family="Inter, Arial, sans-serif" font-size="16" fill="#94a3b8">Balance</text>
+  <text x="545" y="340" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#10b981">39 g</text>
+  <text x="545" y="366" font-family="Inter, Arial, sans-serif" font-size="14" fill="#94a3b8">mesuré</text>
+</svg>

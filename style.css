@@ -512,9 +512,11 @@ img {
 .hero-title .sub-headline {
   display: block;
   color: var(--text-muted);
-  font-size: 3.2rem;
-  font-weight: 700;
-  letter-spacing: -1px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-top: 0.75rem;
+  line-height: 1.35;
 }
 
 .hero-description {
@@ -624,6 +626,68 @@ img {
 .code-string { color: #ffa352; }
 [data-theme="light"] .code-keyword { color: #d97706; font-weight: 600; }
 [data-theme="light"] .code-string { color: #0284c7; }
+
+/* Carte d'identité (remplace le bloc de code de l'accueil) */
+.identity-card {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding-bottom: 2.25rem; /* laisse la place au badge flottant du bas */
+}
+.identity-card > div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+.identity-card dt {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+.identity-card dd {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+.identity-card dd a { color: var(--primary-cyan); text-decoration: underline; }
+.status-pill {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pills);
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+@media (max-width: 480px) {
+  .identity-card > div { grid-template-columns: 1fr; gap: 0.1rem; }
+}
+
+/* Récit de projet : besoin / action / résultat */
+.project-story {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.project-story li {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+.project-story li strong {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-main);
+  margin-bottom: 0.1rem;
+}
 
 .card-badge-1 {
   position: absolute;
@@ -1331,8 +1395,11 @@ img {
 }
 
 @media (max-width: 768px) {
-  .hero-title, .hero-title .sub-headline {
+  .hero-title {
     font-size: 2.2rem;
+  }
+  .hero-title .sub-headline {
+    font-size: 1.2rem;
   }
 
   .mobile-menu-btn {
