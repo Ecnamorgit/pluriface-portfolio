@@ -754,14 +754,14 @@ img {
   display: flex;
   gap: 1.25rem;
   width: max-content;
-  animation: marqueeScrollLeft 38s linear infinite;
+  animation: marqueeScrollLeft 60s linear infinite;
 }
 
 .marquee-track-right {
   display: flex;
   gap: 1.25rem;
   width: max-content;
-  animation: marqueeScrollRight 38s linear infinite;
+  animation: marqueeScrollRight 60s linear infinite;
 }
 
 .marquee-container:hover .marquee-track-left,
@@ -899,8 +899,140 @@ img {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 1.75rem;
+}
+
+/* Note pour les développeurs, sous le titre du top 10 */
+.section-note {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 0.25rem 0 1.75rem;
+}
+.section-note i {
+  margin-right: 0.35rem;
+}
+.section-note a {
+  color: var(--primary-cyan);
+  text-decoration: underline;
+}
+
+/* Numéro du classement, en haut à droite du visuel */
+.project-rank {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: rgba(11, 15, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Mention pour les projets dont le code est privé */
+.project-private {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  padding-left: 0.75rem;
+}
+
+/* Projet phare : carte pleine largeur, visuel à gauche */
+.project-card.project-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  border-color: var(--border-highlight);
+}
+.featured-media {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+}
+.project-featured .project-image-wrapper {
+  height: auto;
+  aspect-ratio: 1200 / 1000;
+}
+.project-featured .project-content {
+  padding: 2rem;
+}
+.project-featured .project-title {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.project-featured .project-story li {
+  font-size: 0.95rem;
+}
+.project-featured .project-footer {
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.project-featured .project-footer .project-tags {
+  margin-bottom: 0;
+}
+.featured-stats {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border-top: 1px solid var(--border-color);
+}
+.featured-stats div {
+  background: var(--bg-secondary);
+  padding: 1rem 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.featured-stats b {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+.featured-stats span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 992px) {
+  .project-card.project-featured {
+    grid-template-columns: 1fr;
+  }
+  .featured-media {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 560px) {
+  .project-featured .project-content {
+    padding: 1.5rem;
+  }
+  .project-featured .project-title {
+    font-size: 1.25rem;
+  }
+  .featured-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-footer {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .project-private {
+    padding-left: 0;
+  }
 }
 
 /* Project Cards */
@@ -1430,5 +1562,24 @@ img {
 
   .footer-container {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Moins d'animations pour les personnes qui le demandent à leur système */
+@media (prefers-reduced-motion: reduce) {
+  .glow-orb,
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Sur petit téléphone, le bouton « Me contacter » de l'en-tête laisse la place au logo (le menu garde le lien Contact) */
+@media (max-width: 480px) {
+  #header-cta {
+    display: none;
   }
 }

@@ -120,7 +120,8 @@ function initProjectFilters() {
         const categories = card.getAttribute('data-category').split(' ');
         
         if (filterValue === 'all' || categories.includes(filterValue)) {
-          card.style.display = 'flex';
+          // '' rend la main au CSS : flex pour les cartes, grid pour le projet phare
+          card.style.display = '';
           setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0) scale(1)';
