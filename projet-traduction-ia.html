@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Étude de cas — Chaîne de traduction assistée arabe → français : transcription vidéo, traduction de livres PDF, glossaire métier et mémoire de corrections. Python, FastAPI, Whisper, Ollama, OCR.">
-  <meta name="keywords" content="Pluriface, étude de cas, Python, FastAPI, Whisper, Ollama, OCR arabe, PyMuPDF, ffmpeg, pipeline, LLM local">
+  <meta name="description" content="Étude de cas : un outil qui transcrit des vidéos et traduit des documents automatiquement, avec relecture humaine et une mémoire de corrections qui apprend. Automatisation avec l'IA, Python.">
+  <meta name="keywords" content="Pluriface, étude de cas, automatisation, IA, Python, FastAPI, transcription, traduction, OCR, Claude">
   <meta name="author" content="Pluriface">
 
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ecnamorgit.github.io/pluriface-portfolio/projet-traduction-ia.html">
-  <meta property="og:title" content="Étude de cas | Chaîne de traduction assistée arabe → français">
-  <meta property="og:description" content="Un système à deux machines qui transcrit, traduit et met en page des cours vidéo et des livres, avec un glossaire métier qui s'enrichit à chaque relecture.">
-  <meta property="og:image" content="assets/shaffite_card.png">
+  <meta property="og:title" content="Étude de cas | Transcription de vidéos et traduction de documents par IA">
+  <meta property="og:description" content="Un outil qui transcrit, traduit et met en page vidéos et documents, avec une relecture humaine et une mémoire de corrections qui s'enrichit à chaque usage.">
+  <meta property="og:image" content="assets/pipeline_card.png">
 
   <link rel="icon" type="image/png" href="assets/logo_pluriface.png">
-  <title>Étude de cas — Traduction assistée arabe → français | Pluriface</title>
+  <title>Étude de cas : transcription et traduction par IA | Pluriface</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -284,35 +284,32 @@
 
         <div class="case-badges">
           <span class="case-badge accent">Étude de cas</span>
-          <span class="case-badge">Projet associatif livré</span>
-          <span class="case-badge">Python · FastAPI · IA locale</span>
+          <span class="case-badge">Automatisation avec l'IA</span>
+          <span class="case-badge">Outil interne, en production</span>
         </div>
 
-        <h1 class="case-title">Une chaîne de traduction assistée, de la vidéo au livre imprimable</h1>
+        <h1 class="case-title">Transcrire des vidéos et traduire des documents, sans y passer ses soirées</h1>
 
         <p class="case-lead">
-          Une association d'enseignement disposait de dizaines d'heures de cours filmés en arabe et
-          d'ouvrages de référence jamais traduits. Les outils grand public produisaient un texte
-          lisible mais terminologiquement instable&nbsp;: le même terme technique changeait de
-          traduction d'une page à l'autre. J'ai construit un système complet — dépôt en ligne, file
-          d'attente, transcription, traduction en deux passes, relecture humaine et mise en page —
-          articulé autour d'un <strong>glossaire métier et d'une mémoire de corrections qui
-          s'enrichissent à chaque relecture</strong>.
+          Une petite organisation recevait des heures de vidéos et des centaines de pages en langue
+          étrangère. Chaque fichier demandait des heures de transcription et de traduction à la main,
+          et les outils grand public ne tenaient pas la cohérence du vocabulaire d'une page à
+          l'autre. J'ai construit un outil qui fait le travail mécanique tout seul, la nuit, et qui
+          <strong>retient chaque correction humaine pour faire mieux la fois suivante</strong>.
         </p>
 
         <div class="case-meta">
           <div><span>Rôle</span><strong>Conception, développement, exploitation</strong></div>
-          <div><span>Période</span><strong>Avril → août 2026</strong></div>
-          <div><span>Contexte</span><strong>Association d'enseignement</strong></div>
+          <div><span>Période</span><strong>Avril à août 2026</strong></div>
+          <div><span>Utilisateurs</span><strong>Une équipe non technicienne</strong></div>
           <div><span>Statut</span><strong>En production, usage interne</strong></div>
         </div>
 
         <div class="case-stats">
-          <div class="case-stat"><b>~11 900</b><span>lignes de Python versionnées</span></div>
-          <div class="case-stat"><b>310</b><span>fonctions de test écrites</span></div>
-          <div class="case-stat"><b>8 h 46</b><span>de vidéo traitée par le pipeline</span></div>
-          <div class="case-stat"><b>227</b><span>pages de livre traduites</span></div>
+          <div class="case-stat"><b>8 h 46</b><span>de vidéo traitée</span></div>
+          <div class="case-stat"><b>227</b><span>pages traduites et mises en page</span></div>
           <div class="case-stat"><b>4 437</b><span>corrections mémorisées</span></div>
+          <div class="case-stat"><b>0</b><span>installation chez les utilisateurs</span></div>
         </div>
       </div>
     </section>
@@ -321,40 +318,40 @@
     <section class="case-section">
       <div class="container">
         <span class="case-kicker">01 — Le problème</span>
-        <h2 class="case-h2">Traduire n'est pas le problème. Rester cohérent, si.</h2>
+        <h2 class="case-h2">Traduire n'est pas le plus dur. Rester cohérent, si.</h2>
 
         <p>
-          Faire traduire un paragraphe par un modèle de langue est trivial et quasi gratuit. Le
-          besoin réel était ailleurs, et il se résume à trois difficultés que les traducteurs
-          généralistes ne traitent pas&nbsp;:
+          Demander à une IA de traduire un paragraphe est facile et presque gratuit. Le vrai
+          besoin était ailleurs, et il tient en trois points que les outils tout faits ne règlent
+          pas&nbsp;:
         </p>
 
         <div class="case-grid">
           <div class="case-card">
             <i class="fa-solid fa-book-bookmark"></i>
-            <h4>La dérive terminologique</h4>
+            <h4>Le vocabulaire qui dérive</h4>
             <p>
-              Sur 200 pages, un terme technique traduit de quatre façons différentes rend le
-              document inutilisable pour un lecteur qui apprend. Aucun outil grand public ne
-              garantit qu'un terme donné sera rendu de la même manière du début à la fin.
+              Sur 200 pages, un même terme métier traduit de quatre façons différentes rend le
+              document inutilisable. Aucun outil grand public ne garantit qu'un mot sera rendu de la
+              même manière du début à la fin.
             </p>
           </div>
           <div class="case-card">
-            <i class="fa-solid fa-align-right"></i>
-            <h4>La mise en page bidirectionnelle</h4>
+            <i class="fa-solid fa-file-lines"></i>
+            <h4>Des documents compliqués</h4>
             <p>
-              Un ouvrage bilingue mêle pages arabes scannées et pages françaises générées, avec
-              des notes de bas de page à réconcilier. L'écriture de droite à gauche casse la
-              plupart des extracteurs de PDF et des moteurs d'OCR.
+              Des PDF en partie scannés, des notes de bas de page, deux langues qui ne s'écrivent
+              pas dans le même sens. Il fallait lire tout cela correctement, puis reproduire une mise
+              en page propre avec l'original et la traduction côte à côte.
             </p>
           </div>
           <div class="case-card">
-            <i class="fa-solid fa-plug-circle-exclamation"></i>
-            <h4>Le coût et la disponibilité</h4>
+            <i class="fa-solid fa-coins"></i>
+            <h4>Le coût</h4>
             <p>
-              Traiter des heures de vidéo et des centaines de pages avec une API payante n'était pas
-              tenable pour une association. Il fallait faire tourner le gros du calcul sur une
-              machine déjà possédée, sans sacrifier la disponibilité du service.
+              Traiter des heures de vidéo et des centaines de pages uniquement avec des services
+              payants n'était pas tenable pour une petite structure. Le gros du calcul devait tourner
+              sur une machine déjà possédée.
             </p>
           </div>
         </div>
@@ -362,373 +359,144 @@
         <div class="case-callout">
           <h4><i class="fa-solid fa-lightbulb"></i> Le parti pris</h4>
           <p>
-            Le système ne remplace pas un traducteur&nbsp;: il fait le travail mécanique et garantit
-            la cohérence, l'humain valide. Toute correction humaine est capturée et réinjectée dans
-            les traductions suivantes — c'est le cœur du projet, et c'est ce qui le rend
-            transposable à n'importe quel domaine à vocabulaire spécialisé (juridique, médical,
-            technique).
+            L'outil ne remplace pas la personne qui relit&nbsp;: il fait le travail répétitif et
+            garantit la cohérence, l'humain valide. Chaque correction humaine est conservée et
+            réutilisée dans les traductions suivantes. C'est le cœur du projet, et c'est ce qui le
+            rend transposable à n'importe quel métier qui a son propre vocabulaire&nbsp;: immobilier,
+            juridique, médical, technique.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ================= ARCHITECTURE ================= -->
-    <section class="case-section wide">
-      <div class="container">
-        <div style="max-width: 900px; margin: 0 auto 2rem;">
-          <span class="case-kicker">02 — Architecture</span>
-          <h2 class="case-h2">Un serveur qui ne calcule rien, un PC qui fait tout</h2>
-          <p>
-            Le VPS coûte quelques euros par mois et n'a ni GPU ni place pour installer PyTorch. Il
-            héberge donc uniquement le site, la file d'attente et les fichiers&nbsp;; il tourne 24&nbsp;h/24.
-            Le calcul lourd — transcription, traduction, encodage vidéo — se fait sur un PC de bureau
-            qui vient <em>réclamer</em> du travail via un jeton, la nuit, quand la machine est libre.
-          </p>
-          <p>
-            Cette séparation est confortable côté coût, mais elle impose une file d'attente qui
-            survit à un worker pouvant disparaître à tout instant&nbsp;: PC éteint, coupure réseau,
-            quota du modèle atteint en plein milieu d'un livre.
-          </p>
-        </div>
-
-        <div class="arch-wrap">
-          <svg class="arch-svg" viewBox="0 0 1160 560" role="img" aria-label="Schéma d'architecture du système : navigateur, serveur VPS avec file d'attente, worker PC exécutant le pipeline IA, et boucle de mémoire.">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
-              </marker>
-            </defs>
-
-            <!-- Utilisateur -->
-            <g>
-              <rect class="a-box" x="20" y="90" width="170" height="76" rx="10"/>
-              <text class="a-label" x="105" y="122" text-anchor="middle">Collègue</text>
-              <text class="a-sub" x="105" y="142" text-anchor="middle">navigateur · HTTPS</text>
-            </g>
-
-            <!-- Zone serveur -->
-            <g>
-              <rect class="a-zone" x="240" y="40" width="280" height="330" rx="14"/>
-              <text class="a-zone-label" x="255" y="64">SERVEUR VPS — 24 h/24</text>
-
-              <rect class="a-box" x="262" y="86" width="236" height="62" rx="10"/>
-              <text class="a-label" x="380" y="112" text-anchor="middle">Caddy</text>
-              <text class="a-sub" x="380" y="131" text-anchor="middle">HTTPS 443 · reverse-proxy</text>
-
-              <rect class="a-box-accent" x="262" y="164" width="236" height="74" rx="10"/>
-              <text class="a-label" x="380" y="192" text-anchor="middle">FastAPI + uvicorn</text>
-              <text class="a-sub" x="380" y="211" text-anchor="middle">dépôt · auth · éditeur de relecture</text>
-              <text class="a-sub" x="380" y="227" text-anchor="middle">export PDF · notifications e-mail</text>
-
-              <rect class="a-box" x="262" y="254" width="236" height="62" rx="10"/>
-              <text class="a-label" x="380" y="280" text-anchor="middle">File SQLite</text>
-              <text class="a-sub" x="380" y="299" text-anchor="middle">queued · processing · done · quota</text>
-
-              <rect class="a-box" x="262" y="330" width="236" height="24" rx="6"/>
-              <text class="a-sub" x="380" y="346" text-anchor="middle">sauvegarde chiffrée · purge auto</text>
-            </g>
-
-            <!-- Zone worker -->
-            <g>
-              <rect class="a-zone" x="610" y="40" width="530" height="330" rx="14"/>
-              <text class="a-zone-label" x="625" y="64">PC WORKER — fenêtre nocturne</text>
-
-              <rect class="a-box" x="635" y="86" width="200" height="62" rx="10"/>
-              <text class="a-label" x="735" y="112" text-anchor="middle">Boucle worker</text>
-              <text class="a-sub" x="735" y="131" text-anchor="middle">sondage · jeton · codes de sortie</text>
-
-              <!-- pipeline -->
-              <rect class="a-box" x="635" y="170" width="118" height="58" rx="9"/>
-              <text class="a-label" x="694" y="194" text-anchor="middle" style="font-size:12px">ffmpeg</text>
-              <text class="a-sub" x="694" y="212" text-anchor="middle">audio 16 kHz</text>
-
-              <rect class="a-box" x="765" y="170" width="118" height="58" rx="9"/>
-              <text class="a-label" x="824" y="194" text-anchor="middle" style="font-size:12px">Whisper large</text>
-              <text class="a-sub" x="824" y="212" text-anchor="middle">arabe → SRT</text>
-
-              <rect class="a-box" x="895" y="170" width="118" height="58" rx="9"/>
-              <text class="a-label" x="954" y="194" text-anchor="middle" style="font-size:12px">Gemma · Ollama</text>
-              <text class="a-sub" x="954" y="212" text-anchor="middle">1er jet local</text>
-
-              <rect class="a-box-accent" x="1013" y="252" width="110" height="58" rx="9"/>
-              <text class="a-label" x="1068" y="276" text-anchor="middle" style="font-size:12px">Claude</text>
-              <text class="a-sub" x="1068" y="294" text-anchor="middle">correction</text>
-
-              <rect class="a-box" x="875" y="252" width="118" height="58" rx="9"/>
-              <text class="a-label" x="934" y="276" text-anchor="middle" style="font-size:12px">EasyOCR</text>
-              <text class="a-sub" x="934" y="294" text-anchor="middle">pages scannées</text>
-
-              <rect class="a-box" x="635" y="252" width="220" height="58" rx="9"/>
-              <text class="a-label" x="745" y="276" text-anchor="middle" style="font-size:12px">Incrustation &amp; mise en page</text>
-              <text class="a-sub" x="745" y="294" text-anchor="middle">ffmpeg · PyMuPDF · version TikTok</text>
-
-              <!-- flèches internes -->
-              <g color="var(--text-dim)">
-                <path class="a-line" d="M 753 199 H 763" marker-end="url(#arrow)"/>
-                <path class="a-line" d="M 883 199 H 893" marker-end="url(#arrow)"/>
-                <path class="a-line" d="M 1013 199 H 1068 V 246" marker-end="url(#arrow)"/>
-                <path class="a-line" d="M 1013 281 H 999" marker-end="url(#arrow)"/>
-                <path class="a-line" d="M 875 281 H 861" marker-end="url(#arrow)"/>
-                <path class="a-line" d="M 694 148 V 164" marker-end="url(#arrow)"/>
-              </g>
-            </g>
-
-            <!-- Flux principaux -->
-            <g color="var(--text-dim)">
-              <path class="a-line" d="M 190 122 H 234" marker-end="url(#arrow)"/>
-              <text class="a-flow" x="212" y="112" text-anchor="middle">dépôt</text>
-            </g>
-            <g color="var(--primary-cyan)">
-              <path class="a-line-accent" d="M 631 106 H 556 V 285 H 504" marker-end="url(#arrow)"/>
-              <text class="a-flow" x="565" y="92" text-anchor="middle" style="fill:var(--primary-cyan)">réclame un job</text>
-            </g>
-            <g color="var(--primary-cyan)">
-              <path class="a-line-accent" d="M 498 300 H 578 V 128 H 631" marker-end="url(#arrow)"/>
-              <text class="a-flow" x="565" y="334" text-anchor="middle" style="fill:var(--primary-cyan)">source + résultats</text>
-            </g>
-
-            <!-- Mémoire -->
-            <g>
-              <rect class="a-box-accent" x="300" y="440" width="560" height="82" rx="12"/>
-              <text class="a-title" x="580" y="470" text-anchor="middle">Glossaire métier + mémoire de corrections</text>
-              <text class="a-sub" x="580" y="492" text-anchor="middle">52 termes validés · 4 437 corrections (arabe / brouillon rejeté / version retenue)</text>
-              <text class="a-sub" x="580" y="509" text-anchor="middle">sélection par recouvrement lexical · budget de contexte plafonné</text>
-            </g>
-            <g color="var(--primary-purple)">
-              <path class="a-line-dash" d="M 400 386 V 434" marker-end="url(#arrow)"/>
-              <text class="a-flow" x="408" y="414" style="fill:var(--primary-purple)">relecture humaine validée</text>
-              <path class="a-line-dash" d="M 800 434 V 386" marker-end="url(#arrow)"/>
-              <text class="a-flow" x="792" y="414" text-anchor="end" style="fill:var(--primary-purple)">réinjecté dans les deux modèles</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= PIPELINE VIDÉO ================= -->
+    <!-- ================= COMMENT ÇA MARCHE ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">03 — Chaîne vidéo</span>
-        <h2 class="case-h2">Du cours filmé à la vidéo sous-titrée</h2>
+        <span class="case-kicker">02 — Comment ça marche</span>
+        <h2 class="case-h2">On dépose un fichier, on reçoit un résultat relu</h2>
         <p>
-          Cinq étapes, chacune jalonnée sur disque. Une coupure de courant à l'étape 4 ne fait pas
-          recommencer la transcription&nbsp;: le pipeline reprend là où il s'est arrêté, et un batch
-          déjà corrigé n'est jamais repayé.
+          Du point de vue de l'équipe, l'outil tient en quelques gestes. Tout le reste se passe en
+          coulisses.
         </p>
 
         <ol class="case-steps">
           <li>
-            <h4>Extraction audio</h4>
+            <h4>Déposer</h4>
             <p>
-              <code>ffmpeg</code> produit un WAV mono 16&nbsp;kHz. Le cache n'est réutilisé qu'après
-              comparaison de la durée du WAV et de la vidéo. L'orientation du fichier (portrait ou
-              paysage) décide dès ici de la largeur des lignes de sous-titres.
+              Depuis un simple navigateur, on envoie une vidéo ou un PDF sur un espace privé. Rien à
+              installer, un compte personnel suffit.
             </p>
           </li>
           <li>
-            <h4>Transcription arabe</h4>
+            <h4>Laisser travailler</h4>
             <p>
-              Whisper <code>large</code>, forcé en arabe. Les micro-segments sont fusionnés, puis un
-              <strong>rapport qualité automatique</strong> mesure la couverture, repère les trous de
-              plus de deux secondes et les segments à faible confiance. Sans ce rapport, une
-              transcription amputée de trois minutes passait inaperçue jusqu'à la relecture finale.
+              L'outil met le fichier en file d'attente et le traite quand une machine est libre,
+              généralement la nuit. Il transcrit la voix en texte, traduit en deux passes (un premier
+              jet rapide, puis une relecture par un modèle plus fort qui corrige le vocabulaire et le
+              style), puis prépare la mise en page. Si la machine s'éteint au milieu, il reprend là où
+              il s'était arrêté.
             </p>
           </li>
           <li>
-            <h4>Premier jet — modèle local</h4>
+            <h4>Relire et valider</h4>
             <p>
-              Gemma via Ollama, par lots de cinq segments, avec deux segments de contexte de chaque
-              côté&nbsp;: sans ce contexte, une phrase à cheval sur deux segments perdait son sujet. Le
-              glossaire filtré et dix exemples de corrections passées sont injectés dans le prompt.
+              Un e-mail prévient quand c'est prêt. Un relecteur ouvre une interface simple, corrige ce
+              qui doit l'être, valide. Les corrections sont enregistrées&nbsp;: l'outil ne refera pas
+              deux fois la même erreur.
             </p>
           </li>
           <li>
-            <h4>Passe de correction</h4>
+            <h4>Récupérer le livrable</h4>
             <p>
-              Les segments sont regroupés par 40 et soumis à un modèle plus fort, chargé de corriger
-              la terminologie et le style — pas de retraduire. Chaque écart entre le brouillon et la
-              version corrigée est capturé comme exemple d'apprentissage.
-            </p>
-          </li>
-          <li>
-            <h4>Incrustation</h4>
-            <p>
-              Un filtre <code>ffmpeg</code> découpe une bande basse, la floute, la superpose puis y
-              incruste les sous-titres&nbsp;: le texte reste lisible quel que soit l'arrière-plan. Une
-              variante 1080×1920 est générée pour les formats courts.
+              Pour une vidéo&nbsp;: des sous-titres incrustés dans l'image, avec une version verticale
+              pour les formats courts. Pour un document&nbsp;: un PDF bilingue, page d'origine et page
+              traduite en vis-à-vis, notes de bas de page comprises.
             </p>
           </li>
         </ol>
 
         <figure class="case-figure">
-          <img src="assets/shaffite_soustitres.png" alt="Bas d'une vidéo de cours avec la bande floutée générée par ffmpeg et le sous-titre français incrusté" loading="lazy">
-          <figcaption>
-            Bande floutée générée à la volée et sous-titre incrusté — sortie réelle du pipeline.
-          </figcaption>
+          <img src="assets/pipeline_card.png" alt="Schéma : dépôt, transcription, traduction, relecture humaine, livrable, avec une mémoire de corrections qui alimente la traduction" loading="lazy">
+          <figcaption>Le parcours d'un fichier. La boucle du bas est ce qui fait progresser l'outil avec le temps.</figcaption>
         </figure>
-
-        <h3 class="case-h3">Sortie brute d'un job</h3>
-        <p>
-          Le SRT français conserve exactement la timeline du SRT arabe&nbsp;: une entrée arabe
-          correspond toujours à une entrée française, ce qui permet de rejouer une correction
-          humaine sans retraduire ni ré-encoder la vidéo.
-        </p>
-
-        <div class="case-code">
-          <div class="case-code-head"><i class="fa-solid fa-closed-captioning"></i> sous_titres_arabe.srt &nbsp;→&nbsp; sous_titres_traduits.srt</div>
-<pre><span class="c-dim">13</span>
-<span class="c-time">00:01:01,840 --&gt; 00:01:04,040</span>
-<span class="c-dim">ar</span>  <bdi dir="rtl" class="c-ar">كقوله تعالى</bdi>
-<span class="c-dim">fr</span>  comme dans Sa parole, le Très-Haut :
-
-<span class="c-dim">14</span>
-<span class="c-time">00:01:04,040 --&gt; 00:01:07,600</span>
-<span class="c-dim">ar</span>  <bdi dir="rtl" class="c-ar">والعصر إن الإنسان لفي خسر</bdi>
-<span class="c-dim">fr</span>  « Par le Temps ! L'être humain est,
-    certes, en perdition. »</pre>
-        </div>
-
-        <div class="case-code">
-          <div class="case-code-head"><i class="fa-solid fa-circle-check"></i> rapport_whisper.txt — contrôle qualité automatique</div>
-<pre>Durée audio        : 17:10
-Durée transcrite   : 17:01
-Couverture         : 99.1%
-Segments           : 277
-
-<span class="c-ok">✅ Aucun trou détecté.</span>
-<span class="c-ok">✅ Tous les segments ont une confiance correcte.</span>
-
-VERDICT : <span class="c-ok">✅ QUALITÉ OK</span></pre>
-        </div>
       </div>
     </section>
 
-    <!-- ================= PIPELINE LIVRE ================= -->
+    <!-- ================= LES LIVRABLES ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">04 — Chaîne livre</span>
-        <h2 class="case-h2">Du scan arabe au PDF bilingue imprimable</h2>
-        <p>
-          La branche livre part d'un PDF dont une partie des pages sont des <strong>scans</strong>. Elle
-          produit un brouillon page par page, ouvre une interface de relecture, puis réassemble un
-          document final dont la mise en page est intégralement recalculée.
-        </p>
-
-        <div class="case-grid">
-          <div class="case-card">
-            <i class="fa-solid fa-arrow-right-arrow-left"></i>
-            <h4>Remettre l'arabe dans l'ordre</h4>
-            <p>
-              Le moteur d'OCR rend les fragments de gauche à droite. Il a fallu les regrouper par
-              ligne, puis trier chaque ligne <strong>de droite à gauche</strong> — sans quoi les mots
-              arrivaient à l'envers et les notes de bas de page se mélangeaient au corps du texte.
-            </p>
-          </div>
-          <div class="case-card">
-            <i class="fa-solid fa-scissors"></i>
-            <h4>Découper sans perdre un mot</h4>
-            <p>
-              Le texte est découpé en blocs de ~500 caractères, sur une frontière de paragraphe,
-              sinon de phrase, sinon de mot. Un test vérifie qu'aucun mot ne disparaît. Le dernier
-              bloc de la page précédente sert de contexte, pour les phrases à cheval sur deux pages.
-            </p>
-          </div>
-          <div class="case-card">
-            <i class="fa-solid fa-pen-ruler"></i>
-            <h4>Ne jamais tronquer en silence</h4>
-            <p>
-              La fonction de rendu de texte signalait un débordement par une valeur négative, jamais
-              testée&nbsp;: du texte disparaissait silencieusement. Le code essaie désormais cinq tailles
-              de police, puis coupe par dichotomie sur les mots et poursuit sur une page suivante.
-            </p>
-          </div>
-          <div class="case-card">
-            <i class="fa-solid fa-flag"></i>
-            <h4>Signaler les pages douteuses</h4>
-            <p>
-              Chaque page est notée automatiquement&nbsp;: traduction absente, caractères arabes
-              résiduels, ratio de longueur français/arabe anormal. Le seuil d'omission a été fixé
-              après mesure sur 424 pages validées, pas à l'intuition.
-            </p>
-          </div>
-        </div>
+        <span class="case-kicker">03 — Les résultats</span>
+        <h2 class="case-h2">Ce que l'équipe récupère</h2>
 
         <figure class="case-figure">
-          <img src="assets/shaffite_livre.png" alt="Deux pages en vis-à-vis : à gauche la page française reconstruite, à droite la page arabe originale scannée" loading="lazy">
+          <img src="assets/pipeline_soustitres.png" alt="Bas d'une image de vidéo avec une bande assombrie et un sous-titre lisible" loading="lazy">
           <figcaption>
-            Page française reconstruite (à gauche) et page arabe originale scannée (à droite), en
-            vis-à-vis dans l'ouvrage bilingue final — 735 pages harmonisées, dont 2 016 notes de bas
-            de page passées à l'OCR puis traduites et réintégrées.
+            Vidéo&nbsp;: une bande est floutée en bas de l'image pour que le sous-titre reste lisible
+            quel que soit l'arrière-plan. Le texte français garde exactement le minutage de
+            l'original, ce qui permet de corriger une phrase sans tout refaire.
           </figcaption>
         </figure>
 
-        <div class="case-callout">
-          <h4><i class="fa-solid fa-triangle-exclamation"></i> Le bug qui m'a coûté le plus de temps</h4>
-          <p>
-            Chaque page du PDF exporté contenait son texte <strong>en double</strong>. Le mode de rendu
-            utilisé pour les essais de mise en page signifie « encre invisible », pas « ne rien
-            dessiner »&nbsp;: mes mesures écrivaient réellement dans le document. La correction tient en
-            une ligne — faire les essais sur une page jetable — mais la trouver a demandé de
-            comprendre ce que la bibliothèque faisait vraiment, pas ce que son nom laissait croire.
-          </p>
-        </div>
+        <figure class="case-figure">
+          <img src="assets/pipeline_livre.png" alt="Deux pages en vis-à-vis : page traduite à gauche, page d'origine à droite, illustration schématique" loading="lazy">
+          <figcaption>
+            Document&nbsp;: la page traduite est reconstruite en face de la page d'origine. Au total,
+            735 pages harmonisées et plus de 2 000 notes de bas de page retrouvées, traduites et
+            remises à leur place. Illustration schématique&nbsp;: le contenu réel n'est pas public.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- ================= MÉMOIRE ================= -->
+    <!-- ================= LE CŒUR ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">05 — Le cœur du système</span>
+        <span class="case-kicker">04 — Le cœur du système</span>
         <h2 class="case-h2">Un glossaire et une mémoire qui s'améliorent à l'usage</h2>
         <p>
-          C'est la partie qui distingue ce projet d'un simple appel à un traducteur automatique.
-          Deux actifs sont accumulés au fil des mois et réinjectés dans chaque traduction&nbsp;:
+          C'est ce qui distingue ce projet d'un simple appel à un traducteur automatique. Deux
+          choses s'accumulent au fil des mois et sont réutilisées à chaque traduction&nbsp;:
         </p>
-
         <ul>
           <li>
-            <strong>Le glossaire</strong> — des termes validés par un relecteur humain, avec leur
-            translittération et leur traduction retenue. Depuis l'interface de relecture, annoter un
-            mot suffit à l'y ajouter&nbsp;; un conflit avec une entrée existante est refusé plutôt
-            qu'écrasé.
+            <strong>Le glossaire</strong>&nbsp;: les termes du métier avec la traduction retenue par
+            l'équipe. Depuis l'écran de relecture, annoter un mot suffit à l'ajouter. Personne ne tient
+            de tableur à côté.
           </li>
           <li>
-            <strong>La mémoire de corrections</strong> — des milliers de triplets
-            <em>source&nbsp;/ brouillon rejeté&nbsp;/ version retenue</em>. Montrer les deux versions au
-            modèle enseigne la distinction&nbsp;; ne montrer que la bonne n'apprend qu'un synonyme de plus.
+            <strong>La mémoire de corrections</strong>&nbsp;: des milliers d'exemples « ce que l'IA
+            avait proposé, ce que l'humain a retenu ». Montrer les deux versions à l'IA lui apprend la
+            différence, bien mieux que de lui donner une liste de règles.
           </li>
         </ul>
 
-        <h3 class="case-h3">Trois décisions qui font la différence</h3>
-
-        <div class="case-callout">
-          <h4><i class="fa-solid fa-magnifying-glass"></i> Sélectionner par pertinence, pas par récence</h4>
-          <p>
-            Piocher les dix dernières corrections dans un corpus de plusieurs milliers, c'est n'en
-            utiliser presque rien. Les exemples sont désormais classés par mots partagés avec le
-            passage en cours de traduction, et le glossaire est filtré de la même façon&nbsp;: seuls les
-            termes réellement présents dans le texte sont envoyés.
-          </p>
-        </div>
-
-        <div class="case-callout">
-          <h4><i class="fa-solid fa-ruler-horizontal"></i> Plafonner le contexte en caractères</h4>
-          <p>
-            Un exemple issu d'un livre pèse une dizaine de fois plus qu'un exemple issu d'une vidéo.
-            Sans plafond, dix exemples suffisaient à dépasser la fenêtre du modèle local et à
-            tronquer le prompt en silence — glossaire compris. Un budget de caractères garantit que
-            les consignes arrivent toujours entières.
-          </p>
-        </div>
-
-        <div class="case-callout">
-          <h4><i class="fa-solid fa-shield-halved"></i> Traiter la mémoire comme une donnée de production</h4>
-          <p>
-            Un audit a montré qu'une coupure pendant l'écriture pouvait effacer des mois de
-            corrections sans le moindre message. Les fichiers sont maintenant écrits de façon
-            atomique, et un fichier existant mais illisible n'est <strong>jamais</strong> écrasé&nbsp;: les
-            nouvelles corrections sont mises de côté pour fusion manuelle.
-          </p>
+        <div class="case-grid">
+          <div class="case-card">
+            <i class="fa-solid fa-filter"></i>
+            <h4>Les bons exemples, pas les derniers</h4>
+            <p>
+              Pour chaque passage, l'outil choisit dans la mémoire les corrections qui parlent du
+              même sujet, plutôt que les dix plus récentes. Le glossaire est filtré de la même
+              façon&nbsp;: seuls les termes réellement présents dans le texte sont envoyés.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h4>Une mémoire qu'on ne perd pas</h4>
+            <p>
+              Des mois de corrections, c'est un actif. Les fichiers sont écrits de manière à survivre
+              à une coupure, et un fichier abîmé n'est jamais écrasé&nbsp;: les nouvelles corrections
+              sont mises de côté en attendant une vérification.
+            </p>
+          </div>
+          <div class="case-card">
+            <i class="fa-solid fa-user-check"></i>
+            <h4>L'humain garde la main</h4>
+            <p>
+              Un conflit entre deux traductions d'un même terme est signalé, pas tranché en silence.
+              L'outil propose, l'équipe décide, et la décision est retenue.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -736,98 +504,82 @@ VERDICT : <span class="c-ok">✅ QUALITÉ OK</span></pre>
     <!-- ================= FIABILITÉ ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">06 — Mise en production</span>
-        <h2 class="case-h2">Ce qui compte quand personne ne regarde la console</h2>
+        <span class="case-kicker">05 — Ce qui compte vraiment</span>
+        <h2 class="case-h2">Un outil que des non-techniciens utilisent sans moi</h2>
         <p>
-          Le système travaille la nuit, pour des utilisateurs non techniciens. Un échec silencieux
-          coûte une journée&nbsp;; un « succès » vide coûte la confiance. La plus grande partie du travail
-          d'ingénierie est allée là.
+          L'outil travaille la nuit, pour des personnes qui ne regardent pas d'écran de contrôle. Un
+          échec silencieux coûte une journée&nbsp;; un faux « c'est prêt » coûte la confiance. La plus
+          grande partie du travail est allée là.
         </p>
 
         <div class="case-grid">
           <div class="case-card">
-            <i class="fa-solid fa-list-check"></i>
-            <h4>Une taxonomie des pannes</h4>
+            <i class="fa-solid fa-rotate-right"></i>
+            <h4>Il reprend où il s'est arrêté</h4>
             <p>
-              Trois familles d'échecs traitées différemment&nbsp;: authentification (aucun réessai, arrêt
-              immédiat avec un message actionnable), limite d'usage (mise en attente, reprise
-              automatique) et saturation passagère (réessai avec délai croissant). Un « try/except »
-              unique aurait consommé des heures de calcul pour rien.
+              Coupure de courant, machine éteinte, quota d'un service atteint en plein milieu d'un
+              document&nbsp;: le travail déjà fait n'est jamais refait ni repayé. Un document
+              interrompu à la page 180 repart de la page 180.
             </p>
           </div>
           <div class="case-card">
-            <i class="fa-solid fa-rotate-left"></i>
-            <h4>Reprise à froid</h4>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h4>Il distingue ses pannes</h4>
             <p>
-              Jalons sur disque, points de reprise par page et par lot, réclamation atomique en base
-              et remise en file des jobs abandonnés depuis plus de six heures. Un livre interrompu à
-              la page 180 repart de la page 180.
+              Un mot de passe invalide, une limite d'usage et un serveur momentanément saturé ne
+              se traitent pas pareil&nbsp;: arrêt immédiat avec un message clair, mise en attente et
+              reprise automatique, ou nouvel essai un peu plus tard.
             </p>
           </div>
           <div class="case-card">
-            <i class="fa-solid fa-ban"></i>
-            <h4>Refuser de livrer un succès vide</h4>
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            <h4>Il se contrôle lui-même</h4>
             <p>
-              Le worker vérifie la présence du livrable avant d'annoncer une réussite. Une erreur
-              interne convertie en texte et livrée comme un résultat valide est le pire scénario pour
-              un utilisateur qui ne lit pas l'arabe.
-            </p>
-          </div>
-          <div class="case-card">
-            <i class="fa-solid fa-lock"></i>
-            <h4>Exploitation</h4>
-            <p>
-              Comptes nominatifs, mots de passe hachés, limitation des tentatives de connexion,
-              HTTPS automatique, services durcis. Sauvegarde quotidienne chiffrée, <strong>relue et
-              déchiffrée pour vérification</strong> avant d'être conservée, plus purge automatique du
-              disque.
+              Chaque vidéo reçoit un rapport de qualité (minutes manquantes, passages douteux), chaque
+              page une note. L'outil refuse d'annoncer un succès s'il n'a rien à livrer. Mieux vaut un
+              « à vérifier » honnête qu'un résultat vide.
             </p>
           </div>
         </div>
 
-        <p>
-          L'ensemble est couvert par <strong>310 fonctions de test</strong>&nbsp;: routes et permissions,
-          transitions d'états de la file, parsing des réponses des modèles, découpe en blocs,
-          réordonnancement de l'OCR, gestion des quotas, export PDF. La reconstruction complète du
-          serveur est scriptée et documentée — elle a servi pour de vrai, après une suppression
-          accidentelle sans sauvegarde.
-        </p>
+        <div class="case-callout">
+          <h4><i class="fa-solid fa-people-group"></i> Et l'adoption&nbsp;?</h4>
+          <p>
+            Un outil que l'équipe n'utilise pas ne fait gagner aucune heure. Celui-ci a été conçu
+            autour de trois gestes simples (déposer, relire, récupérer), avec un e-mail à chaque étape et
+            aucune installation. Les retours des utilisateurs ont dicté l'ordre des améliorations,
+            pas la liste des fonctions possibles.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- ================= STACK ================= -->
+    <!-- ================= POUR LES CURIEUX ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">07 — Stack</span>
-        <h2 class="case-h2">Outils et technologies</h2>
-
+        <span class="case-kicker">06 — Pour les curieux</span>
+        <h2 class="case-h2">Sous le capot, en quelques lignes</h2>
+        <p>
+          Un petit serveur, allumé en permanence, héberge le site de dépôt, la file d'attente et les
+          fichiers. Le calcul lourd se fait sur un ordinateur de bureau qui vient chercher du travail
+          la nuit. Les deux se parlent par une API.
+        </p>
         <table class="case-table">
-          <thead>
-            <tr><th>Domaine</th><th>Choix</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Backend</td><td>Python 3.12, FastAPI, uvicorn, Jinja2, sessions signées</td></tr>
-            <tr><td>Données</td><td>SQLite (sans ORM), fichiers de jobs sur disque, écritures atomiques</td></tr>
-            <tr><td>IA</td><td>Whisper <em>large</em> (transcription), Gemma via Ollama en local (1<sup>er</sup> jet), modèle distant en passe de correction</td></tr>
-            <tr><td>Documents</td><td>PyMuPDF, EasyOCR (arabe), reshaping &amp; bidi, polices Unicode embarquées</td></tr>
-            <tr><td>Média</td><td>ffmpeg / ffprobe, filtres de flou et d'incrustation, recadrage vertical</td></tr>
-            <tr><td>Infrastructure</td><td>Ubuntu, Caddy (HTTPS automatique), services et minuteries systemd, sauvegardes GPG</td></tr>
-            <tr><td>Qualité</td><td>pytest (310 fonctions de test), audit technique documenté, grille d'évaluation de traduction</td></tr>
-          </tbody>
+          <tr><th>Domaine</th><th>Choix</th></tr>
+          <tr><td>Application</td><td>Python, FastAPI, interface web de dépôt et de relecture</td></tr>
+          <tr><td>Intelligence artificielle</td><td>Reconnaissance vocale (Whisper), un modèle de langage local pour le premier jet, Claude par API pour la passe de correction</td></tr>
+          <tr><td>Documents et vidéo</td><td>Lecture de PDF et de pages scannées (OCR), génération de PDF, ffmpeg pour les sous-titres</td></tr>
+          <tr><td>Exploitation</td><td>Linux, services systemd, HTTPS automatique, comptes personnels, sauvegarde quotidienne chiffrée et vérifiée, procédure de reconstruction documentée (déjà utilisée pour de vrai)</td></tr>
+          <tr><td>Qualité</td><td>Environ 11 900 lignes de Python versionnées, 310 fonctions de test automatisées</td></tr>
         </table>
-
         <div class="case-tags">
           <span class="tag">Python</span>
           <span class="tag">FastAPI</span>
-          <span class="tag">SQLite</span>
+          <span class="tag">Claude (API)</span>
           <span class="tag">Whisper</span>
-          <span class="tag">Ollama</span>
-          <span class="tag">OCR arabe</span>
-          <span class="tag">PyMuPDF</span>
+          <span class="tag">OCR</span>
           <span class="tag">ffmpeg</span>
           <span class="tag">Linux</span>
-          <span class="tag">systemd</span>
-          <span class="tag">Caddy</span>
           <span class="tag">pytest</span>
         </div>
       </div>
@@ -836,28 +588,25 @@ VERDICT : <span class="c-ok">✅ QUALITÉ OK</span></pre>
     <!-- ================= BILAN ================= -->
     <section class="case-section">
       <div class="container">
-        <span class="case-kicker">08 — Bilan</span>
+        <span class="case-kicker">07 — Bilan</span>
         <h2 class="case-h2">Ce que j'en retire</h2>
-
         <p>
-          Le plus intéressant dans ce projet n'a pas été de brancher des modèles, mais de construire
-          ce qui les entoure&nbsp;: une file d'attente qui tolère un worker absent, une mémoire qui ne
-          s'efface pas, des pannes qui se distinguent les unes des autres et des contrôles qui
-          disent quand ne pas faire confiance au résultat.
+          Le plus intéressant n'a pas été de brancher des modèles d'IA, mais de construire ce qui les
+          entoure&nbsp;: une file d'attente qui supporte une machine absente, une mémoire qui ne
+          s'efface pas, des contrôles qui disent quand ne pas faire confiance au résultat, et une
+          interface que des non-techniciens utilisent seuls.
         </p>
-
         <p>
-          Rien de tout cela n'est propre au domaine traité. Le même système — glossaire validé
-          humainement, mémoire de corrections, deux passes de traduction, contrôle qualité par page
-          — s'applique tel quel à un corpus juridique, technique ou médical. C'est ce que je retiens
-          de plus réutilisable&nbsp;: <strong>la valeur n'est pas dans le traducteur, elle est dans la
-          boucle de retour qui l'entoure.</strong>
+          Rien de tout cela n'est propre au domaine traité. Le même schéma (une tâche répétitive
+          confiée à l'IA, un humain qui valide, une mémoire qui apprend des validations) s'applique
+          tel quel à des comptes rendus de réunion, des dossiers clients, des annonces à rédiger ou
+          des documents à classer. <strong>La valeur n'est pas dans l'IA, elle est dans la boucle
+          qui l'entoure.</strong>
         </p>
-
         <p>
-          Le projet reste un outil interne&nbsp;: le code n'est pas public et l'accès au service est
-          réservé aux membres de l'association. Je peux en revanche présenter l'architecture, le code
-          et les décisions techniques en détail lors d'un entretien.
+          Le projet reste un outil interne&nbsp;: le code n'est pas public et l'accès est réservé à
+          ses utilisateurs. Je peux en revanche le montrer en fonctionnement et détailler ses choix
+          lors d'un entretien.
         </p>
       </div>
     </section>
@@ -867,8 +616,8 @@ VERDICT : <span class="c-ok">✅ QUALITÉ OK</span></pre>
       <div class="container">
         <h2>Envie d'en discuter&nbsp;?</h2>
         <p>
-          Je peux détailler n'importe quelle partie de ce système — l'architecture, la gestion des
-          pannes, l'OCR bidirectionnel ou la boucle d'apprentissage.
+          Vous avez une tâche répétitive qui mériterait le même traitement&nbsp;? Je peux détailler
+          n'importe quelle partie de ce système, et réfléchir avec vous à ce qui s'automatise chez vous.
         </p>
         <div class="case-cta-actions">
           <a href="index.html#projects" class="btn btn-lg btn-outline">
