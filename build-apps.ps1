@@ -22,11 +22,16 @@ foreach ($app in $apps) {
     flutter create --platforms web --project-name $app . | Out-Null
     flutter pub get
     $href = "$BasePath" + "apps/$app/"
-    flutter build web --release --base-href $href --pwa-strategy none
+    # CanvasKit (le moteur de rendu, ~6 Mo) est partagé entre les 3 apps : téléchargé une fois, mis en cache.
+    $ck = "$BasePath" + "apps/canvaskit/"
+    flutter build web --release --base-href $href --pwa-strategy none --dart-define=FLUTTER_WEB_CANVASKIT_URL=$ck
     if (Test-Path $out) { Remove-Item -Recurse -Force $out }
     New-Item -ItemType Directory -Force -Path (Split-Path $out) | Out-Null
     Copy-Item -Recurse (Join-Path $src "build\web") $out
-    Write-Host "OK -> apps\$app (base-href $href)" -ForegroundColor Green
+    $shared = Join-Path $root "apps\canvaskit"
+    if (-not (Test-Path $shared)) { Copy-Item -Recurse (Join-Path $out "canvaskit") $shared }
+    Remove-Item -Recurse -Force (Join-Path $out "canvaskit")
+    Write-Host "OK -> apps\$app (base-href $href, canvaskit partagé)" -ForegroundColor Green
   } finally {
     Pop-Location
   }

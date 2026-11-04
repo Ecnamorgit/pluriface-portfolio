@@ -557,3 +557,22 @@ img.portrait { display: block; }
 .legal p, .legal li { color: var(--text); }
 .legal ul { padding-left: 1.2rem; }
 .legal .todo { background: var(--teal-soft); border-radius: var(--radius-sm); padding: .75rem 1rem; font-size: .95rem; }
+
+/* Page applications mobiles : une démo à la fois, les autres préchargées ---- */
+.demo-switch { display: flex; gap: .25rem; background: var(--fog); padding: .3rem; border-radius: 999px; width: fit-content; max-width: 100%; margin: 0 auto 1.5rem; }
+.demo-switch button { border: 0; background: transparent; border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; color: var(--ink); min-height: 44px; white-space: nowrap; }
+.demo-switch button[aria-selected="true"] { background: var(--ink); color: #fff; }
+@media (max-width: 600px) { .demo-switch { width: 100%; } .demo-switch button { flex: 1; padding: .5rem .4rem; font-size: .82rem; white-space: normal; } }
+.demo-stage { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 2.5rem; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
+@media (max-width: 760px) { .demo-stage { grid-template-columns: 1fr; justify-items: center; } }
+.demo-stage .phone { position: relative; }
+.demo-stage .phone iframe[hidden] { display: none; }
+.phone-loader { position: absolute; inset: 36px 12px 14px; border-radius: 22px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; color: var(--muted); font-size: .9rem; text-align: center; padding: 1rem; transition: opacity .4s; z-index: 2; }
+.phone-loader.off { opacity: 0; pointer-events: none; }
+.spin { width: 36px; height: 36px; border-radius: 50%; border: 4px solid var(--fog); border-top-color: var(--teal); animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.demo-desc h3 { font-size: 1.4rem; margin-bottom: .5rem; }
+.demo-desc p { color: var(--muted); }
+.demo-desc .open { display: inline-block; margin-top: .75rem; }
+.demo-hint { font-size: .85rem; color: #8a8a8a; margin-top: 1.5rem; }
+@media (max-width: 760px) { .demo-desc { text-align: center; } }
