@@ -576,3 +576,7 @@ img.portrait { display: block; }
 .demo-desc .open { display: inline-block; margin-top: .75rem; }
 .demo-hint { font-size: .85rem; color: #8a8a8a; margin-top: 1.5rem; }
 @media (max-width: 760px) { .demo-desc { text-align: center; } }
+
+/* « Ouvrir en plein écran » : utile sur téléphone seulement (sur grand écran l'app sortirait de son cadre). */
+.demo-desc .open { display: none; }
+@media (max-width: 760px) { .demo-desc .open { display: inline-block; } }
