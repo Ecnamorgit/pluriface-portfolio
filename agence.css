@@ -7,7 +7,7 @@
    ========================================================================== */
 
 :root {
-  color-scheme: light only;
+  color-scheme: only light;
   --paper: #ffffff;          /* Paper White : canvas */
   --paper-2: #ffffff;
   --sand: #f5f5f5;           /* Fog : surface alternative */
