@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plateforme de formation et de suivi en marque blanche : cours, fiches, cartes mémo, quiz à paliers, suivi des apprenants et espace d’administration. Testez la maquette interactive avec votre nom et vos couleurs.">
+  <meta property="og:title" content="Plateforme de formation et de suivi | Pluriface">
+  <meta property="og:description" content="Une plateforme de cours, quiz et suivi des apprenants, à vos couleurs. Maquette interactive.">
+  <link rel="icon" type="image/png" href="../assets/logo_pluriface.png">
+  <title>Plateforme de formation et de suivi | Pluriface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../agence.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand"><img src="../assets/logo_pluriface.png" alt="">Pluriface</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="../index.html#solutions">Solutions</a>
+        <a href="../index.html#realisations">Réalisations</a>
+        <a href="../index.html#methode">Méthode</a>
+        <a href="../index.html#studio">Le studio</a>
+        <a href="../index.html#contact" class="btn btn-primary">Parlons-en</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Fil d’Ariane"><a href="../index.html">Accueil</a><span>›</span><a href="../index.html#solutions">Solutions</a><span>›</span><span>Plateforme de formation</span></nav>
+        <span class="status">Déjà en service chez un organisme de formation</span>
+        <h1>Une plateforme de formation <em class="hl">à vos couleurs</em>, prête en quelques semaines.</h1>
+        <p class="lead">Vos formateurs déposent leurs cours, l’IA aide à rédiger la fiche, et la fiche devient cartes mémo, révision quotidienne et quiz à paliers. Chaque formateur suit ses apprenants ; chaque groupe est cloisonné. Vous administrez tout depuis un seul écran.</p>
+        <div class="actions">
+          <a href="#maquette" class="btn btn-primary">Essayer la maquette <span class="arrow">↓</span></a>
+          <a href="../index.html#contact" class="btn btn-ghost">Demander une démo complète</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="maquette" style="padding-top:1rem">
+      <div class="wrap">
+        <div class="demo-note"><strong>Maquette interactive.</strong><span>Les noms, cours et chiffres sont fictifs. Changez le nom de l’organisme, la couleur et les catégories à gauche : la plateforme se met à vos couleurs en direct. Cliquez sur les cartes, répondez au quiz.</span></div>
+
+        <div class="mock-layout">
+          <aside class="panel" aria-label="Personnalisation">
+            <h3>Votre marque</h3>
+            <label>Nom de l’organisme
+              <input type="text" id="org-name" value="Votre organisme" maxlength="32" autocomplete="off">
+            </label>
+            <label>Couleur principale
+              <div class="swatches" id="swatches">
+                <button class="swatch" style="background:#14b3a3" data-c="#14b3a3" aria-label="Turquoise" aria-pressed="true"></button>
+                <button class="swatch" style="background:#ff5a3c" data-c="#ff5a3c" aria-label="Corail" aria-pressed="false"></button>
+                <button class="swatch" style="background:#0f2a4f" data-c="#0f2a4f" aria-label="Marine" aria-pressed="false"></button>
+                <button class="swatch" style="background:#7c3aed" data-c="#7c3aed" aria-label="Violet" aria-pressed="false"></button>
+                <button class="swatch" style="background:#16a34a" data-c="#16a34a" aria-label="Vert" aria-pressed="false"></button>
+                <button class="swatch" style="background:#d97706" data-c="#d97706" aria-label="Ambre" aria-pressed="false"></button>
+              </div>
+            </label>
+            <label>Catégories de cours
+              <div class="chips" id="chips"></div>
+              <div class="chip-add">
+                <input type="text" id="chip-input" placeholder="Ajouter…" maxlength="24" aria-label="Nouvelle catégorie">
+                <button type="button" id="chip-btn">+</button>
+              </div>
+            </label>
+            <p class="hint">En production : votre logo, votre nom de domaine, vos propres cours et vos comptes apprenants.</p>
+          </aside>
+
+          <div class="app" id="app">
+            <div class="app-top">
+              <div class="app-brand"><span class="app-logo" id="app-logo">V</span><span id="app-name">Votre organisme</span></div>
+              <div class="app-tabs" role="tablist" aria-label="Rôle">
+                <button role="tab" aria-selected="true" data-role="apprenant">Apprenant</button>
+                <button role="tab" aria-selected="false" data-role="formateur">Formateur</button>
+                <button role="tab" aria-selected="false" data-role="admin">Administration</button>
+              </div>
+            </div>
+            <div class="app-body">
+              <nav class="app-side" id="app-side" aria-label="Menu de la maquette"></nav>
+              <div class="app-main" id="app-main"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tinted">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Ce que contient la plateforme</span>
+          <h2>Du cours brut à l’apprenant qui <em class="hl teal">retient</em></h2>
+        </div>
+        <div class="features">
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#mic"/></svg></div><h3>Cours audio et vidéo transcrits</h3><p>Déposez un enregistrement : il est transcrit automatiquement, et le formateur part d’un texte propre au lieu d’une page blanche.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#sparkles"/></svg></div><h3>Fiche rédigée avec l’IA</h3><p>L’IA propose une fiche de cours structurée ; le formateur corrige, valide, et reste l’auteur de ce qui est publié.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#layers"/></svg></div><h3>Cartes mémo et révision quotidienne</h3><p>La fiche devient des cartes recto-verso, programmées selon la mémoire de chacun (répétition espacée).</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#trophy"/></svg></div><h3>Quiz à paliers</h3><p>Des quiz dont le niveau monte quand l’apprenant réussit, avec feedback immédiat et historique des tentatives.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#chart"/></svg></div><h3>Suivi par formateur</h3><p>Progression, assiduité, scores : chaque formateur voit ses apprenants, et seulement les siens.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#lock"/></svg></div><h3>Groupes cloisonnés et données protégées</h3><p>Niveaux et groupes séparés, comptes créés par le formateur, hébergement en Europe, sauvegardes automatiques.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Pour qui</span>
+          <h2>Organismes de formation, écoles, associations, entreprises</h2>
+          <p>Formation interne, préparation à un examen, cours en ligne, parcours d’intégration des nouveaux salariés : si vous avez des contenus et des gens qui doivent les retenir, la plateforme s’adapte.</p>
+        </div>
+        <div class="faq reveal">
+          <details><summary>Combien de temps pour la mettre en place ?</summary><p>La plateforme existe déjà. L’habillage à vos couleurs, l’import de vos premiers cours et la création des comptes prennent quelques semaines, pas des mois.</p></details>
+          <details><summary>Où sont hébergées les données ?</summary><p>Sur un serveur en Europe, à votre nom, avec sauvegardes automatiques. Vous restez propriétaire des contenus et des données des apprenants.</p></details>
+          <details><summary>Faut-il savoir coder pour l’utiliser ?</summary><p>Non. Les formateurs déposent, corrigent et publient depuis leur espace. L’administration gère les comptes et les groupes depuis le sien.</p></details>
+          <details><summary>Comment est-ce facturé ?</summary><p>Une mise en place, puis un abonnement mensuel qui couvre l’hébergement, les mises à jour et le support. Devis sur mesure après un premier échange.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-band reveal">
+          <div>
+            <h2>Envie de voir la version complète ?</h2>
+            <p>Nous vous montrons la plateforme en service, avec de vrais parcours, en visio ou sur place.</p>
+          </div>
+          <a href="../index.html#contact" class="btn btn-primary">Demander une démo <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><span class="footer-brand">Pluriface</span><p>Studio digital à Montceau-les-Mines : sites, applications, formation, IA et réseaux sociaux.</p></div>
+        <nav aria-label="Solutions"><span class="footer-title">Solutions</span><a href="plateforme-formation.html">Plateforme de formation</a><a href="assistant-commentaires.html">Assistant commentaires</a><a href="applications-mobiles.html">Applications mobiles</a></nav>
+        <nav aria-label="Le studio"><span class="footer-title">Le studio</span><a href="../index.html#realisations">Réalisations</a><a href="../index.html#methode">Méthode</a><a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener">Code public</a></nav>
+        <nav aria-label="Légal"><span class="footer-title">Légal</span><a href="../mentions-legales.html">Mentions légales</a><a href="../mentions-legales.html#confidentialite">Confidentialité</a><a href="../index.html#contact">Contact</a></nav>
+      </div>
+      <p class="footer-legal">© 2026 Pluriface · Entreprise individuelle Joan De Romance, Montceau-les-Mines (71300)</p>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+  <script>
+  (function () {
+    /* ---------- État de la maquette ---------- */
+    const state = {
+      name: 'Votre organisme',
+      color: '#14b3a3',
+      cats: ['Bureautique', 'Langues', 'Sécurité au travail'],
+      role: 'apprenant',
+      view: 'dash',
+      card: 0, flipped: false,
+      quiz: { i: 0, score: 0, done: false, answered: false },
+    };
+    const learners = [
+      { n: 'Nadia B.', g: 'Groupe A', p: 72, a: 92, s: 'ok', last: 'aujourd’hui' },
+      { n: 'Karim D.', g: 'Groupe A', p: 88, a: 100, s: 'ok', last: 'hier' },
+      { n: 'Léa M.', g: 'Groupe A', p: 45, a: 60, s: 'warn', last: 'il y a 6 jours' },
+      { n: 'Thomas R.', g: 'Groupe B', p: 63, a: 85, s: 'ok', last: 'aujourd’hui' },
+      { n: 'Inès K.', g: 'Groupe B', p: 31, a: 40, s: 'warn', last: 'il y a 12 jours' },
+      { n: 'Hugo P.', g: 'Groupe B', p: 95, a: 100, s: 'ok', last: 'aujourd’hui' },
+    ];
+    const titles = ['Les bases', 'Aller plus loin', 'Cas pratiques', 'Préparer l’évaluation'];
+    const cards = [
+      ['Quel est l’objectif d’une fiche de cours ?', 'Résumer l’essentiel pour le retenir et le réviser.'],
+      ['Qu’est-ce que la répétition espacée ?', 'Revoir une notion à des intervalles de plus en plus longs.'],
+      ['À quoi sert un quiz à paliers ?', 'À monter de niveau quand on réussit, pour rester motivé.'],
+    ];
+    const quiz = [
+      { q: 'Une révision efficace, c’est…', o: ['Tout relire la veille', 'Revoir un peu chaque jour', 'Ne jamais revoir'], a: 1 },
+      { q: 'Une carte mémo contient…', o: ['Un cours complet', 'Une question et sa réponse', 'Une vidéo'], a: 1 },
+      { q: 'Quand on rate une question…', o: ['La carte revient plus tôt', 'La carte disparaît', 'Rien ne change'], a: 0 },
+    ];
+
+    /* ---------- Utilitaires couleur ---------- */
+    function hexToRgb(h) { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+    function mix(h, w) { const [r, g, b] = hexToRgb(h); const f = c => Math.round(c + (255 - c) * w); return `rgb(${f(r)},${f(g)},${f(b)})`; }
+    function dark(h, w) { const [r, g, b] = hexToRgb(h); const f = c => Math.round(c * (1 - w)); return `rgb(${f(r)},${f(g)},${f(b)})`; }
+
+    const app = document.getElementById('app');
+    const side = document.getElementById('app-side');
+    const main = document.getElementById('app-main');
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    function applyBrand() {
+      app.style.setProperty('--brand', state.color);
+      app.style.setProperty('--brand-soft', mix(state.color, .82));
+      app.style.setProperty('--brand-ink', dark(state.color, .35));
+      document.getElementById('app-name').textContent = state.name || 'Votre organisme';
+      document.getElementById('app-logo').textContent = (state.name.trim()[0] || 'V').toUpperCase();
+    }
+
+    function renderChips() {
+      const el = document.getElementById('chips');
+      el.innerHTML = state.cats.map((c, i) => `<span class="chip">${esc(c)}<button type="button" data-i="${i}" aria-label="Retirer ${esc(c)}">×</button></span>`).join('');
+      el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (state.cats.length > 1) { state.cats.splice(+b.dataset.i, 1); renderChips(); render(); } }));
+    }
+
+    /* ---------- Menus par rôle ---------- */
+    const menus = {
+      apprenant: [['dash', 'home', 'Tableau de bord'], ['cours', 'book', 'Mes cours'], ['cartes', 'layers', 'Cartes mémo'], ['quiz', 'trophy', 'Quiz']],
+      formateur: [['suivi', 'chart', 'Suivi des apprenants'], ['fiche', 'pen', 'Rédiger une fiche'], ['cours', 'book', 'Mes cours']],
+      admin: [['stats', 'chart', 'Vue d’ensemble'], ['comptes', 'users', 'Comptes et groupes'], ['reglages', 'settings', 'Réglages'],],
+    };
+    const who = { apprenant: ['Nadia B.', 'Apprenante · Groupe A'], formateur: ['M. Lefèvre', 'Formateur · Groupes A et B'], admin: ['Direction', 'Administration'] };
+
+    function renderSide() {
+      const w = who[state.role];
+      side.innerHTML = `<div class="who"><b>${w[0]}</b>${w[1]}</div>` + menus[state.role].map(m => `<a href="#" data-v="${m[0]}" class="${state.view === m[0] ? 'on' : ''}"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#${m[1]}"/></svg>${m[2]}</a>`).join('');
+      side.querySelectorAll('a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); state.view = a.dataset.v; render(); }));
+    }
+
+    /* ---------- Vues ---------- */
+    function courseList(limit) {
+      let out = [], k = 0;
+      const one = (c, ci, t, ti) => { const p = ((ci * 37 + ti * 23) % 100); return `<div class="course"><span class="cat">${esc(c)}</span><b>${t}</b><div class="prog"><i style="width:${p}%"></i></div><small>${p} % · ${3 + (k++ % 4)} fiches</small></div>`; };
+      if (limit) { state.cats.slice(0, limit).forEach((c, ci) => out.push(one(c, ci, titles[(ci + 1) % titles.length], (ci + 1) % titles.length))); return out.join(''); }
+      state.cats.forEach((c, ci) => titles.forEach((t, ti) => out.push(one(c, ci, t, ti))));
+      return out.join('');
+    }
+    const views = {
+      dash() {
+        return `<div><h4>Bonjour Nadia</h4><p class="sub">Vous avez 6 cartes à revoir aujourd’hui et un quiz débloqué.</p></div>
+          <div class="cards"><div class="kpi"><b>72 %</b><span>progression globale</span></div><div class="kpi"><b>6</b><span>cartes à revoir</span></div><div class="kpi"><b>12 j</b><span>de suite sans manquer</span></div><div class="kpi"><b>Palier 3</b><span>atteint en quiz</span></div></div>
+          <div><h4 style="font-size:1rem;margin-bottom:.5rem">Reprendre</h4><div class="cards">${courseList(3)}</div></div>`;
+      },
+      cours() {
+        return `<div><h4>${state.role === 'formateur' ? 'Mes cours publiés' : 'Mes cours'}</h4><p class="sub">${state.cats.length} catégorie${state.cats.length > 1 ? 's' : ''} · ${state.cats.length * titles.length} cours</p></div><div class="cards">${courseList()}</div>`;
+      },
+      cartes() {
+        const c = cards[state.card];
+        return `<div><h4>Cartes mémo · ${esc(state.cats[0])}</h4><p class="sub">Cliquez sur la carte pour la retourner.</p></div>
+          <div class="flash ${state.flipped ? 'flipped' : ''}" id="flash" role="button" tabindex="0" aria-label="Retourner la carte"><div class="inner"><div class="face front">${c[0]}</div><div class="face back">${c[1]}</div></div></div>
+          <div class="flash-nav"><button type="button" id="prev">‹</button><span>Carte ${state.card + 1} / ${cards.length}</span><button type="button" id="next">›</button></div>
+          <div class="flash-nav" style="margin-top:0"><button type="button" class="again">Encore (1 j)</button><button type="button" class="again">Facile (4 j)</button></div>`;
+      },
+      quiz() {
+        const q = state.quiz;
+        if (q.done) return `<div><h4>Quiz terminé</h4><p class="sub">Score : ${q.score} / ${quiz.length}. ${q.score === quiz.length ? 'Palier 4 débloqué !' : 'Encore un essai pour débloquer le palier suivant.'}</p></div>
+          <div class="levels"><span class="done">Palier 1</span><span class="done">Palier 2</span><span class="done">Palier 3</span><span class="${q.score === quiz.length ? 'done' : 'now'}">Palier 4</span><span>Palier 5</span></div>
+          <div><button type="button" class="btn btn-dark btn-sm" id="requiz">Recommencer</button></div>`;
+        const it = quiz[q.i];
+        return `<div><h4>Quiz · question ${q.i + 1} / ${quiz.length}</h4><p class="sub">Palier 3 · Répondez pour passer à la suivante.</p></div>
+          <div class="levels"><span class="done">Palier 1</span><span class="done">Palier 2</span><span class="now">Palier 3</span><span>Palier 4</span><span>Palier 5</span></div>
+          <div class="quiz"><div class="q">${it.q}</div>${it.o.map((o, i) => `<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}<div class="fb" id="fb"></div></div>`;
+      },
+      suivi() {
+        return `<div><h4>Suivi des apprenants</h4><p class="sub">Vous ne voyez que vos groupes. Les apprenants inactifs depuis plus de 5 jours sont signalés.</p></div>
+          <div class="cards"><div class="kpi"><b>${learners.length}</b><span>apprenants</span></div><div class="kpi"><b>66 %</b><span>progression moyenne</span></div><div class="kpi"><b>2</b><span>à relancer</span></div></div>
+          <table class="table"><thead><tr><th>Apprenant</th><th>Groupe</th><th>Progression</th><th>Assiduité</th><th>Dernière activité</th></tr></thead><tbody>
+          ${learners.map(l => `<tr><td><span class="dot ${l.s}"></span>${l.n}</td><td>${l.g}</td><td><div class="prog ${l.s}"><i style="width:${l.p}%"></i></div></td><td>${l.a} %</td><td>${l.last}</td></tr>`).join('')}</tbody></table>`;
+      },
+      fiche() {
+        return `<div><h4>Rédiger une fiche</h4><p class="sub">Déposez un enregistrement ; l’IA propose une fiche que vous corrigez avant publication.</p></div>
+          <div class="cards"><div class="course" style="cursor:default"><span class="cat">1 · Transcription</span><b>cours-12-oct.mp3</b><div class="prog"><i style="width:100%"></i></div><small>Transcrit · 48 min</small></div>
+          <div class="course" style="cursor:default"><span class="cat">2 · Fiche proposée</span><b>Brouillon prêt</b><div class="prog"><i style="width:100%"></i></div><small>7 sections · 12 cartes suggérées</small></div>
+          <div class="course" style="cursor:default"><span class="cat">3 · Validation</span><b>En relecture</b><div class="prog"><i style="width:40%"></i></div><small>Vous restez l’auteur</small></div></div>
+          <div class="reply"><span class="lbl">Extrait de la fiche proposée</span>« <b>Objectif :</b> comprendre les trois règles de base. <b>À retenir :</b> … <b>Erreurs fréquentes :</b> … »<div class="acts"><button type="button">Publier</button><button type="button" class="ghost">Modifier</button><button type="button" class="ghost">Générer les cartes mémo</button></div></div>`;
+      },
+      stats() {
+        return `<div><h4>Vue d’ensemble</h4><p class="sub">${esc(state.name)} · ce mois-ci</p></div>
+          <div class="cards"><div class="kpi"><b>128</b><span>apprenants actifs</span></div><div class="kpi"><b>9</b><span>formateurs</span></div><div class="kpi"><b>${state.cats.length * titles.length}</b><span>cours publiés</span></div><div class="kpi"><b>4 310</b><span>cartes revues</span></div><div class="kpi"><b>81 %</b><span>de quiz réussis</span></div><div class="kpi"><b>99,9 %</b><span>disponibilité</span></div></div>
+          <div><h4 style="font-size:1rem;margin-bottom:.5rem">Catégories</h4><div class="levels">${state.cats.map(c => `<span class="done">${esc(c)}</span>`).join('')}</div></div>`;
+      },
+      comptes() {
+        return `<div><h4>Comptes et groupes</h4><p class="sub">Chaque formateur crée ses apprenants. Un groupe ne voit jamais les autres.</p></div>
+          <table class="table"><thead><tr><th>Groupe</th><th>Formateur</th><th>Apprenants</th><th>Statut</th></tr></thead><tbody>
+          <tr><td>Groupe A</td><td>M. Lefèvre</td><td>24</td><td><span class="dot ok"></span>Actif</td></tr>
+          <tr><td>Groupe B</td><td>M. Lefèvre</td><td>18</td><td><span class="dot ok"></span>Actif</td></tr>
+          <tr><td>Groupe C</td><td>Mme Garnier</td><td>31</td><td><span class="dot ok"></span>Actif</td></tr>
+          <tr><td>Promo 2027</td><td>Mme Garnier</td><td>0</td><td><span class="dot wait"></span>En préparation</td></tr></tbody></table>
+          <div><button type="button" class="btn btn-dark btn-sm">+ Créer un groupe</button></div>`;
+      },
+      reglages() {
+        return `<div><h4>Réglages</h4><p class="sub">Habillage, règles et exports.</p></div>
+          <div class="cards">
+            <div class="course" style="cursor:default"><b>Marque</b><small>${esc(state.name)} · couleur ${state.color}</small><span class="cat">Logo et domaine</span></div>
+            <div class="course" style="cursor:default"><b>Inscriptions</b><small>Sur invitation uniquement</small><span class="toggle on"><i></i>Activé</span></div>
+            <div class="course" style="cursor:default"><b>Aide IA à la rédaction</b><small>Fiches et cartes proposées</small><span class="toggle on"><i></i>Activé</span></div>
+            <div class="course" style="cursor:default"><b>Export des résultats</b><small>CSV / PDF par groupe</small><span class="toggle on"><i></i>Activé</span></div>
+            <div class="course" style="cursor:default"><b>Sauvegardes</b><small>Quotidiennes · Europe</small><span class="toggle on"><i></i>Activé</span></div>
+          </div>`;
+      },
+    };
+
+    function render() {
+      applyBrand(); renderSide();
+      main.innerHTML = views[state.view]();
+      const f = document.getElementById('flash');
+      if (f) {
+        const flip = () => { state.flipped = !state.flipped; f.classList.toggle('flipped', state.flipped); };
+        f.addEventListener('click', flip);
+        f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+        document.getElementById('prev').addEventListener('click', () => { state.card = (state.card + cards.length - 1) % cards.length; state.flipped = false; render(); });
+        document.getElementById('next').addEventListener('click', () => { state.card = (state.card + 1) % cards.length; state.flipped = false; render(); });
+        main.querySelectorAll('.again').forEach(b => b.addEventListener('click', () => { state.card = (state.card + 1) % cards.length; state.flipped = false; render(); }));
+      }
+      main.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+        const q = state.quiz; if (q.answered) return; q.answered = true;
+        const ok = +b.dataset.i === quiz[q.i].a; if (ok) q.score++;
+        b.classList.add(ok ? 'good' : 'bad');
+        main.querySelectorAll('.opt')[quiz[q.i].a].classList.add('good');
+        document.getElementById('fb').textContent = ok ? 'Bonne réponse ! La carte reviendra dans 4 jours.' : 'Pas tout à fait. La carte reviendra demain.';
+        setTimeout(() => { q.i++; q.answered = false; if (q.i >= quiz.length) q.done = true; render(); }, 1100);
+      }));
+      const rq = document.getElementById('requiz'); if (rq) rq.addEventListener('click', () => { state.quiz = { i: 0, score: 0, done: false, answered: false }; render(); });
+    }
+
+    /* ---------- Panneau ---------- */
+    document.getElementById('org-name').addEventListener('input', e => { state.name = e.target.value.trim() || 'Votre organisme'; render(); });
+    document.querySelectorAll('.swatch').forEach(s => s.addEventListener('click', () => { document.querySelectorAll('.swatch').forEach(x => x.setAttribute('aria-pressed', 'false')); s.setAttribute('aria-pressed', 'true'); state.color = s.dataset.c; render(); }));
+    const addChip = () => { const i = document.getElementById('chip-input'); const v = i.value.trim(); if (v && state.cats.length < 6) { state.cats.push(v); i.value = ''; renderChips(); render(); } };
+    document.getElementById('chip-btn').addEventListener('click', addChip);
+    document.getElementById('chip-input').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addChip(); } });
+    document.querySelectorAll('.app-tabs [role=tab]').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('.app-tabs [role=tab]').forEach(x => x.setAttribute('aria-selected', 'false')); t.setAttribute('aria-selected', 'true');
+      state.role = t.dataset.role; state.view = menus[state.role][0][0]; render();
+    }));
+
+    renderChips(); render();
+  })();
+  </script>
+</body>
+</html>

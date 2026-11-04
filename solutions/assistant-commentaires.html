@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Assistant de réponse aux commentaires TikTok, Instagram et Facebook : réponses automatiques dans votre ton, remontée des cas sensibles vers un humain, un seul écran pour tous vos comptes. Maquette interactive.">
+  <meta property="og:title" content="Assistant de réponse aux commentaires | Pluriface">
+  <meta property="og:description" content="TikTok, Instagram, Facebook : l’assistant répond aux commentaires simples et vous alerte pour les cas sensibles.">
+  <link rel="icon" type="image/png" href="../assets/logo_pluriface.png">
+  <title>Assistant de réponse aux commentaires | Pluriface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../agence.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand"><img src="../assets/logo_pluriface.png" alt="">Pluriface</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="../index.html#solutions">Solutions</a>
+        <a href="../index.html#realisations">Réalisations</a>
+        <a href="../index.html#methode">Méthode</a>
+        <a href="../index.html#studio">Le studio</a>
+        <a href="../index.html#contact" class="btn btn-primary">Parlons-en</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Fil d’Ariane"><a href="../index.html">Accueil</a><span>›</span><a href="../index.html#solutions">Solutions</a><span>›</span><span>Assistant commentaires</span></nav>
+        <span class="status coral">En conception · premiers utilisateurs recherchés</span>
+        <h1>Répondre à chaque commentaire, <em class="hl">sans y passer vos soirées</em>.</h1>
+        <p class="lead">Vous gérez plusieurs comptes TikTok, Instagram et Facebook, et les commentaires s’accumulent. L’assistant lit chaque commentaire, propose une réponse dans votre ton, publie les cas simples, et vous prévient par Telegram ou Discord quand un humain doit prendre la main.</p>
+        <div class="actions">
+          <a href="#maquette" class="btn btn-primary">Voir la maquette <span class="arrow">↓</span></a>
+          <a href="../index.html#contact" class="btn btn-ghost">Devenir utilisateur pilote</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="maquette" style="padding-top:1rem">
+      <div class="wrap">
+        <div class="demo-note"><strong>Maquette de l’idée.</strong><span>Le projet est en cours de conception : cet écran montre ce que nous construisons. Les comptes et commentaires sont fictifs. Cliquez sur « Faire arriver des commentaires » pour voir l’assistant travailler.</span></div>
+
+        <div class="mock-layout">
+          <aside class="panel" aria-label="Réglages de l’assistant">
+            <h3>Comptes suivis</h3>
+            <div class="accounts">
+              <div class="acc"><span class="ava" style="background:#d97706">BD</span>Boulangerie Dupain<small>FB · IG</small></div>
+              <div class="acc"><span class="ava" style="background:#7c3aed">YF</span>Yoga Flow Studio<small>IG · TikTok</small></div>
+              <div class="acc"><span class="ava" style="background:#0f2a4f">GM</span>Garage Martin<small>FB</small></div>
+            </div>
+            <label>Ton des réponses
+              <div class="chips" id="tone">
+                <button type="button" class="swatch-tone chip" data-tone="tu" style="border:0;cursor:pointer" aria-pressed="false">Tutoiement</button>
+                <button type="button" class="swatch-tone chip" data-tone="vous" style="border:0;cursor:pointer;background:var(--ink);color:#fff" aria-pressed="true">Vouvoiement</button>
+              </div>
+            </label>
+            <label>Alertes vers un humain
+              <div class="chips">
+                <span class="chip" style="background:#2aabee;color:#fff;padding-right:.75rem">Telegram ✓</span>
+                <span class="chip" style="padding-right:.75rem">Discord</span>
+              </div>
+            </label>
+            <label>Règles
+              <div class="chips" style="flex-direction:column;align-items:flex-start">
+                <span class="toggle on"><i></i>Publier les réponses simples</span>
+                <span class="toggle on"><i></i>Bloquer sur avis négatif</span>
+                <span class="toggle on"><i></i>Bloquer sur question de prix</span>
+                <span class="toggle"><i></i>Répondre la nuit</span>
+              </div>
+            </label>
+            <p class="hint">En production : connexion officielle aux comptes, historique, statistiques par client, facturation mensuelle.</p>
+          </aside>
+
+          <div class="app" style="min-height:0">
+            <div class="app-top">
+              <div class="app-brand"><span class="app-logo" style="background:var(--ink)">A</span><span>Assistant commentaires</span></div>
+              <div class="sim-bar">
+                <span class="count" id="count">0 commentaire traité</span>
+                <button type="button" class="btn btn-primary btn-sm" id="sim">Faire arriver des commentaires</button>
+              </div>
+            </div>
+            <div class="app-main" style="padding:1rem">
+              <div class="cards">
+                <div class="kpi"><b id="k-total">0</b><span>commentaires reçus</span></div>
+                <div class="kpi"><b id="k-auto">0</b><span>réponses publiées seules</span></div>
+                <div class="kpi"><b id="k-esc">0</b><span>remontés à un humain</span></div>
+                <div class="kpi"><b id="k-time">0 min</b><span>de temps gagné (estimation)</span></div>
+              </div>
+              <div class="feed" id="feed">
+                <p class="sub" id="empty">Le flux est vide. Cliquez sur « Faire arriver des commentaires ».</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tinted">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Comment ça marche</span>
+          <h2>Un assistant qui connaît <em class="hl teal">ses limites</em></h2>
+        </div>
+        <div class="features">
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#inbox"/></svg></div><h3>Tous les comptes sur un écran</h3><p>Les commentaires de tous vos clients, toutes plateformes confondues, arrivent dans un seul flux, triés par urgence.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#sliders"/></svg></div><h3>Votre ton, vos informations</h3><p>Horaires, tarifs, politique de retour : l’assistant répond à partir de ce que vous lui avez donné, dans le ton que vous avez choisi.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#split"/></svg></div><h3>Simple → publié, sensible → humain</h3><p>Un merci, une question d’horaire : réponse publiée. Un client mécontent, une question de prix, un sujet flou : la réponse attend votre validation.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#bell"/></svg></div><h3>Alerte Telegram ou Discord</h3><p>Quand un humain doit intervenir, vous recevez le commentaire et la réponse proposée. Un clic pour publier, modifier ou ignorer.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#chart"/></svg></div><h3>Rapport par client</h3><p>Combien de commentaires, combien de réponses, quel délai moyen : un rapport mensuel pour chacun de vos clients.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#repeat"/></svg></div><h3>Pensé pour plusieurs clients</h3><p>Conçu d’abord pour un community manager qui gère plusieurs marques, puis proposé à d’autres par abonnement mensuel.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Où en est le projet</span>
+          <h2>Nous cherchons nos premiers utilisateurs</h2>
+          <p>Le besoin vient d’un community manager qui gère plusieurs comptes et perd ses soirées à répondre. Nous concevons l’outil avec lui. Si vous vivez la même chose, vous pouvez participer : vous testez en premier, et vous orientez ce qui est construit.</p>
+        </div>
+        <div class="faq reveal">
+          <details><summary>Est-ce que l’assistant peut publier n’importe quoi ?</summary><p>Non. Il ne publie seul que les cas que vous avez autorisés (remerciements, horaires, questions dont la réponse est dans vos informations). Tout le reste attend votre validation, et vous pouvez tout relire a posteriori.</p></details>
+          <details><summary>Est-ce compatible avec les règles des plateformes ?</summary><p>L’assistant passe par les connexions officielles des plateformes. Les fonctionnalités dépendent de ce que chaque plateforme autorise, et nous les documentons compte par compte.</p></details>
+          <details><summary>Combien ça coûte ?</summary><p>Un abonnement mensuel par compte suivi, défini avec les premiers utilisateurs. Les utilisateurs pilotes bénéficient d’un tarif préférentiel durable.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-band reveal">
+          <div>
+            <h2>Vous gérez des comptes pour plusieurs clients ?</h2>
+            <p>Racontez-nous votre quotidien en quelques lignes. Nous revenons vers vous sous 48 h.</p>
+          </div>
+          <a href="../index.html#contact" class="btn btn-primary">Devenir utilisateur pilote <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><span class="footer-brand">Pluriface</span><p>Studio digital à Montceau-les-Mines : sites, applications, formation, IA et réseaux sociaux.</p></div>
+        <nav aria-label="Solutions"><span class="footer-title">Solutions</span><a href="plateforme-formation.html">Plateforme de formation</a><a href="assistant-commentaires.html">Assistant commentaires</a><a href="applications-mobiles.html">Applications mobiles</a></nav>
+        <nav aria-label="Le studio"><span class="footer-title">Le studio</span><a href="../index.html#realisations">Réalisations</a><a href="../index.html#methode">Méthode</a><a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener">Code public</a></nav>
+        <nav aria-label="Légal"><span class="footer-title">Légal</span><a href="../mentions-legales.html">Mentions légales</a><a href="../mentions-legales.html#confidentialite">Confidentialité</a><a href="../index.html#contact">Contact</a></nav>
+      </div>
+      <p class="footer-legal">© 2026 Pluriface · Entreprise individuelle Joan De Romance, Montceau-les-Mines (71300)</p>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+  <script>
+  (function () {
+    let tone = 'vous';
+    document.querySelectorAll('.swatch-tone').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.swatch-tone').forEach(x => { x.setAttribute('aria-pressed', 'false'); x.style.background = ''; x.style.color = ''; });
+      b.setAttribute('aria-pressed', 'true'); b.style.background = 'var(--ink)'; b.style.color = '#fff'; tone = b.dataset.tone;
+    }));
+
+    const pool = [
+      { who: 'Camille', ini: 'C', col: '#16a34a', net: 'ig', acc: 'Boulangerie Dupain', txt: 'Vous êtes ouverts le dimanche matin ?', kind: 'auto', vous: 'Oui, nous sommes ouverts le dimanche de 7 h à 13 h. À bientôt !', tu: 'Oui, on est ouverts le dimanche de 7 h à 13 h. À bientôt !' },
+      { who: 'Mehdi', ini: 'M', col: '#7c3aed', net: 'tt', acc: 'Yoga Flow Studio', txt: 'Trop bien cette séance, merci 🙏', kind: 'auto', vous: 'Merci Mehdi, ravis que la séance vous ait plu ! Prochaine session jeudi à 18 h 30.', tu: 'Merci Mehdi, trop contents que ça t’ait plu ! Prochaine session jeudi 18 h 30.' },
+      { who: 'Sandrine', ini: 'S', col: '#ff5a3c', net: 'fb', acc: 'Garage Martin', txt: 'Déçue… ma voiture est repartie avec le même bruit. 2e fois.', kind: 'esc', why: 'Client mécontent', vous: 'Bonjour Sandrine, nous sommes désolés. Ce n’est pas normal, et nous voulons régler ça : pouvez-vous nous envoyer votre numéro en message privé pour que l’atelier vous rappelle aujourd’hui ?', tu: 'Bonjour Sandrine, désolés, ce n’est pas normal. Envoie-nous ton numéro en message privé, l’atelier te rappelle aujourd’hui.' },
+      { who: 'Lucas', ini: 'L', col: '#0f2a4f', net: 'ig', acc: 'Yoga Flow Studio', txt: 'C’est combien le cours d’essai ?', kind: 'esc', why: 'Question de prix', vous: 'Bonjour Lucas, le cours d’essai est à 10 €. Vous pouvez réserver directement depuis le lien en bio.', tu: 'Salut Lucas, le cours d’essai est à 10 €. Tu peux réserver depuis le lien en bio.' },
+      { who: 'Nathalie', ini: 'N', col: '#d97706', net: 'fb', acc: 'Boulangerie Dupain', txt: 'Vous faites des gâteaux d’anniversaire sur commande ?', kind: 'auto', vous: 'Oui ! Les commandes se passent en boutique ou par téléphone, 48 h à l’avance. Nous vous attendons.', tu: 'Oui ! Tu peux commander en boutique ou par téléphone, 48 h à l’avance.' },
+      { who: 'Karim', ini: 'K', col: '#14b3a3', net: 'tt', acc: 'Yoga Flow Studio', txt: 'Est-ce que c’est adapté si j’ai mal au dos ?', kind: 'esc', why: 'Sujet sensible (santé)', vous: 'Bonjour Karim, pour toute question liée à une douleur, le mieux est d’en parler avec le professeur avant la séance : écrivez-nous en message privé et nous vous orienterons.', tu: 'Salut Karim, pour une douleur, le mieux est d’en parler au prof avant la séance : écris-nous en message privé.' },
+      { who: 'Pauline', ini: 'P', col: '#dd2a7b', net: 'ig', acc: 'Boulangerie Dupain', txt: 'Le pain aux noix 😍😍', kind: 'auto', vous: 'Merci Pauline ! Il sort du four tous les matins vers 7 h 30.', tu: 'Merci Pauline ! Il sort du four tous les matins vers 7 h 30.' },
+      { who: 'Olivier', ini: 'O', col: '#1877f2', net: 'fb', acc: 'Garage Martin', txt: 'Vous prenez les voitures hybrides ?', kind: 'auto', vous: 'Oui, nous entretenons les hybrides. Vous pouvez demander un rendez-vous par téléphone ou en message privé.', tu: 'Oui, on entretient les hybrides. Demande un rendez-vous par téléphone ou en message privé.' },
+    ];
+    const netName = { tt: 'TikTok', ig: 'Instagram', fb: 'Facebook' };
+    const feed = document.getElementById('feed');
+    const empty = document.getElementById('empty');
+    const stats = { total: 0, auto: 0, esc: 0 };
+    let idx = 0, running = false;
+
+    function kpi() {
+      document.getElementById('k-total').textContent = stats.total;
+      document.getElementById('k-auto').textContent = stats.auto;
+      document.getElementById('k-esc').textContent = stats.esc;
+      document.getElementById('k-time').textContent = (stats.auto * 3 + stats.esc * 1) + ' min';
+      document.getElementById('count').textContent = stats.total + ' commentaire' + (stats.total > 1 ? 's' : '') + ' traité' + (stats.total > 1 ? 's' : '');
+    }
+
+    function addComment(c) {
+      if (empty) empty.remove();
+      const el = document.createElement('article');
+      el.className = 'cmt' + (c.kind === 'esc' ? ' flag' : '');
+      const reply = c[tone];
+      el.innerHTML = `<span class="ava" style="background:${c.col}">${c.ini}</span><div>
+        <div class="meta"><span class="net ${c.net}">${netName[c.net]}</span><b>${c.who}</b><span>· sur ${c.acc}</span><span>· à l’instant</span></div>
+        <div class="txt">${c.txt}</div>
+        <div class="reply ${c.kind === 'esc' ? 'wait' : ''}"><span class="lbl">${c.kind === 'esc' ? 'En attente d’un humain · ' + c.why : 'Réponse publiée automatiquement'}</span>${reply}
+        ${c.kind === 'esc' ? '<div class="acts"><button type="button" data-a="pub">Publier</button><button type="button" class="ghost" data-a="edit">Modifier</button><button type="button" class="ghost" data-a="skip">Ignorer</button></div>' : ''}</div></div>`;
+      feed.prepend(el);
+      stats.total++;
+      if (c.kind === 'esc') {
+        stats.esc++;
+        const n = document.createElement('div');
+        n.className = 'notif';
+        n.innerHTML = `<span class="ic-box"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#send"/></svg></span><div><b>Telegram · Alerte</b><small>${c.acc} · ${c.why} : « ${c.txt.slice(0, 48)}${c.txt.length > 48 ? '…' : ''} » — réponse proposée, en attente de validation.</small></div>`;
+        feed.prepend(n);
+        el.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+          const r = el.querySelector('.reply'); const a = b.dataset.a;
+          r.classList.remove('wait');
+          r.querySelector('.lbl').textContent = a === 'pub' ? 'Publiée après validation' : a === 'edit' ? 'Modifiée puis publiée' : 'Ignorée';
+          r.querySelector('.acts').remove(); el.classList.remove('flag'); n.remove();
+        }));
+      } else { stats.auto++; }
+      kpi();
+    }
+
+    document.getElementById('sim').addEventListener('click', () => {
+      if (running) return; running = true;
+      const btn = document.getElementById('sim'); btn.disabled = true; btn.textContent = 'Commentaires en cours…';
+      let k = 0;
+      const t = setInterval(() => {
+        addComment(pool[idx % pool.length]); idx++; k++;
+        if (k >= 4) { clearInterval(t); running = false; btn.disabled = false; btn.textContent = 'Faire arriver d’autres commentaires'; }
+      }, 900);
+    });
+  })();
+  </script>
+</body>
+</html>

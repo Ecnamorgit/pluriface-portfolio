@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Applications mobiles Flutter par Pluriface : un seul code pour Android, iPhone et le web. Trois mini-applications de démonstration à tester directement dans la page.">
+  <meta property="og:title" content="Applications mobiles Flutter | Pluriface">
+  <meta property="og:description" content="Un seul code pour Android, iPhone et le web. Testez trois mini-apps dans la page.">
+  <link rel="icon" type="image/png" href="../assets/logo_pluriface.png">
+  <title>Applications mobiles Flutter | Pluriface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../agence.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a href="../index.html" class="brand"><img src="../assets/logo_pluriface.png" alt="">Pluriface</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="../index.html#solutions">Solutions</a>
+        <a href="../index.html#realisations">Réalisations</a>
+        <a href="../index.html#methode">Méthode</a>
+        <a href="../index.html#studio">Le studio</a>
+        <a href="../index.html#contact" class="btn btn-primary">Parlons-en</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Fil d’Ariane"><a href="../index.html">Accueil</a><span>›</span><a href="../index.html#solutions">Solutions</a><span>›</span><span>Applications mobiles</span></nav>
+        <span class="status lemon">Flutter · Android, iPhone et web avec un seul code</span>
+        <h1>Une application mobile, <em class="hl">sans la payer deux fois</em>.</h1>
+        <p class="lead">Nous développons avec Flutter : le même code produit l’application Android, l’application iPhone et une version web. Les trois démonstrations ci-dessous sont de vraies applications Flutter, compilées pour le navigateur et affichées dans un cadre de téléphone. Touchez, cliquez, testez.</p>
+        <div class="actions">
+          <a href="#demos" class="btn btn-primary">Tester les démos <span class="arrow">↓</span></a>
+          <a href="../index.html#contact" class="btn btn-ghost">Parler de votre application</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demos" style="padding-top:1rem">
+      <div class="wrap">
+        <div class="demo-note"><strong>Démos interactives.</strong><span>Données fictives, rien n’est enregistré. Chaque démo tient en un seul fichier de code Flutter d’environ 300 lignes : c’est le point de départ d’une application sur mesure, pas un produit fini.</span></div>
+        <div class="phones">
+          <div class="phone-wrap reveal">
+            <div class="phone"><iframe src="../apps/fidelite/index.html" title="Démo : carte de fidélité" loading="lazy"></iframe></div>
+            <h3>Carte de fidélité</h3>
+            <p>Pour un commerce : tampons à chaque passage, récompense débloquée, offres du moment, historique. Le commerçant scanne un QR code, le client voit sa carte se remplir.</p>
+            <a class="open" href="../apps/fidelite/index.html" target="_blank" rel="noopener">Ouvrir en plein écran</a>
+          </div>
+          <div class="phone-wrap reveal">
+            <div class="phone"><iframe src="../apps/voyageurs/index.html" title="Démo : information voyageurs" loading="lazy"></iframe></div>
+            <h3>Information voyageurs</h3>
+            <p>Pour un réseau de transport : prochains passages à mes arrêts, lignes et favoris, alertes de perturbation. Branchée en production sur les horaires GTFS et le temps réel.</p>
+            <a class="open" href="../apps/voyageurs/index.html" target="_blank" rel="noopener">Ouvrir en plein écran</a>
+          </div>
+          <div class="phone-wrap reveal">
+            <div class="phone"><iframe src="../apps/rendezvous/index.html" title="Démo : prise de rendez-vous" loading="lazy"></iframe></div>
+            <h3>Prise de rendez-vous</h3>
+            <p>Pour un salon, un cabinet, un artisan : choix de la prestation, du jour et du créneau, confirmation et rappel. Synchronisée avec l’agenda du professionnel.</p>
+            <a class="open" href="../apps/rendezvous/index.html" target="_blank" rel="noopener">Ouvrir en plein écran</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tinted">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Pourquoi Flutter</span>
+          <h2>Un code, trois plateformes, <em class="hl teal">un seul budget</em></h2>
+        </div>
+        <div class="features">
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#smartphone"/></svg></div><h3>Android et iPhone ensemble</h3><p>Pas deux équipes, pas deux devis : une application, publiée sur Google Play et sur l’App Store.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#globe"/></svg></div><h3>Et une version web</h3><p>La même application tourne dans le navigateur, pratique pour une borne, un back-office ou une démo comme ici.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#wifi-off"/></svg></div><h3>Fonctionne hors connexion</h3><p>Données enregistrées sur le téléphone, synchronisées quand le réseau revient. Indispensable sur le terrain.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#palette"/></svg></div><h3>À vos couleurs</h3><p>Interface fidèle à votre identité, animations fluides, même rendu sur tous les appareils.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#qr"/></svg></div><h3>Notifications, QR code, GPS</h3><p>Accès aux fonctions du téléphone : caméra, position, notifications, paiement.</p></div>
+          <div class="feature reveal"><div class="icon"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#wrench"/></svg></div><h3>Soutenu par Google, utilisé partout</h3><p>Flutter est maintenu par Google et utilisé par des milliers d’applications. Votre code reste lisible par n’importe quel développeur Flutter.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Sous le capot</span>
+          <h2>Ce que vous recevez</h2>
+          <p>Le code source complet, les comptes développeur à votre nom, et la documentation pour reprendre le projet avec qui vous voulez.</p>
+        </div>
+        <div class="code-note reveal"><b>// lib/main.dart — extrait de la démo « carte de fidélité »</b><br>
+<span class="k">void</span> addStamp() {<br>
+&nbsp;&nbsp;setState(() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;stamps++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;history.insert(0, Visit(DateTime.now(), <span class="s">'Passage en boutique'</span>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">if</span> (stamps &gt;= goal) { stamps = 0; rewards++; _showReward(); }<br>
+&nbsp;&nbsp;});<br>
+}<br><br>
+<b>// Le même fichier compile pour Android, iOS et le web :</b><br>
+flutter build apk &nbsp;·&nbsp; flutter build ios &nbsp;·&nbsp; flutter build web</div>
+        <p class="reveal" style="margin-top:1rem;color:var(--muted)">Le code des trois démos est dans le dossier <code>flutter-apps/</code> de <a href="https://github.com/Ecnamorgit/pluriface-portfolio" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">notre dépôt public</a>. Voir aussi <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">Qada</a>, notre application Android en test avant publication.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-band reveal">
+          <div>
+            <h2>Vous avez une idée d’application ?</h2>
+            <p>Décrivez-la en quelques lignes. Nous vous disons ce que ça implique, et nous vous montrons un premier écran avant de développer.</p>
+          </div>
+          <a href="../index.html#contact" class="btn btn-primary">Parlons de votre application <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><span class="footer-brand">Pluriface</span><p>Studio digital à Montceau-les-Mines : sites, applications, formation, IA et réseaux sociaux.</p></div>
+        <nav aria-label="Solutions"><span class="footer-title">Solutions</span><a href="plateforme-formation.html">Plateforme de formation</a><a href="assistant-commentaires.html">Assistant commentaires</a><a href="applications-mobiles.html">Applications mobiles</a></nav>
+        <nav aria-label="Le studio"><span class="footer-title">Le studio</span><a href="../index.html#realisations">Réalisations</a><a href="../index.html#methode">Méthode</a><a href="https://github.com/Ecnamorgit" target="_blank" rel="noopener">Code public</a></nav>
+        <nav aria-label="Légal"><span class="footer-title">Légal</span><a href="../mentions-legales.html">Mentions légales</a><a href="../mentions-legales.html#confidentialite">Confidentialité</a><a href="../index.html#contact">Contact</a></nav>
+      </div>
+      <p class="footer-legal">© 2026 Pluriface · Entreprise individuelle Joan De Romance, Montceau-les-Mines (71300)</p>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+</body>
+</html>
