@@ -83,6 +83,10 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal); }
   transition: transform .15s, background-color .15s, color .15s, border-color .15s, box-shadow .15s;
   white-space: nowrap;
 }
+/* Sur un petit écran, un libellé long ne tient pas sur une ligne : avec white-space: nowrap
+   le bouton dépasse, et c'est toute la page qui défile de côté. On le laisse se replier ;
+   la pilule s'allonge sur deux lignes, ce qui est préférable à un débordement. */
+@media (max-width: 420px) { .btn { white-space: normal; } }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 .btn-primary { background: var(--teal); color: #fff; }
