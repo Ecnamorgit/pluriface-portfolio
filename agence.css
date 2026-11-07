@@ -563,9 +563,13 @@ img.portrait { display: block; }
 .demo-switch button { border: 0; background: transparent; border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; color: var(--ink); min-height: 44px; white-space: nowrap; }
 .demo-switch button[aria-selected="true"] { background: var(--ink); color: #fff; }
 @media (max-width: 600px) { .demo-switch { width: 100%; } .demo-switch button { flex: 1; padding: .5rem .4rem; font-size: .82rem; white-space: normal; } }
-.demo-stage { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 2.5rem; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
+.demo-stage { display: grid; grid-template-columns: 344px minmax(0, 1fr); gap: 2.5rem; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
 @media (max-width: 760px) { .demo-stage { grid-template-columns: 1fr; justify-items: center; } }
-.demo-stage .phone { position: relative; }
+/* 344 px de cadre = 320 px d'écran utile une fois les bords retirés : la largeur du téléphone
+   le plus étroit du marché, et celle sur laquelle les démos sont testées. À 300 px de cadre il
+   ne restait que 276 px, plus étroit qu'aucun téléphone réel, et une démo débordait dès qu'un
+   visiteur avait agrandi les caractères de son navigateur. */
+.demo-stage .phone { position: relative; width: 344px; }
 .demo-stage .phone iframe[hidden] { display: none; }
 .phone-loader { position: absolute; inset: 36px 12px 14px; border-radius: 22px; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; color: var(--muted); font-size: .9rem; text-align: center; padding: 1rem; transition: opacity .4s; z-index: 2; }
 .phone-loader.off { opacity: 0; pointer-events: none; }

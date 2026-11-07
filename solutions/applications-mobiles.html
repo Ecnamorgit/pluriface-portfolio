@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../agence.css?v=4">
+  <link rel="stylesheet" href="../agence.css?v=5">
 </head>
 <body>
 
@@ -46,7 +46,7 @@
 
     <section class="section" id="demos" style="padding-top:1rem">
       <div class="wrap">
-        <div class="demo-note"><strong>Démos interactives.</strong><span>Données fictives, rien n’est enregistré. Chaque démo tient en un seul fichier de code Flutter d’environ 300 lignes : c’est le point de départ d’une application sur mesure, pas un produit fini.</span></div>
+        <div class="demo-note"><strong>Démos interactives.</strong><span>La carte de fidélité et la prise de rendez-vous tournent sur des données fictives et tiennent chacune en un fichier Flutter d’environ 300 lignes : un point de départ, pas un produit fini. L’information voyageurs, elle, est un prototype complet, sur les horaires réels d’un réseau de bus.</span></div>
         <div class="demo-switch" role="tablist" aria-label="Choisir une démo">
           <button role="tab" aria-selected="true" data-app="fidelite">Carte de fidélité</button>
           <button role="tab" aria-selected="false" data-app="voyageurs">Information voyageurs</button>
@@ -56,7 +56,7 @@
           <div class="phone" id="phone">
             <div class="phone-loader" id="loader" aria-live="polite"><span class="spin"></span><span class="loader-text">Chargement de la démo…</span></div>
             <iframe data-app="fidelite" src="../apps/fidelite/index.html" title="Démo : carte de fidélité"></iframe>
-            <iframe data-app="voyageurs" data-src="../apps/voyageurs/index.html" title="Démo : information voyageurs" hidden></iframe>
+            <iframe data-app="voyageurs" data-src="https://ecnamorgit.github.io/bus-prototype/" data-preload="no" title="Démo : information voyageurs" hidden></iframe>
             <iframe data-app="rendezvous" data-src="../apps/rendezvous/index.html" title="Démo : prise de rendez-vous" hidden></iframe>
           </div>
           <div class="demo-desc">
@@ -67,8 +67,8 @@
             </div>
             <div data-app="voyageurs" hidden>
               <h3>Information voyageurs</h3>
-              <p>Pour un réseau de transport : prochains passages à mes arrêts, lignes et favoris, alertes de perturbation. Branchée en production sur les horaires GTFS et le temps réel.</p>
-              <a class="open" href="../apps/voyageurs/index.html" target="_blank" rel="noopener">Ouvrir en plein écran</a>
+              <p>Pour un réseau de transport : prochains passages à mes arrêts, lignes et grilles horaires, info trafic, titres, plan. Prototype réel, construit sur les horaires GTFS publics d’un réseau de huit lignes. Tout est embarqué : il fonctionne sans réseau. Les alertes et l’achat de titre sont simulés, et signalés comme tels à l’écran.</p>
+              <a class="open" href="https://ecnamorgit.github.io/bus-prototype/" target="_blank" rel="noopener">Ouvrir en plein écran</a>
             </div>
             <div data-app="rendezvous" hidden>
               <h3>Prise de rendez-vous</h3>
@@ -115,7 +115,7 @@
 }<br><br>
 <b>// Le même fichier compile pour Android, iOS et le web :</b><br>
 flutter build apk &nbsp;·&nbsp; flutter build ios &nbsp;·&nbsp; flutter build web</div>
-        <p class="reveal" style="margin-top:1rem;color:var(--muted)">Le code des trois démos est dans le dossier <code>flutter-apps/</code> de <a href="https://github.com/Ecnamorgit/pluriface-portfolio" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">notre dépôt public</a>. Voir aussi <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">Qada</a>, notre application Android en test avant publication.</p>
+        <p class="reveal" style="margin-top:1rem;color:var(--muted)">Le code de la carte de fidélité et de la prise de rendez-vous est dans le dossier <code>flutter-apps/</code> de <a href="https://github.com/Ecnamorgit/pluriface-portfolio" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">notre dépôt public</a> ; celui du prototype voyageurs est dans <a href="https://github.com/Ecnamorgit/bus-prototype" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">son propre dépôt</a>. Voir aussi <a href="https://qada-ab977.web.app/" target="_blank" rel="noopener" style="color:var(--ink);font-weight:700">Qada</a>, notre application Android en test avant publication.</p>
       </div>
     </section>
 
@@ -147,8 +147,9 @@ flutter build apk &nbsp;·&nbsp; flutter build ios &nbsp;·&nbsp; flutter build 
   <script src="../site.js?v=4"></script>
   <script>
   (function () {
-    /* Une seule démo visible ; les deux autres se chargent en arrière-plan dès que la première est prête,
-       pour que le changement d'onglet soit instantané. */
+    /* Une seule démo visible ; les démos légères se chargent en arrière-plan dès que la première est prête,
+       pour que le changement d'onglet soit instantané. Celles marquées data-preload="no" en sont exclues :
+       on ne télécharge pas plusieurs mégaoctets à quelqu'un qui ne cliquera peut-être jamais sur l'onglet. */
     const frames = [...document.querySelectorAll('#phone iframe')];
     const descs = [...document.querySelectorAll('.demo-desc [data-app]')];
     const tabs = [...document.querySelectorAll('.demo-switch [role=tab]')];
@@ -158,7 +159,7 @@ flutter build apk &nbsp;·&nbsp; flutter build ios &nbsp;·&nbsp; flutter build 
     const markReady = (f) => { ready.add(f.dataset.app); if (!f.hidden) hideLoader(); };
     const hideLoader = () => setTimeout(() => loader.classList.add('off'), 900);
     frames.forEach(f => f.addEventListener('load', () => { if (f.src) markReady(f); }));
-    const preloadRest = () => frames.forEach(loadFrame);
+    const preloadRest = () => frames.forEach(f => { if (f.dataset.preload !== 'no') loadFrame(f); });
     const first = frames[0];
     first.addEventListener('load', preloadRest, { once: true });
     try { if (first.contentDocument && first.contentDocument.readyState === 'complete' && first.contentWindow.location.href !== 'about:blank') { markReady(first); preloadRest(); } } catch (e) {}
