@@ -135,17 +135,17 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 /* La barre etait blanche sur une page blanche, separee par un filet gris a 1,19:1 :
    autant dire rien. Un trait d'encre de 2 px la pose comme un bandeau, et le numero
    occupe le vide qui s'etendait entre le logo et le bouton Menu sur telephone. */
-/* Un bandeau de la meme couleur que la page n'est pas un bandeau, c'est le haut de
-   la page avec un trait dessous. En --sand il devient une surface a part, posee sur le
-   papier : c'est ce qui manquait pour qu'il cesse de paraitre vide. Le filet turquoise
-   sous le trait d'encre reprend l'ombre pleine des boutons, et signe le haut du site. */
+/* Un bandeau de la meme couleur que la page n'est pas un bandeau, c'est le haut de la
+   page avec un trait dessous. Le sable reglait le probleme mais tirait vers le beige ;
+   --teal-soft garde la clarte du blanc et la remplace par la couleur de la marque. Le
+   filet turquoise sous le trait d'encre reprend l'ombre pleine des boutons. */
 .topbar {
   position: sticky; top: 0; z-index: 50;
   /* Opaque, et sans backdrop-filter. Le flou ne se voyait pas derriere un fond a 94 %,
      mais il creait un contexte de composition : le mix-blend-mode du logo se melangeait
      alors au fond de la barre au lieu de la page, et la marque se delavait des qu'on
      faisait defiler au-dessus d'une section claire. */
-  background: var(--sand);
+  background: var(--teal-soft);
   border-bottom: 2px solid var(--ink);
   box-shadow: 0 2px 0 var(--teal);
 }
@@ -176,7 +176,7 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 /* Le filet qui rattache le numero au logo : sans lui, les deux flottent cote a cote
    sans qu'on sache lequel appartient a quoi. */
 .topbar-tel::before {
-  content: ""; width: 2px; height: 26px; background: var(--line-strong);
+  content: ""; width: 2px; height: 26px; background: #8bbfb7;
   margin-right: 1.1rem; flex: 0 0 auto;
 }
 
