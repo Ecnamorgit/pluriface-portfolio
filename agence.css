@@ -18,7 +18,10 @@
   --muted: #6b6b6b;
   --line: #ebebeb;
   --teal: #12b1a0;           /* turquoise du logo : accent de marque (boutons, mot gagnant) */
-  --teal-deep: #0b8a7c;
+  /* Version lisible du turquoise. #0b8a7c ne donnait que 4,26:1 sur le blanc et
+     3,72:1 sur --teal-soft : sous la barre des 4,5:1 exigee pour du texte courant,
+     et cette teinte sert justement aux petits libelles. #0a6d62 donne 5,4:1. */
+  --teal-deep: #0a6d62;
   --teal-soft: #dcf5f1;
   --coral: #ff3f1f;          /* signal : états négatifs dans les maquettes uniquement */
   --coral-deep: #d8300f;
@@ -60,7 +63,10 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.25rem); max-width: 24ch; }
 h3 { font-size: 1.35rem; letter-spacing: -0.01em; }
 p { max-width: 62ch; }
 .lead { font-size: clamp(1.1rem, 1.4vw, 1.25rem); color: var(--text); line-height: 1.6; }
-em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal); }
+/* Le mot mis en avant dans les titres. En --teal (#12b1a0) sur blanc il plafonnait a
+   2,68:1 : en dessous meme du 3:1 tolere pour du grand texte. C'est la signature
+   graphique du site, elle etait donc illisible partout. */
+em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); }
 .hl.teal { color: var(--teal-deep); }
 
 .eyebrow {
@@ -289,9 +295,14 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal); }
 .footer nav { display: flex; flex-wrap: wrap; gap: 1.2rem; }
 
 /* Apparition au défilement --------------------------------------------- */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+/* Apparition au defilement. Le masquage est conditionne a la classe « js » posee par
+   le script en-tete : script bloque, erreur, fichier non charge, et le contenu reste
+   visible au lieu de laisser des sections blanches. Une page sans animation vaut
+   mieux qu'une page vide. */
+.reveal { transition: opacity .6s ease, transform .6s ease; }
+.js .reveal { opacity: 0; transform: translateY(18px); }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
 
 /* ==========================================================================
    Pages solutions
@@ -534,6 +545,16 @@ img.portrait { display: block; }
 .form input, .form select, .form textarea { font: inherit; padding: .75rem 1rem; border: 2px solid var(--line); border-radius: var(--radius); background: #fff; min-height: 44px; width: 100%; }
 .form textarea { border-radius: var(--radius-sm); resize: vertical; }
 .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--teal); outline: none; }
+
+/* Repli du formulaire : affiche quand l'envoi n'a pas pu se faire tout seul.
+   Fond turquoise doux pour se distinguer des champs sans crier a l'erreur. */
+.form-fallback { display: grid; gap: .8rem; background: var(--teal-soft); border-radius: var(--radius-sm); padding: 1.1rem 1.2rem; }
+.form-fallback:focus { outline: 3px solid var(--ink); outline-offset: 3px; }
+.form-fallback p { margin: 0; font-size: .95rem; line-height: 1.5; }
+.form-fallback .fallback-title { font-weight: 800; color: var(--ink); }
+.form-fallback a { color: var(--teal-deep); font-weight: 700; }
+.form-fallback textarea { width: 100%; font: inherit; font-size: .9rem; line-height: 1.5; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; color: var(--text); resize: vertical; }
+.form-fallback button { justify-self: start; }
 .form .btn { justify-content: center; border: 0; }
 .form .small { margin-top: 0; }
 

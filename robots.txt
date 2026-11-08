@@ -1,0 +1,12 @@
+# Pluriface — https://github.com/Ecnamorgit/pluriface-portfolio
+#
+# ATTENTION : tant que le site vit sous ecnamorgit.github.io/pluriface-portfolio/,
+# ce fichier n'est PAS celui que lisent les robots. Seul https://ecnamorgit.github.io/robots.txt
+# fait autorite pour l'hote, et il ne nous appartient pas. Le plan du site doit donc
+# etre declare a la main dans la Search Console. Le jour ou le site aura son propre
+# nom de domaine, ce fichier deviendra le bon sans rien changer.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ecnamorgit.github.io/pluriface-portfolio/sitemap.xml

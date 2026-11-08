@@ -7,10 +7,18 @@
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" href="assets/logo_pluriface.png">
   <title>Mentions légales et confidentialité | Pluriface</title>
+  <link rel="canonical" href="https://ecnamorgit.github.io/pluriface-portfolio/mentions-legales.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="agence.css?v=7">
+  <link rel="stylesheet" href="agence.css?v=9">
+  <script>
+    /* Masque les blocs a animer, puis les redonne si site.js n'a pas repondu. */
+    document.documentElement.classList.add('js');
+    setTimeout(function () {
+      if (!window.pluriface) document.documentElement.classList.remove('js');
+    }, 2500);
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -39,7 +47,7 @@
         <p>Pluriface, entreprise individuelle exploitée par Joan De Romance.<br>
         Siège : [ADRESSE COMPLÈTE], 71300 Montceau-les-Mines, France.<br>
         SIRET : [SIRET] · Code APE : [APE]<br>
-        Téléphone : <a href="#" data-t="56 83 75 66 70">07 66 57 .. ..</a> · E-mail : <a href="#" data-m="moc.liamg@ecafirulp">pluriface [arobase] gmail.com</a><br>
+        Téléphone : <a href="tel:+33766573865">07 66 57 38 65</a> · E-mail : <a href="#" data-m="moc.liamg@ecafirulp">pluriface [arobase] gmail.com</a><br>
         Directeur de la publication : Joan De Romance.<br>
         TVA : non applicable, article 293 B du CGI.</p>
 
@@ -67,6 +75,6 @@
       <p class="footer-legal" style="border:0;margin:0;padding:0">© 2026 Pluriface · Entreprise individuelle Joan De Romance, Montceau-les-Mines (71300) · <a href="index.html">Accueil</a></p>
     </div>
   </footer>
-  <script src="site.js?v=4"></script>
+  <script src="site.js?v=6"></script>
 </body>
 </html>
