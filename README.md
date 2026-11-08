@@ -72,6 +72,22 @@ Ensuite, dans l'ordre :
    elle ne se remplace pas par une nouvelle : il faut la revendiquer, puis la rouvrir
    ou la déclarer déménagée. Deux fiches sur la même adresse se neutralisent.
 
+## Les choix de forme, et pourquoi ils ne sont pas des oublis
+
+Trois réglages ont l'air d'erreurs quand on les croise dans la feuille de style. Ils
+sont volontaires, et les défaire ramène le site au gabarit dont il sort :
+
+| Ce qu'on voit | Pourquoi |
+|---|---|
+| `--paper` n'est pas blanc (`#fbf9f6`) | fond blanc + cartes blanches + barre blanche : plus rien ne se détachait. Les cartes, elles, sont restées en blanc franc |
+| Les boutons ont un bord et une ombre **sans flou** | une pilule de couleur plate qui monte de 2 px au survol, c'est le bouton de tous les gabarits. Ici il s'enfonce dans son ombre au clic |
+| Le bouton turquoise est en texte **marine**, pas blanc | le blanc sur `#12b1a0` ne donne que 2,68:1. Le marine donne 5,34:1 |
+
+Même logique pour le vocabulaire : « Flutter » ne reste que là où il est expliqué
+(la section « Pourquoi Flutter » et le corps de la page mobile). Le titre, la
+description et le badge parlent d'« application mobile » : la cible est un commerçant
+ou une collectivité, pas un développeur.
+
 ## Le formulaire de contact
 
 Le point d'envoi est la constante `POINT_ENVOI`, en haut du bloc formulaire de

@@ -8,15 +8,22 @@
 
 :root {
   color-scheme: only light;
-  --paper: #ffffff;          /* Paper White : canvas */
-  --paper-2: #ffffff;
-  --sand: #f5f5f5;           /* Fog : surface alternative */
-  --fog: #f5f5f5;
+  /* Le fond n'etait pas blanc par choix, il etait blanc par defaut : canvas blanc,
+     cartes blanches, barre du haut blanche. Rien ne se detachait de rien, et une page
+     sans matiere ressemble a un gabarit. #fbf9f6 est un blanc chaud, a peine
+     perceptible seul, qui rend aux cartes restees blanches le droit d'exister. */
+  --paper: #fbf9f6;          /* papier chaud : fond de page */
+  --paper-2: #ffffff;        /* blanc franc : cartes, panneaux, champs */
+  --sand: #f1ede7;           /* surface alternative, chaude elle aussi */
+  --fog: #f1ede7;
   --ink: #0f2a4f;            /* marine du logo : surfaces sombres, accents secondaires */
   --ink-2: #2f2f2f;          /* Graphite : titres */
   --text: #2f2f2f;           /* Graphite : texte courant */
   --muted: #6b6b6b;
-  --line: #ebebeb;
+  --line: #e3ddd3;           /* filet chaud, assorti au papier */
+  /* Un champ de saisie est un element d'interface : son bord doit atteindre 3:1,
+     sinon on ne voit pas ou cliquer. #e3ddd3 plafonne a 1,35:1, #9c8e78 donne 3,20:1. */
+  --line-strong: #9c8e78;
   --teal: #12b1a0;           /* turquoise du logo : accent de marque (boutons, mot gagnant) */
   /* Version lisible du turquoise. #0b8a7c ne donnait que 4,26:1 sur le blanc et
      3,72:1 sur --teal-soft : sous la barre des 4,5:1 exigee pour du texte courant,
@@ -27,8 +34,11 @@
   --coral-deep: #d8300f;
   --coral-soft: #ffe4de;
   --lemon: #dcf5f1;          /* ancien jaune → surface turquoise douce */
-  --radius: 26px;            /* arrondi unique : cartes, boutons, tags, champs */
-  --radius-sm: 18px;
+  /* Un seul arrondi de 26 px pose sur tout — cartes, boutons, tags, champs — c'est
+     la signature du gabarit genere : tout devient pilule, rien n'a de caractere.
+     On garde un arrondi doux sur les cartes et on coupe plus net sur ce qui se clique. */
+  --radius: 18px;            /* cartes et panneaux */
+  --radius-sm: 12px;         /* boutons, tags, petites surfaces */
   --max: 1200px;
   --font: "Nunito Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --serif: "Nunito Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -75,6 +85,9 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
   color: var(--ink);
 }
 .eyebrow::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+/* Sur un telephone, « STUDIO DIGITAL · MONTCEAU-LES-MINES » passait sur deux lignes et
+   la pastille turquoise se retrouvait seule a gauche, comme detachee du texte. */
+@media (max-width: 480px) { .eyebrow { font-size: .74rem; letter-spacing: .05em; } }
 
 /* Icônes (sprite SVG monoligne, assets/icons.svg) ----------------------- */
 .ic { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
@@ -82,46 +95,84 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 .notif .ic { width: 18px; height: 18px; }
 
 /* Boutons -------------------------------------------------------------- */
+/* Le bouton etait une pilule de couleur plate, sans bord, qui montait de 2 px au
+   survol : exactement le bouton que produit n'importe quel gabarit. Ici il a un bord
+   franc et une ombre PLEINE, sans flou — de l'encre, pas de la brume — et au clic il
+   s'enfonce dans son ombre au lieu de leviter. Le geste est physique, donc memorable. */
 .btn {
   display: inline-flex; align-items: center; gap: .55rem;
-  padding: .9rem 1.4rem; border-radius: 999px;
-  font-weight: 700; text-decoration: none; border: 2px solid transparent;
-  transition: transform .15s, background-color .15s, color .15s, border-color .15s, box-shadow .15s;
+  padding: .85rem 1.35rem; border-radius: var(--radius-sm);
+  font-weight: 800; text-decoration: none; border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s, box-shadow .12s, background-color .15s, color .15s;
   white-space: nowrap;
 }
 /* Sur un petit écran, un libellé long ne tient pas sur une ligne : avec white-space: nowrap
    le bouton dépasse, et c'est toute la page qui défile de côté. On le laisse se replier ;
    la pilule s'allonge sur deux lignes, ce qui est préférable à un débordement. */
 @media (max-width: 420px) { .btn { white-space: normal; } }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: translateY(0); }
-.btn-primary { background: var(--teal); color: #fff; }
-.btn-primary:hover { background: var(--teal-deep); }
-.btn-dark { background: var(--ink); color: #fff; }
-.btn-dark:hover { background: #1a4075; }
-.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+@media (prefers-reduced-motion: reduce) { .btn, .btn:hover, .btn:active { transform: none; } }
+
+/* Le texte blanc sur le turquoise du logo ne donnait que 2,68:1 : le bouton principal
+   du site etait illisible. En marine sur le meme turquoise on monte a 5,34:1, et le
+   survol ne change plus la couleur de fond — c'est l'enfoncement qui fait la reponse,
+   sinon il faudrait reverifier le contraste a chaque etat. */
+.btn-primary { background: var(--teal); color: var(--ink); }
+.btn-dark { background: var(--ink); color: #fff; box-shadow: 3px 3px 0 var(--teal); }
+.btn-dark:hover { box-shadow: 1px 1px 0 var(--teal); }
+.btn-dark:active { box-shadow: 0 0 0 var(--teal); }
+.btn-ghost { background: transparent; color: var(--ink); }
 .btn-ghost:hover { background: var(--ink); color: #fff; }
 .btn-light { background: #fff; color: var(--ink); }
-.btn-light:hover { background: var(--fog); }
-.btn-sm { padding: .55rem 1rem; font-size: .95rem; }
+.btn-sm { padding: .5rem .9rem; font-size: .95rem; box-shadow: 2px 2px 0 var(--ink); }
+.btn-sm:hover { box-shadow: 1px 1px 0 var(--ink); }
 .btn .arrow { transition: transform .15s; }
 .btn:hover .arrow { transform: translateX(3px); }
 
 /* Barre du haut -------------------------------------------------------- */
+/* La barre etait blanche sur une page blanche, separee par un filet gris a 1,19:1 :
+   autant dire rien. Un trait d'encre de 2 px la pose comme un bandeau, et le numero
+   occupe le vide qui s'etendait entre le logo et le bouton Menu sur telephone. */
 .topbar {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(251, 249, 246, .92);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--ink);
 }
-.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; }
+/* A 160 % de taille de texte, le logo, le numero et le bouton Menu ne tiennent plus
+   sur une ligne : sans flex-wrap, c'est le bouton Menu qui sortait de l'ecran et la
+   navigation devenait inatteignable. La barre grandit, elle ne deborde pas. */
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1rem; min-height: 72px; padding-block: .4rem; }
+.brand { min-width: 0; }
 .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 800; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
 .brand img { width: 40px; height: 40px; object-fit: contain; mix-blend-mode: multiply; }
 .nav { display: flex; align-items: center; gap: 1.6rem; }
 .nav a { text-decoration: none; font-weight: 600; color: var(--ink); font-size: 1rem; }
 .nav a:not(.btn):hover { color: var(--teal-deep); }
 .nav .btn { padding: .65rem 1.1rem; }
-.menu-btn { display: none; border: 2px solid var(--ink); background: transparent; border-radius: 999px; padding: .5rem 1rem; font-weight: 700; color: var(--ink); }
+.menu-btn { display: none; border: 2px solid var(--ink); background: transparent; border-radius: var(--radius-sm); box-shadow: 3px 3px 0 var(--ink); padding: .5rem 1rem; font-weight: 800; color: var(--ink); transition: transform .12s, box-shadow .12s; }
+.menu-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+
+/* Le numero dans la barre : sur telephone c'est la seule chose utile qu'on puisse
+   mettre entre le logo et Menu, et c'est aussi la facon la plus courte de joindre
+   un studio local. */
+.topbar-tel { display: inline-flex; align-items: center; gap: .4rem; font-weight: 800; font-size: .98rem; color: var(--ink); text-decoration: none; white-space: nowrap; border-bottom: 2px solid var(--teal); padding-bottom: 1px; }
+.topbar-tel:hover { color: var(--teal-deep); border-bottom-color: var(--teal-deep); }
+.topbar-tel .ic { width: 18px; height: 18px; }
+
+/* Sous 400 px, le logo + le numero + le bouton Menu ne tiennent pas a leur taille
+   normale (366 px pour 335 disponibles). Plutot que de masquer le numero derriere une
+   icone — un petit rectangle que personne ne lit comme un telephone — on retire
+   l'icone et on resserre le tout : un numero lisible vaut mieux qu'un pictogramme. */
+@media (max-width: 400px) {
+  .topbar-tel .ic { display: none; }
+  .topbar-tel { font-size: .88rem; }
+  .brand { font-size: 1.1rem; gap: .45rem; }
+  .brand img { width: 34px; height: 34px; }
+  .menu-btn { padding: .5rem .8rem; }
+}
 @media (max-width: 860px) {
   .menu-btn { display: inline-flex; }
   .nav {
@@ -187,8 +238,17 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 .tile:hover .more { color: var(--teal-deep); }
 .tile.big { grid-column: span 3; }
 .tile.half { grid-column: span 2; }
+/* Une tuile sombre au milieu de tuiles claires : c'est ce qui designe la tete de
+   gondole. La categorie « application mobile » etait la 3e de quatre cartes blanches
+   identiques, avec en prime le seul tag gris de la grille — elle passait derniere. */
 .tile.dark { background: var(--ink); border-color: var(--ink); color: #fff; }
 .tile.dark h3, .tile.dark .more { color: #fff; }
+/* --teal-deep sur le marine tombe a 2,31:1 : le mot mis en avant disparaitrait.
+   Le turquoise vif, lui, donne 5,34:1 sur ce fond. */
+.tile.dark .hl { color: var(--teal); }
+.tile.dark .tag { background: var(--teal); color: var(--ink); }
+.tile.dark .mini-phone { background: var(--fog); }
+.tile.dark:hover { background: #16365f; }
 .tile.dark p { color: #c6d2e3; }
 .tile.teal { background: var(--teal); border-color: var(--teal); color: #fff; }
 .tile.teal h3, .tile.teal .more { color: #fff; }
@@ -302,7 +362,7 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 .reveal { transition: opacity .6s ease, transform .6s ease; }
 .js .reveal { opacity: 0; transform: translateY(18px); }
 .js .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .reveal { transition: none; } .js .reveal { opacity: 1; transform: none; } }
 
 /* ==========================================================================
    Pages solutions
@@ -495,9 +555,21 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 .chips-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .25rem; }
 .chips-row span { background: var(--fog); border-radius: 999px; padding: .35rem .85rem; font-size: .88rem; font-weight: 700; color: var(--ink-2); }
 .tile-phone { flex-direction: row; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+/* Sous 560 px le telephone passait SOUS le texte : la carte devenait une immense
+   maquette surmontee de trois lignes. On le garde a cote, plus petit : une vignette
+   qui illustre, au lieu d'un objet qui ecrase. */
+@media (max-width: 560px) {
+  /* Moins de marge interieure : c'est ce qui rend au libelle « Application mobile »
+     la largeur qui lui manquait pour tenir sur une ligne. */
+  .tile-phone { flex-wrap: nowrap; gap: .9rem; align-items: flex-start; padding: 1.35rem; }
+  .tile-phone .tag { letter-spacing: .05em; }
+  .tile-phone .tile-text { flex: 1 1 auto; min-width: 0; }
+  .tile-phone .mini-phone { width: 104px; height: 208px; border-radius: 20px; padding: 7px; }
+  .tile-phone .mini-screen { border-radius: 14px; padding: 9px 8px; font-size: .58rem; gap: 5px; }
+}
 .tile-phone .tile-text { flex: 1 1 220px; display: flex; flex-direction: column; gap: .75rem; }
 .mini-phone { width: 150px; height: 300px; border-radius: 28px; background: #2f2f2f; padding: 10px; flex: none; }
-.mini-screen { width: 100%; height: 100%; border-radius: 20px; background: #fff; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; font-size: .7rem; color: var(--text); }
+.mini-screen { width: 100%; height: 100%; border-radius: 20px; background: #fff; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; font-size: .7rem; color: var(--text); overflow: hidden; }
 .mp-brand { display: flex; align-items: center; gap: 6px; font-weight: 800; color: var(--ink); }
 .mp-brand i { width: 18px; height: 18px; border-radius: 6px; background: #d97706; display: inline-block; }
 .mp-card { background: var(--ink); color: #fff; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 4px; }
@@ -542,12 +614,17 @@ img.portrait { display: block; }
 .contact .small, .form .small { font-size: .85rem; color: var(--muted); margin-top: 1rem; }
 .form { background: #fff; border-radius: var(--radius); padding: 2rem; display: grid; gap: .9rem; }
 .form label { display: grid; gap: .4rem; font-weight: 700; font-size: .92rem; color: var(--ink-2); }
-.form input, .form select, .form textarea { font: inherit; padding: .75rem 1rem; border: 2px solid var(--line); border-radius: var(--radius); background: #fff; min-height: 44px; width: 100%; }
+/* Un champ de 26 px d'arrondi est une pilule ; et son bord a 1,35:1 ne se voyait pas.
+   10 px et un bord a 3,20:1 : on sait ou taper. */
+.form input, .form select, .form textarea { font: inherit; padding: .75rem 1rem; border: 2px solid var(--line-strong); border-radius: 10px; background: #fff; min-height: 44px; width: 100%; }
 .form textarea { border-radius: var(--radius-sm); resize: vertical; }
 .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--teal); outline: none; }
 
 /* Repli du formulaire : affiche quand l'envoi n'a pas pu se faire tout seul.
    Fond turquoise doux pour se distinguer des champs sans crier a l'erreur. */
+/* display: grid ecrase la regle [hidden] du navigateur : sans cette ligne, le panneau
+   de repli restait affiche — vide, mais occupant 35 px sous le bouton d'envoi. */
+.form-fallback[hidden] { display: none; }
 .form-fallback { display: grid; gap: .8rem; background: var(--teal-soft); border-radius: var(--radius-sm); padding: 1.1rem 1.2rem; }
 .form-fallback:focus { outline: 3px solid var(--ink); outline-offset: 3px; }
 .form-fallback p { margin: 0; font-size: .95rem; line-height: 1.5; }
@@ -555,7 +632,7 @@ img.portrait { display: block; }
 .form-fallback a { color: var(--teal-deep); font-weight: 700; }
 .form-fallback textarea { width: 100%; font: inherit; font-size: .9rem; line-height: 1.5; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; color: var(--text); resize: vertical; }
 .form-fallback button { justify-self: start; }
-.form .btn { justify-content: center; border: 0; }
+.form .btn { justify-content: center; }
 .form .small { margin-top: 0; }
 
 /* Pied de page complet */
