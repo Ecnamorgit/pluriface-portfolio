@@ -135,23 +135,35 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 /* La barre etait blanche sur une page blanche, separee par un filet gris a 1,19:1 :
    autant dire rien. Un trait d'encre de 2 px la pose comme un bandeau, et le numero
    occupe le vide qui s'etendait entre le logo et le bouton Menu sur telephone. */
+/* Un bandeau de la meme couleur que la page n'est pas un bandeau, c'est le haut de
+   la page avec un trait dessous. En --sand il devient une surface a part, posee sur le
+   papier : c'est ce qui manquait pour qu'il cesse de paraitre vide. Le filet turquoise
+   sous le trait d'encre reprend l'ombre pleine des boutons, et signe le haut du site. */
 .topbar {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(251, 249, 246, .92);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  /* Opaque, et sans backdrop-filter. Le flou ne se voyait pas derriere un fond a 94 %,
+     mais il creait un contexte de composition : le mix-blend-mode du logo se melangeait
+     alors au fond de la barre au lieu de la page, et la marque se delavait des qu'on
+     faisait defiler au-dessus d'une section claire. */
+  background: var(--sand);
   border-bottom: 2px solid var(--ink);
+  box-shadow: 0 2px 0 var(--teal);
 }
 /* A 160 % de taille de texte, le logo, le numero et le bouton Menu ne tiennent plus
    sur une ligne : sans flex-wrap, c'est le bouton Menu qui sortait de l'ecran et la
    navigation devenait inatteignable. La barre grandit, elle ne deborde pas. */
-.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1rem; min-height: 72px; padding-block: .4rem; }
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; min-height: 76px; padding-block: .4rem; }
 .brand { min-width: 0; }
+.nav { margin-left: auto; }
 .brand { display: inline-flex; align-items: center; gap: .6rem; font-weight: 800; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
-.brand img { width: 40px; height: 40px; object-fit: contain; mix-blend-mode: multiply; }
+/* Hauteur imposee, largeur libre : le fichier recadre n'a plus de blanc a cadrer,
+   donc plus de boite carree a remplir. */
+.brand img { width: auto; height: 34px; object-fit: contain; mix-blend-mode: multiply; }
 .nav { display: flex; align-items: center; gap: 1.6rem; }
 .nav a { text-decoration: none; font-weight: 600; color: var(--ink); font-size: 1rem; }
 .nav a:not(.btn):hover { color: var(--teal-deep); }
 .nav .btn { padding: .65rem 1.1rem; }
+.topbar .nav .btn { margin-right: 3px; }
 .menu-btn { display: none; border: 2px solid var(--ink); background: transparent; border-radius: var(--radius-sm); box-shadow: 3px 3px 0 var(--ink); padding: .5rem 1rem; font-weight: 800; color: var(--ink); transition: transform .12s, box-shadow .12s; }
 .menu-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
 
@@ -161,12 +173,22 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
 .topbar-tel { display: inline-flex; align-items: center; gap: .4rem; font-weight: 800; font-size: .98rem; color: var(--ink); text-decoration: none; white-space: nowrap; border-bottom: 2px solid var(--teal); padding-bottom: 1px; }
 .topbar-tel:hover { color: var(--teal-deep); border-bottom-color: var(--teal-deep); }
 .topbar-tel .ic { width: 18px; height: 18px; }
+/* Le filet qui rattache le numero au logo : sans lui, les deux flottent cote a cote
+   sans qu'on sache lequel appartient a quoi. */
+.topbar-tel::before {
+  content: ""; width: 2px; height: 26px; background: var(--line-strong);
+  margin-right: 1.1rem; flex: 0 0 auto;
+}
 
 /* Sous 400 px, le logo + le numero + le bouton Menu ne tiennent pas a leur taille
    normale (366 px pour 335 disponibles). Plutot que de masquer le numero derriere une
    icone — un petit rectangle que personne ne lit comme un telephone — on retire
    l'icone et on resserre le tout : un numero lisible vaut mieux qu'un pictogramme. */
+@media (max-width: 480px) { .topbar-tel::before { display: none; } }
 @media (max-width: 400px) {
+  /* 20 px de marge en moins : a 360 px, le logo, le numero et le bouton Menu tiennent
+     sur une ligne a 1,2 px pres. Sans cela la barre passe a deux lignes. */
+  .topbar .wrap { gap: .4rem .7rem; }
   .topbar-tel .ic { display: none; }
   .topbar-tel { font-size: .88rem; }
   .brand { font-size: 1.1rem; gap: .45rem; }
@@ -174,7 +196,7 @@ em.hl, .hl { font-style: normal; font-weight: inherit; color: var(--teal-deep); 
   .menu-btn { padding: .5rem .8rem; }
 }
 @media (max-width: 860px) {
-  .menu-btn { display: inline-flex; }
+  .menu-btn { display: inline-flex; margin-left: auto; }
   .nav {
     display: none; position: absolute; left: 0; right: 0; top: 100%;
     flex-direction: column; align-items: stretch; gap: 0;

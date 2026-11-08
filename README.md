@@ -82,6 +82,10 @@ sont volontaires, et les défaire ramène le site au gabarit dont il sort :
 | `--paper` n'est pas blanc (`#fbf9f6`) | fond blanc + cartes blanches + barre blanche : plus rien ne se détachait. Les cartes, elles, sont restées en blanc franc |
 | Les boutons ont un bord et une ombre **sans flou** | une pilule de couleur plate qui monte de 2 px au survol, c'est le bouton de tous les gabarits. Ici il s'enfonce dans son ombre au clic |
 | Le bouton turquoise est en texte **marine**, pas blanc | le blanc sur `#12b1a0` ne donne que 2,68:1. Le marine donne 5,34:1 |
+| La barre du haut est en `--sand`, pas en `--paper` | une barre de la couleur de la page n'est pas une barre, c'est le haut de la page avec un trait dessous |
+| Elle n'a **pas** de `backdrop-filter` | le flou ne se voyait pas derrière un fond opaque à 94 %, mais il créait un contexte de composition : le `mix-blend-mode` du logo se mélangeait au fond de la barre au lieu de la page, et la marque se délavait au défilement |
+| `.topbar .nav .btn` a un `margin-right: 3px` | son ombre pleine part de 3 px vers la droite. Sans ce décalage, la masse du bouton dépassait de la colonne sur laquelle toute la page est alignée |
+| Le logo de la barre est `logo_pluriface_marque.png` | le fichier d'origine fait 256 × 167 px mais l'encre s'arrête à 120 × 145 : plus de la moitié est du blanc, qui s'ajoutait à l'espacement CSS. `logo_pluriface.png` reste utilisé par `projet-traduction-ia.html`, qui a sa propre feuille de style |
 
 Même logique pour le vocabulaire : « Flutter » ne reste que là où il est expliqué
 (la section « Pourquoi Flutter » et le corps de la page mobile). Le titre, la
