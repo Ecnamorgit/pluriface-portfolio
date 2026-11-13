@@ -680,7 +680,6 @@ img.portrait { display: block; }
 .legal h2 { font-size: 1.5rem; margin-top: 1rem; }
 .legal p, .legal li { color: var(--text); }
 .legal ul { padding-left: 1.2rem; }
-.legal .todo { background: var(--teal-soft); border-radius: var(--radius-sm); padding: .75rem 1rem; font-size: .95rem; }
 
 /* Page applications mobiles : une démo à la fois, les autres préchargées ---- */
 .demo-switch { display: flex; gap: .25rem; background: var(--fog); padding: .3rem; border-radius: 999px; width: fit-content; max-width: 100%; margin: 0 auto 1.5rem; }
